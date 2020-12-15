@@ -13,7 +13,7 @@
 		<!-- ${pageContext.request.contextPath } -->
 		<c:import url="./template/header.jsp"></c:import>
 		<div class="container">	
-			<h1>index page</h1>
+			<h1>Hadiz index page</h1>
 			<p>Spring boot study example file</p>
 		</div>
 	</body>

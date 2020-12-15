@@ -3,25 +3,30 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/">WebSiteName</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Hadiz</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
-			<li class="dropdown">
-        		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
-        		<span class="caret"></span></a>
-        		<ul class="dropdown-menu">
-		          <li><a href="#">Page 1-1</a></li>
-		          <li><a href="#">Page 1-2</a></li>
-		          <li><a href="#">Page 1-3</a></li>
-		        </ul>
-      		</li>
-      		<li><a href="${pageContext.request.contextPath}/qna/qnaList">QnA</a></li>
-      		<li><a href="#">Page 3</a></li>
+      		<li><a href="${pageContext.request.contextPath}/funding/main">펀딩하기</a></li>
+      		<li><a href="#">투자하기</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li>
+	      		<form class="navbar-form navbar-left" action="#">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="검색할 프로젝트를 입력하세요.">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</li>
+			<li><a href="#"><span class="glyphicon glyphicon-user"></span> 로그인</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 회원가입</a></li>
+			<li>
+				<a><span>프로젝트 오픈 신청</span></a>
+			</li>
 		</ul>
 	</div>
 </nav>
