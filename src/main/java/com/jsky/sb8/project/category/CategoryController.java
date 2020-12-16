@@ -3,11 +3,13 @@ package com.jsky.sb8.project.category;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,15 +24,14 @@ public class CategoryController {
 
 	@PostMapping("list")
 	@ResponseBody
-	public ModelAndView findCategoryByPageRequest(Pager pager) throws Exception{
+	public ModelAndView findCategoryByPageRequest(@RequestParam int page, int size) throws Exception{
 		
-		System.out.println("access category list -------------------------- page: " + pager.getPage());
+		System.out.println("access category list -------------------------- ");
 		
 		ModelAndView mv = new ModelAndView();
-		List<CategoryVO> categoryList = categoryService.findAllSearch("F", pager);
+		Page<CategoryVO> categoryPage = categoryService.findAllSearch("F", page, size);
 		
-		mv.addObject("pager", pager);
-		mv.addObject("category", categoryList);
+		mv.addObject("category", categoryPage);
 		mv.setViewName("reward/ajaxResult/category");
 		return mv;
 		

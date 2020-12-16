@@ -262,9 +262,9 @@
 
 			function setPage(cal){
 				if(cal == 'plus'){
-					page = page + size;
+					page++;
 				} else if (cal == 'minus'){
-					page = page - size;
+					page--;
 				}
 				getCategory(page);
 			}
