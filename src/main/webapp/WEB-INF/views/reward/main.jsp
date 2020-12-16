@@ -126,7 +126,6 @@
 		    
 		    .main__div--category-wrap{
 		    	width: 100%; 
-		    	border: 1px solid blue;
 		    }
 		    
 		    .main__a--category{
@@ -199,7 +198,6 @@
 		    	display: block;
 		    	width: 32rem; height: 18rem;
 		    	border-radius: 3px;
-		    	background-image: url("https://cdn1.wadiz.kr/images/20201123/1606126470501.jpg/wadiz/optimize");
 		    	background-size: cover;
 		    }
 		    
@@ -227,6 +225,10 @@
 		    .main__span--project-achieve{
 		    	color: #00B2B2;
 		    	font-size: 1.8rem;
+		    }
+		    
+		    #category-wrap{
+		    	padding-top: 0.2rem;
 		    }
 		    
 		</style>
@@ -302,7 +304,7 @@
 			</div>
 			
 			<div class="container-fluid">
-				<div class="main__div--container">
+				<div class="main__div--container" id="category-wrap">
 					<div class="main__div--category-wrap">
 						<!-- sort area -->
 						<div class="main__div--main-content-area">
@@ -328,12 +330,10 @@
 						<!-- contents area -->
 						<div id="reward-list" style="padding: 2rem 0rem;">
 						
-							
-							
 						</div>
-						
-						<div>
-							<button class="btn btn-default" style="width:100%; border: none;">더 보기</button>
+
+						<div id="main__div--btn-area">
+							<button onclick="setRewardPage()" class="btn btn-default" id="btn__show-more" style="width:100%; border: none;">더 보기</button>
 						</div>
 						
 					</div>
@@ -346,19 +346,30 @@
 		
 			var page = 0;
 			var size = 10;
+			var rewardPage = 0;
+			var btnLastChk;
 			
 			getCategory(page);
 			getRewardList();
 
+			function setRewardPage(){
+				rewardPage++;
+				getRewardList();
+			}
+
 			function getRewardList(){
+				
 				$.ajax({
 					url:"/funding/list",
 					type:"get",
+					data:{
+						rewardPage:rewardPage
+					},
 					success:function(data){
-						alert(data);
 						$("#reward-list").append(data);
 					}
 				});
+				
 			}
 
 			function setPage(cal){

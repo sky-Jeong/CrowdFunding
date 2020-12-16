@@ -12,8 +12,8 @@ public class FundingService {
 	@Autowired
 	private FundingRepository fundingRepository;
 	
-	public Page<FundingVO> findAllCategory() throws Exception{
-		Pageable pageable = PageRequest.of(0, 9);
+	public Page<FundingVO> findAllCategory(int rewardPage) throws Exception{
+		Pageable pageable = PageRequest.of(rewardPage, 9);
 		return fundingRepository.findAll(pageable);
 	}
 	

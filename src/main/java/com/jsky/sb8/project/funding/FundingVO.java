@@ -3,6 +3,8 @@ package com.jsky.sb8.project.funding;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -71,10 +73,17 @@ public class FundingVO {
 	private long peopleLike;
 	@Column
 	private long supporter;
+	@Column
+	private String image;
+	@Column
+	private long countDown;
+	
 	@Transient
 	private long achievePercent;
 	@Transient
 	private String achieveAmount;
+	@Transient
+	private long showPercent;
 
 	// 자식
 	@OneToOne(fetch = FetchType.LAZY)
@@ -82,12 +91,23 @@ public class FundingVO {
 	private CategoryVO categoryVO;
 	
 	public long getAchievePercent() {
+		
 		if(this.getAchievement() == 0) {
 			return 0;
 		}
-		System.out.println(this.getAchievement() + ", " + this.getTarget());
-		System.out.println(this.getAchievement()/this.getTarget());
-		return this.getAchievement()/this.getTarget();
+
+		long result = (long)((double)this.getAchievement()/this.getTarget()*100);		
+		return result;
+		
+	}
+	
+	public long getShowPercent() {
+		
+		if(this.getAchievePercent() > 100) {
+			return 100;
+		}
+		return this.getAchievePercent();
+		
 	}
 	
 	public String getAchieveAmount() {
