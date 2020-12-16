@@ -7,7 +7,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>하디즈펀딩 - 크라우드펀딩</title>
+		<title>하디즈 펀딩 - 크라우드펀딩</title>
 		<c:import url="../template/bootstrap.jsp"></c:import>
 		<style type="text/css">
 			/* 메인 색상 : rgba(0,178,178,.99) select color: #00B2B2 default: #353535*/
@@ -121,7 +121,7 @@
 		    
 		    .main__div--container{
 		    	width: 100%;
-		    	padding: 5rem 20rem;
+		    	padding: 5rem 19rem 2rem;
 		    }
 		    
 		    .main__div--category-wrap{
@@ -178,6 +178,55 @@
 		    
 		    a:hover .main__span--category-circle{
 		    	border: 3px solid #00B2B2;
+		    }
+		    
+		    .main__div--main-content-area{
+		    	border-bottom: 1px solid #BDBDBD;
+		    }
+		    
+			.main__span--select-area {
+			    display: inline-block;
+			    float: right;
+			    margin-top: 2.5rem;
+			}
+		    
+		    .main__div--project-card-item{
+		    	display: inline-block;
+		    	margin: 0px 0.98rem 6rem;
+		    }
+		    
+		    .main__span--project-card-item{
+		    	display: block;
+		    	width: 32rem; height: 18rem;
+		    	border-radius: 3px;
+		    	background-image: url("https://cdn1.wadiz.kr/images/20201123/1606126470501.jpg/wadiz/optimize");
+		    	background-size: cover;
+		    }
+		    
+		    .main__div--project-card-title{
+		    	margin: 1rem 0px 0.5rem;
+		    	width: 32rem;
+		    }
+		    
+		    .main__div--project-card-title a{
+		    	color: #000000;
+		    	font-size: 1.6rem;
+		    }
+		    
+		    .main__span--project-summary{
+		    	color: #A1A1A1;
+		    	font-size: 1.3rem;
+		    	letter-spacing: 0.1rem;
+		    }
+		    
+		    .main__span--project-summary-2{
+		    	color: #A1A1A1;
+		    	font-size: 1.4rem;
+		    }
+		    
+		    .main__span--project-achieve{
+		    	color: #00B2B2;
+		    	font-size: 1.8rem;
 		    }
 		    
 		</style>
@@ -246,7 +295,46 @@
 
 			<div class="container-fluid">
 				<div class="main__div--container">
+					<div class="main__div--category-wrap" id="category-wrap">
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="container-fluid">
+				<div class="main__div--container">
 					<div class="main__div--category-wrap">
+						<!-- sort area -->
+						<div class="main__div--main-content-area">
+							<h3 style="display: inline-block;">전체보기</h3>
+							<div class="main__span--select-area">
+								<select name="status">
+									<option value="all">전체</option>
+									<option value="Y">진행중</option>
+									<option value="F">종료된</option>
+								</select>
+								<select name="order">
+									<option value="recommend">추천순</option>
+									<option value="popular">인기순</option>
+									<option value="amount">펀딩액순</option>
+									<option value="closing">마감임박순</option>
+									<option value="recent">최신순</option>
+									<option value="support">응원참여자순</option>
+								</select>
+							</div>
+						</div>
+						<!-- fin: sort area -->
+						
+						<!-- contents area -->
+						<div id="reward-list" style="padding: 2rem 0rem;">
+						
+							
+							
+						</div>
+						
+						<div>
+							<button class="btn btn-default" style="width:100%; border: none;">더 보기</button>
+						</div>
 						
 					</div>
 				</div>
@@ -258,7 +346,20 @@
 		
 			var page = 0;
 			var size = 10;
+			
 			getCategory(page);
+			getRewardList();
+
+			function getRewardList(){
+				$.ajax({
+					url:"/funding/list",
+					type:"get",
+					success:function(data){
+						alert(data);
+						$("#reward-list").append(data);
+					}
+				});
+			}
 
 			function setPage(cal){
 				if(cal == 'plus'){
@@ -278,8 +379,8 @@
 						size:size
 					},
 					success:function(data){
-						$(".main__div--category-wrap").empty();
-						$(".main__div--category-wrap").append(data);
+						$("#category-wrap").empty();
+						$("#category-wrap").append(data);
 					}
 					
 				})
