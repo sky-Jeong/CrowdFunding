@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container-fluid" id="category-wrap-area">
-	<div class="main__div--container">
-		<div class="main__div--category-wrap" id="category-wrap">
-			
-		</div>
-	</div>
-</div>
 
-<div class="container-fluid">
+  <div class="container-fluid">
 	<div class="main__div--container" id="category-wrap">
 		<div class="main__div--category-wrap">
 			<!-- sort area -->

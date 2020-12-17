@@ -18,6 +18,17 @@
 		<style type="text/css">
 			/* 메인 색상 : rgba(0,178,178,.99) select color: #00B2B2 default: #353535*/
 			/*border: 2px solid #00B2B2;*/
+			
+			.main__div--main-content-area {
+			    border-bottom: none;
+			}
+			.main__span--select-area {
+			    display: none;
+			}
+			#category-wrap-area{
+				display: none;
+			}
+			
 		</style>
 
 	</head>
@@ -27,16 +38,13 @@
 		<c:import url="../template/header.jsp"></c:import>
 		
 		<main>
-			
 			<c:import url="./common/second-navbar.jsp"></c:import>
-			
-			<!-- main page slide -->
+			<!-- slide show -->
 			<c:import url="./common/slide.jsp"></c:import>
-			
 			<!-- contents common area -->
 			<c:import url="./common/fundingList.jsp"></c:import>
-
 		</main>
+		
 		<script type="text/javascript" src="/js/reward/fundingPage.js"></script>
 		
 	</body>

@@ -33,6 +33,13 @@ public class FundingController {
 		mv.setViewName("reward/category");
 		return mv;		
 	}
+	
+	@GetMapping("comingsoon")
+	public ModelAndView getComingSoonPage() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("reward/comingsoon");
+		return mv;		
+	}
 		
 	@GetMapping("list")
 	@ResponseBody
