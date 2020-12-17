@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+	.slide-image{
+		width: 100%;
+		height: 50rem;
+	}
+	.main__div--slide-image{
+		width:100%;
+	}
+	
+    ul,li{
+    	list-style:none;
+    }
+    
+    .slide-image{
+    	height:380px;
+    	overflow:hidden;
+    }
+    
+    .slide-image ul{
+    	padding-left: 0px;
+    	width:calc(100% * 6);
+    	display:flex;
+    	animation:slide 25s infinite;
+    } /* slide를 8초동안 진행하며 무한반복 함 */
+    
+    .slide-image li{
+    	width:calc(100% / 6);
+    	height: 380px;
+    	cursor: pointer;
+    }
+    
+    .slide-image li:nth-child(1){
+    	background:#aaa;	    
+    	background-image: url("https://cdn1.wadiz.kr/images/20201214/1607924855906.png/wadiz/optimize/");	
+    	background-size: cover;
+    }
+    
+    .slide-image li:nth-child(2){
+    	background:#faa;
+    	background-image: url("https://cdn.wadiz.kr/ft/images/green001/2020/1113/20201113125745274_503.jpg/wadiz/optimize/");
+    	background-size: cover;
+    }
+    
+    .slide-image li:nth-child(3){
+    	background:#afa;
+    	background-image: url("https://cdn1.wadiz.kr/images/20201214/1607924808118.png/wadiz/optimize");
+    	background-size: cover;
+    }
+    
+    .slide-image li:nth-child(4){
+    	background:#aaf;
+    	background-image: url("https://cdn.wadiz.kr/ft/images/green001/2020/1210/20201210143226033_1050.png/wadiz/optimize/");
+   		background-size: cover;
+    }
+    
+    .slide-image li:nth-child(5){
+    	background:#faf;
+    	background-image: url("https://cdn.wadiz.kr/ft/images/green001/2020/1211/20201211184134072_1122.jpg/wadiz/optimize/");
+    	background-size: cover;
+    }
+    
+    .slide-image li:nth-child(6){
+    	background:#aff;
+    	background-image: url("https://cdn.wadiz.kr/ft/images/green001/2020/1113/20201113125722896_632.jpg/wadiz/optimize/");
+    	background-size: cover;
+    }
+    
+    @keyframes slide{
+    	0% {margin-left:0;}
+    	6% {margin-left:0;}
+    	16% {margin-left:-100%;}
+    	21% {margin-left:-100%;}
+    	31% {margin-left:-200%;}
+    	37% {margin-left:-200%;}
+    	47% {margin-left:-300%;}
+    	53% {margin-left:-300%;}
+    	63% {margin-left:-400%;}
+    	69% {margin-left:-400%;}
+    	79% {margin-left:-500%;}
+    	85% {margin-left:-500%;}
+    	100% {maring-left:0;}
+    }
+
+    .main__div--slide-show-info{
+    	color: white;
+    	width: 80%;
+    	margin: 0px auto;
+    	padding: 22rem 0px 0px;
+    }

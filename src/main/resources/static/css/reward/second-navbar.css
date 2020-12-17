@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.main__div--menu-wrap{
+	margin: 0px auto;
+	width: 100%;
+	float: left;
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid #E7E7E7;
+}
+.second-navbar{
+	text-align: center;
+}
+.second-navbar li{
+	margin: 0px 2.5rem;
+	text-align: center;
+}
+.second-navbar li a{
+	font-size: 1.7rem;
+	color:#5D5D5D;
+}

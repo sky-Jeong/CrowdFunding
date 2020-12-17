@@ -22,14 +22,18 @@ public class FundingController {
 	
 	@GetMapping("main")
 	public ModelAndView getMainPage() {
-		
 		ModelAndView mv = new ModelAndView();
-
 		mv.setViewName("reward/main");
-		return mv;
-		
+		return mv;		
 	}
 	
+	@GetMapping("category")
+	public ModelAndView getCategoryPage() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("reward/category");
+		return mv;		
+	}
+		
 	@GetMapping("list")
 	@ResponseBody
 	public ModelAndView getList(@RequestParam int rewardPage, int categoryNum, String status) throws Exception {
