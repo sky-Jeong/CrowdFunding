@@ -32,3 +32,4 @@
 		</div>
 	</div>
 </c:forEach>
+<input type="hidden" title="${funding.hasNext()}" class="hasNextChk"/>

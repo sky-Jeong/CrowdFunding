@@ -5,7 +5,7 @@
 	<button class="main__button--paging" id="main__button--before-btn" onclick="setPage('minus')">◁</button>
 </c:if>
 <c:forEach items="${category.content}" var="vo">
-	<a href="#" class="main__a--category">
+	<a class="main__a--category" title="${vo.categoryNum}">
 		<span class="main__span--category-area">
 			<span class="main__span--category-circle"
 				  style="background-image: url(http://static.wadiz.kr${vo.categoryImage});"></span>

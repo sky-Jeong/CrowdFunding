@@ -10,6 +10,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @SpringBootTest
 class FundingRepositoryTest {
@@ -18,8 +21,20 @@ class FundingRepositoryTest {
 	private FundingRepository fundingRepository;
 	
 	@Test
-	void test() {
-		this.getListTest();
+	void test() throws Exception {
+		this.getListTest2();
+	}
+	
+	private void getListTest2() throws Exception {
+		
+		Pageable pageable = PageRequest.of(0, 9);
+		Page<FundingVO> page = fundingRepository.findByCategoryNum2(2, pageable);
+		
+		List<FundingVO> fundingVOs = page.getContent();
+		for(FundingVO vo:fundingVOs) {
+			System.out.println(vo.getTitle() + ", " + vo.getCategoryVO().getCategoryNum());
+		}
+		
 	}
 	
 	private void setSaveTest() {

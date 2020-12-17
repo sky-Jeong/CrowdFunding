@@ -133,6 +133,7 @@
 		    	display: inline-block;
 		    	margin-right: 0.5rem;
 		    	text-decoration: none;
+		    	cursor: pointer;
 		    }
 		    
 		    .main__span--category-area{
@@ -333,7 +334,7 @@
 						</div>
 
 						<div id="main__div--btn-area">
-							<button onclick="setRewardPage()" class="btn btn-default" id="btn__show-more" style="width:100%; border: none;">더 보기</button>
+							<button class="btn btn-default" id="btn__show-more" style="width:100%; border: none;">더 보기</button>
 						</div>
 						
 					</div>
@@ -348,25 +349,39 @@
 			var size = 10;
 			var rewardPage = 0;
 			var btnLastChk;
+			var categoryNum = 1;
 			
 			getCategory(page);
-			getRewardList();
+			getRewardList(categoryNum);
+
+			$("#btn__show-more").click(function(){
+				setRewardPage();
+			})
 
 			function setRewardPage(){
 				rewardPage++;
-				getRewardList();
+				getRewardList(categoryNum);
 			}
 
-			function getRewardList(){
-				
+			function getRewardList(categoryNum){
+
 				$.ajax({
 					url:"/funding/list",
 					type:"get",
 					data:{
-						rewardPage:rewardPage
+						rewardPage:rewardPage,
+						categoryNum:categoryNum
 					},
 					success:function(data){
+						
 						$("#reward-list").append(data);
+						
+						if($(".hasNextChk").eq(rewardPage).attr("title") == 'false'){
+							$("#btn__show-more").css("visibility","hidden");
+						} else {
+							$("#btn__show-more").css("visibility","visible");
+						}
+						
 					}
 				});
 				
@@ -390,8 +405,21 @@
 						size:size
 					},
 					success:function(data){
+						
 						$("#category-wrap").empty();
 						$("#category-wrap").append(data);
+						
+						$(".main__a--category").click(function(){
+							
+							rewardPage=0;
+							
+							categoryNum = $(this).attr("title")
+							$("#reward-list").empty();
+							
+							getRewardList(categoryNum);
+							
+						});
+						
 					}
 					
 				})

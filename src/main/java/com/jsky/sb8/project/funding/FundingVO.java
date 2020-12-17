@@ -77,6 +77,8 @@ public class FundingVO {
 	private String image;
 	@Column
 	private long countDown;
+	@Column
+	private long categoryNum2;
 	
 	@Transient
 	private long achievePercent;

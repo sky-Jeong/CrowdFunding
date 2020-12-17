@@ -17,4 +17,9 @@ public class FundingService {
 		return fundingRepository.findAll(pageable);
 	}
 	
+	public Page<FundingVO> findCategory(int categoryNum,int rewardPage) throws Exception{
+		Pageable pageable = PageRequest.of(rewardPage, 9);
+		return fundingRepository.findByCategoryNum2(categoryNum, pageable);
+	}
+	
 }

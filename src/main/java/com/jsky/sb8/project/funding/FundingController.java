@@ -20,12 +20,6 @@ public class FundingController {
 	@Autowired
 	private FundingService fundingService;
 	
-	@ModelAttribute("lastChk")
-	public boolean getLastChk(boolean last) {
-		System.out.println(!last);
-		return !last;
-	}
-	
 	@GetMapping("main")
 	public ModelAndView getMainPage() {
 		
@@ -38,12 +32,19 @@ public class FundingController {
 	
 	@GetMapping("list")
 	@ResponseBody
-	public ModelAndView getList(@RequestParam int rewardPage) throws Exception {
+	public ModelAndView getList(@RequestParam int rewardPage, int categoryNum) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		Page<FundingVO> fundingVOs = fundingService.findAllCategory(rewardPage);
-		this.getLastChk(fundingVOs.isLast());
+		Page<FundingVO> fundingVOs = null; 
+		System.out.println("categoryNum: " + categoryNum);
+		
+		if(categoryNum <= 1) {
+			System.out.println("total page import ------------------");
+			fundingVOs = fundingService.findAllCategory(rewardPage);
+		} else {
+			fundingVOs = fundingService.findCategory(categoryNum, rewardPage);
+		}
 		
 		mv.addObject("funding", fundingVOs);
 		mv.setViewName("reward/ajaxResult/list");
