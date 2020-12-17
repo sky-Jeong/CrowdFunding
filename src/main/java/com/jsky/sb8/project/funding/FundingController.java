@@ -32,18 +32,18 @@ public class FundingController {
 	
 	@GetMapping("list")
 	@ResponseBody
-	public ModelAndView getList(@RequestParam int rewardPage, int categoryNum) throws Exception {
+	public ModelAndView getList(@RequestParam int rewardPage, int categoryNum, String status) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		
 		Page<FundingVO> fundingVOs = null; 
-		System.out.println("categoryNum: " + categoryNum);
+		System.out.println("categoryNum: " + categoryNum + ", status: " + status);
 		
 		if(categoryNum <= 1) {
 			System.out.println("total page import ------------------");
-			fundingVOs = fundingService.findAllCategory(rewardPage);
+			fundingVOs = fundingService.findAllCategory(status, rewardPage);
 		} else {
-			fundingVOs = fundingService.findCategory(categoryNum, rewardPage);
+			fundingVOs = fundingService.findCategory(categoryNum, rewardPage, status);
 		}
 		
 		mv.addObject("funding", fundingVOs);

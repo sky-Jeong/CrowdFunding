@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface FundingRepository extends JpaRepository<FundingVO, Long>{
 	
-	public Page<FundingVO> findByCategoryNum2(long categoryNum, Pageable pageable);
+	public Page<FundingVO> findByStatusContaining(String status, Pageable pageable);
+	
+	public Page<FundingVO> findByCategoryNum2AndStatusContaining(long categoryNum,String status,Pageable pageable);
 
 }

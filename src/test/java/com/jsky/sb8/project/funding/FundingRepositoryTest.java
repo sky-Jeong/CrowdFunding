@@ -22,17 +22,17 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getListTest2();
+		this.getListTest3();
 	}
-	
-	private void getListTest2() throws Exception {
+
+	private void getListTest3() throws Exception {
 		
 		Pageable pageable = PageRequest.of(0, 9);
-		Page<FundingVO> page = fundingRepository.findByCategoryNum2(2, pageable);
+		Page<FundingVO> page = fundingRepository.findByCategoryNum2AndStatusContaining(2, "",pageable);
 		
 		List<FundingVO> fundingVOs = page.getContent();
 		for(FundingVO vo:fundingVOs) {
-			System.out.println(vo.getTitle() + ", " + vo.getCategoryVO().getCategoryNum());
+			System.out.println(vo.getTitle() + ", " + vo.getCategoryVO().getCategoryNum() + vo.getStatus());
 		}
 		
 	}

@@ -309,10 +309,10 @@
 					<div class="main__div--category-wrap">
 						<!-- sort area -->
 						<div class="main__div--main-content-area">
-							<h3 style="display: inline-block;">전체보기</h3>
+							<h3 style="display: inline-block;" id="main__div--categoryName">전체보기</h3>
 							<div class="main__span--select-area">
-								<select name="status">
-									<option value="all">전체</option>
+								<select name="status" id="status">
+									<option value="">전체</option>
 									<option value="Y">진행중</option>
 									<option value="F">종료된</option>
 								</select>
@@ -347,12 +347,25 @@
 		
 			var page = 0;
 			var size = 10;
+
+			var categoryName = "전체보기";
 			var rewardPage = 0;
-			var btnLastChk;
 			var categoryNum = 1;
+			
+			var status = "";
 			
 			getCategory(page);
 			getRewardList(categoryNum);
+
+			$("#status").on("change",function(){
+
+				rewardPage=0;				
+				status = $("#status").val();
+				
+				$("#reward-list").empty();
+				getRewardList(categoryNum);
+				
+			});
 
 			$("#btn__show-more").click(function(){
 				setRewardPage();
@@ -370,7 +383,8 @@
 					type:"get",
 					data:{
 						rewardPage:rewardPage,
-						categoryNum:categoryNum
+						categoryNum:categoryNum,
+						status:status
 					},
 					success:function(data){
 						
@@ -412,10 +426,15 @@
 						$(".main__a--category").click(function(){
 							
 							rewardPage=0;
+							status = "";
+							$("#status").val(status);
 							
-							categoryNum = $(this).attr("title")
+							categoryNum = $(this).attr("title");
+							categoryName = $(this).attr("categoryName");
+
+							$("#main__div--categoryName").text(categoryName);
+							
 							$("#reward-list").empty();
-							
 							getRewardList(categoryNum);
 							
 						});
