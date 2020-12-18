@@ -25,7 +25,7 @@
 			<li><a href="#"><span class="glyphicon glyphicon-user"></span> 로그인</a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 회원가입</a></li>
 			<li>
-				<a><span>프로젝트 오픈 신청</span></a>
+				<a href="#"><span class="header__span--project">프로젝트 오픈 신청</span></a>
 			</li>
 		</ul>
 	</div>

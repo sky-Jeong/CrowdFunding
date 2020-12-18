@@ -16,8 +16,8 @@
 					<span style="font-weight: 500;">${vo.openDate}&nbsp;&nbsp;00시 00분 오픈예정</span>
 				</span>
 			</div>
-			<div>
-				<span>${vo.makerNum}</span>
+			<div style="margin-bottom: 1.2rem;">
+				<span class="main__span--project-summary">${vo.makerVO.company}</span>
 			</div>
 		</div>
 	</div>

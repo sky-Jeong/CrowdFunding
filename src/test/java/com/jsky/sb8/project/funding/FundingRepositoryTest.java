@@ -23,7 +23,20 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getListTest4();
+		this.getListTest5();
+	}
+	
+	private void getListTest5() throws Exception{
+		
+		Pageable pageable = PageRequest.of(0, 9);
+		Page<FundingVO> page
+			= fundingRepository.findByStatusContainingAndStatusNotOrderByAchievementDesc("", "C", pageable);
+		
+		List<FundingVO> fundingVOs = page.getContent();
+		for(FundingVO vo:fundingVOs) {
+			System.out.println(vo.getTitle() + ", " + vo.getStatus());
+		}
+		
 	}
 	
 	private void getListTest4() throws Exception{
@@ -33,12 +46,12 @@ class FundingRepositoryTest {
 		Calendar ca = Calendar.getInstance();
 		Date today = new Date(ca.getTimeInMillis());
 	
-		Page<FundingVO> page = fundingRepository.findByStartDateGreaterThan(today, pageable);
+		Page<FundingVO> page = fundingRepository.findByStartDateGreaterThanOrderByStartDate(today, pageable);
 		List<FundingVO> fundingVOs = page.getContent();
 		
 		System.out.println(page.getTotalPages());
 		for(FundingVO vo:fundingVOs) {
-			System.out.println(vo.getTitle() + ", " + vo.getStartDate());
+			System.out.println(vo.getTitle() + ", " + vo.getMakerVO().getMakerNum());
 		}
 		
 	}
@@ -46,7 +59,7 @@ class FundingRepositoryTest {
 	private void getListTest3() throws Exception {
 		
 		Pageable pageable = PageRequest.of(0, 9);
-		Page<FundingVO> page = fundingRepository.findByCategoryNum2AndStatusContaining(2, "",pageable);
+		Page<FundingVO> page = fundingRepository.findByCategoryNum2AndStatusContainingOrderByAchievementDesc(2, "",pageable);
 		
 		List<FundingVO> fundingVOs = page.getContent();
 		for(FundingVO vo:fundingVOs) {

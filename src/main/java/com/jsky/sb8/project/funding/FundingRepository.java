@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface FundingRepository extends JpaRepository<FundingVO, Long>{
 	
-	public Page<FundingVO> findByStartDateGreaterThan(Date today, Pageable pageable);
+	public Page<FundingVO> findByStartDateGreaterThanOrderByStartDate(Date today, Pageable pageable);
 	
-	public Page<FundingVO> findByStatusContaining(String status, Pageable pageable);
+	public Page<FundingVO> findByStatusContainingAndStatusNotOrderByAchievementDesc(String status, String ignore,Pageable pageable);
 	
-	public Page<FundingVO> findByCategoryNum2AndStatusContaining(long categoryNum,String status,Pageable pageable);
+	public Page<FundingVO> findByCategoryNum2AndStatusContainingOrderByAchievementDesc(long categoryNum,String status,Pageable pageable);
 
 }

@@ -13,7 +13,7 @@
 				<a>${vo.title}</a>
 			</div>
 			<div style="margin-bottom: 1.2rem;">
-				<span class="main__span--project-summary">${vo.categoryVO.categoryName}</span>
+				<span class="main__span--project-summary">${vo.categoryVO.categoryName} | ${vo.makerVO.company}</span>
 			</div>
 			<div style="margin-bottom: 0.2rem;">
 				<span style="height: 3px; width:${vo.showPercent}%; background-color: #00b2b2; display: block;"></span>

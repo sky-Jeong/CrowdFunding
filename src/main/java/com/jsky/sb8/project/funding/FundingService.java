@@ -22,18 +22,18 @@ public class FundingService {
 		Calendar ca = Calendar.getInstance();
 		Date today = new Date(ca.getTimeInMillis());
 		
-		return fundingRepository.findByStartDateGreaterThan(today, pageable);
+		return fundingRepository.findByStartDateGreaterThanOrderByStartDate(today, pageable);
 		
 	}
 	
 	public Page<FundingVO> findAllCategory(String status, int rewardPage) throws Exception{
 		Pageable pageable = PageRequest.of(rewardPage, 9);
-		return fundingRepository.findByStatusContaining(status, pageable);
+		return fundingRepository.findByStatusContainingAndStatusNotOrderByAchievementDesc(status, "C", pageable);
 	}
 	
 	public Page<FundingVO> findCategory(int categoryNum,int rewardPage, String status) throws Exception{
 		Pageable pageable = PageRequest.of(rewardPage, 9);
-		return fundingRepository.findByCategoryNum2AndStatusContaining(categoryNum, status, pageable);
+		return fundingRepository.findByCategoryNum2AndStatusContainingOrderByAchievementDesc(categoryNum, status, pageable);
 	}
 	
 }

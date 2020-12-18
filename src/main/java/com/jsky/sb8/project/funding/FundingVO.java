@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,6 +25,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.category.CategoryVO;
+import com.jsky.sb8.project.maker.MakerVO;
 
 import lombok.Data;
 
@@ -44,7 +46,7 @@ public class FundingVO {
 	private String charDivision;
 	@Transient
 	private long categoryNum;
-	@Column
+	@Transient
 	private long makerNum;
 	@Column
 	private String email;
@@ -90,6 +92,10 @@ public class FundingVO {
 	private long showPercent;
 	@Transient
 	private String openDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "makerNum")
+	private MakerVO makerVO;
 
 	// 자식
 	@OneToOne(fetch = FetchType.LAZY)
