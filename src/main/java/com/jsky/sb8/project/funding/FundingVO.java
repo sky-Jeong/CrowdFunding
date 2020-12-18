@@ -2,7 +2,9 @@ package com.jsky.sb8.project.funding;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -86,11 +88,67 @@ public class FundingVO {
 	private String achieveAmount;
 	@Transient
 	private long showPercent;
+	@Transient
+	private String openDate;
 
 	// 자식
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryNum")
 	private CategoryVO categoryVO;
+	
+	public String getOpenDate() {
+		
+		try {
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+			String startDate = format.format(this.startDate);
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+			java.util.Date date;
+			
+			date = dateFormat.parse(startDate);
+			
+			Calendar ca = Calendar.getInstance();
+			ca.setTime(date);
+			
+			int dayOfWeek = ca.get(Calendar.DAY_OF_WEEK);
+			String korDayOfWeek = "";
+			
+			switch (dayOfWeek) {
+				case 1:
+					korDayOfWeek = "일";
+					break;
+				case 2:
+					korDayOfWeek = "월";
+					break;
+				case 3:
+					korDayOfWeek = "화";
+					break;
+				case 4:
+					korDayOfWeek = "수";
+					break;
+				case 5:
+					korDayOfWeek = "목";
+					break;
+				case 6:
+					korDayOfWeek = "금";
+					break;
+				case 7:
+					korDayOfWeek = "토";
+					break;
+			}
+			
+			format = new SimpleDateFormat("MM/dd");
+			startDate = format.format(this.startDate) + "("+korDayOfWeek+")";
+			
+			return startDate;
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "Funding VO getOpenDate Exception";
+		}
+		
+	}
 	
 	public long getAchievePercent() {
 		

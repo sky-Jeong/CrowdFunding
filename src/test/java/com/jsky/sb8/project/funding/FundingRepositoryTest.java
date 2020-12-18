@@ -3,6 +3,7 @@ package com.jsky.sb8.project.funding;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,7 +23,24 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getListTest3();
+		this.getListTest4();
+	}
+	
+	private void getListTest4() throws Exception{
+		
+		Pageable pageable = PageRequest.of(0, 9);
+		
+		Calendar ca = Calendar.getInstance();
+		Date today = new Date(ca.getTimeInMillis());
+	
+		Page<FundingVO> page = fundingRepository.findByStartDateGreaterThan(today, pageable);
+		List<FundingVO> fundingVOs = page.getContent();
+		
+		System.out.println(page.getTotalPages());
+		for(FundingVO vo:fundingVOs) {
+			System.out.println(vo.getTitle() + ", " + vo.getStartDate());
+		}
+		
 	}
 
 	private void getListTest3() throws Exception {

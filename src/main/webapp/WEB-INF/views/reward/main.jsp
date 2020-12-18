@@ -37,6 +37,8 @@
 			<c:import url="./common/fundingList.jsp"></c:import>
 
 		</main>
+		
+		<script type="text/javascript" src="/js/reward/common.js"></script>
 		<script type="text/javascript" src="/js/reward/fundingPage.js"></script>
 		
 	</body>

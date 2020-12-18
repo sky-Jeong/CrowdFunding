@@ -40,6 +40,19 @@ public class FundingController {
 		mv.setViewName("reward/comingsoon");
 		return mv;		
 	}
+	
+	@GetMapping("comingsoon/list")
+	@ResponseBody
+	public ModelAndView getList(@RequestParam int rewardPage) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		Page<FundingVO> fundingVOs = fundingService.findByStartDateGreaterThan(rewardPage);
+		
+		mv.addObject("funding", fundingVOs);
+		mv.setViewName("reward/ajaxResult/comingsoon-list");
+		return mv;
+		
+	}
 		
 	@GetMapping("list")
 	@ResponseBody

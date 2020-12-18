@@ -35,7 +35,7 @@
 			
 			<!-- contents area -->
 			<div id="reward-list" style="padding: 2rem 0rem;">
-			
+				
 			</div>
 
 			<div id="main__div--btn-area">
