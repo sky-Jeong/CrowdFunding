@@ -11,8 +11,8 @@ public interface FundingRepository extends JpaRepository<FundingVO, Long>{
 	
 	public Page<FundingVO> findByStartDateGreaterThanOrderByStartDate(Date today, Pageable pageable);
 	
-	public Page<FundingVO> findByStatusContainingAndStatusNotOrderByAchievementDesc(String status, String ignore,Pageable pageable);
+	public Page<FundingVO> findByStatusContainingAndStatusNotAndStartDateLessThanEqual(String status, String ignore,Date today,Pageable pageable);
 	
-	public Page<FundingVO> findByCategoryNum2AndStatusContainingOrderByAchievementDesc(long categoryNum,String status,Pageable pageable);
+	public Page<FundingVO> findByCategoryNum2AndStatusContainingAndStartDateLessThanEqual(long categoryNum,String status,Date today,Pageable pageable);
 
 }

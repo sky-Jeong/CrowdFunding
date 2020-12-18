@@ -79,7 +79,7 @@ public class FundingVO {
 	private long supporter;
 	@Column
 	private String image;
-	@Column
+	@Transient
 	private long countDown;
 	@Column
 	private long categoryNum2;
@@ -101,6 +101,21 @@ public class FundingVO {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryNum")
 	private CategoryVO categoryVO;
+	
+	public long getCountDown() {
+		
+		Calendar ca = Calendar.getInstance();
+		Date today = new Date(ca.getTimeInMillis());
+		
+		long result = this.getDeadline().getTime() - today.getTime();
+		result = result/(24*60*60*1000);
+		
+		if(result < 0) {
+			result = 0;
+		}
+		return result;
+		
+	}
 	
 	public String getOpenDate() {
 		

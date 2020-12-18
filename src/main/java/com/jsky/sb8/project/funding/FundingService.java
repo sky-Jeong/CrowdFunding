@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,13 +28,43 @@ public class FundingService {
 	}
 	
 	public Page<FundingVO> findAllCategory(String status, int rewardPage) throws Exception{
-		Pageable pageable = PageRequest.of(rewardPage, 9);
-		return fundingRepository.findByStatusContainingAndStatusNotOrderByAchievementDesc(status, "C", pageable);
+		/*
+		 	정렬 기준
+				select * from FundingProject
+				order by Achievement DESC, deadline ASC;
+		 		1. Achievement Desc
+		 		2. deadline ASC
+		 		
+		 		status
+		 		deadline d
+		 */
+		Pageable pageable = PageRequest.of(rewardPage, 9,
+											Sort.by("status").descending()
+											.and(Sort.by("achievement").descending())
+											.and(Sort.by("deadline").ascending()));
+		
+		Calendar ca = Calendar.getInstance();
+		Date today = new Date(ca.getTimeInMillis());
+		
+		return fundingRepository.
+				findByStatusContainingAndStatusNotAndStartDateLessThanEqual
+					(status, "C", today,pageable);
 	}
 	
 	public Page<FundingVO> findCategory(int categoryNum,int rewardPage, String status) throws Exception{
-		Pageable pageable = PageRequest.of(rewardPage, 9);
-		return fundingRepository.findByCategoryNum2AndStatusContainingOrderByAchievementDesc(categoryNum, status, pageable);
+		
+		Pageable pageable = PageRequest.of(rewardPage, 9,
+											Sort.by("status").descending()
+											.and(Sort.by("achievement").descending())
+											.and(Sort.by("deadline").ascending()));
+		
+		Calendar ca = Calendar.getInstance();
+		Date today = new Date(ca.getTimeInMillis());
+		
+		return fundingRepository.
+				findByCategoryNum2AndStatusContainingAndStartDateLessThanEqual
+					(categoryNum, status, today, pageable);
+		
 	}
 	
 }
