@@ -23,19 +23,6 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getListTest5();
-	}
-	
-	private void getListTest5() throws Exception{
-		
-		Pageable pageable = PageRequest.of(0, 9);
-		Page<FundingVO> page
-			= fundingRepository.findByStatusContainingAndStatusNotOrderByAchievementDesc("", "C", pageable);
-		
-		List<FundingVO> fundingVOs = page.getContent();
-		for(FundingVO vo:fundingVOs) {
-			System.out.println(vo.getTitle() + ", " + vo.getStatus());
-		}
 		
 	}
 	
@@ -56,17 +43,6 @@ class FundingRepositoryTest {
 		
 	}
 
-	private void getListTest3() throws Exception {
-		
-		Pageable pageable = PageRequest.of(0, 9);
-		Page<FundingVO> page = fundingRepository.findByCategoryNum2AndStatusContainingOrderByAchievementDesc(2, "",pageable);
-		
-		List<FundingVO> fundingVOs = page.getContent();
-		for(FundingVO vo:fundingVOs) {
-			System.out.println(vo.getTitle() + ", " + vo.getCategoryVO().getCategoryNum() + vo.getStatus());
-		}
-		
-	}
 	
 	private void setSaveTest() {
 		
