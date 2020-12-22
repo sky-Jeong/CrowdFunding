@@ -13,6 +13,7 @@
 		
 		<link rel="stylesheet" href="/css/reward/fundingList.css">
 		<link rel="stylesheet" href="/css/reward/second-navbar.css">
+		<link rel="stylesheet" href="/css/common.css">
 		
 		<style type="text/css">
 			/* 메인 색상 : rgba(0,178,178,.99) select color: #00B2B2 default: #353535*/
