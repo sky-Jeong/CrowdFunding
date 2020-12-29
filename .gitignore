@@ -64,6 +64,8 @@ $RECYCLE.BIN/
 *.lnk
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,java
 
+# ignore properties file
+application-email.properties
 
 # Created by https://www.toptal.com/developers/gitignore/api/maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven
