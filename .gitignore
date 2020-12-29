@@ -85,3 +85,5 @@ buildNumber.properties
 src/main/resources/application-email.properties
 src/main/resources/application.properties
 target/classes/application.properties
+src/main/resources/application.properties
+target/classes/application.properties
