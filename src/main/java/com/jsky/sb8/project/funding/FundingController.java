@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,9 @@ public class FundingController {
 	@Autowired
 	private FundingService fundingService;
 	
+	/**
+	 * Funding main 페이지
+	 */
 	@GetMapping("main")
 	public ModelAndView getMainPage() {
 		ModelAndView mv = new ModelAndView();
@@ -27,6 +31,9 @@ public class FundingController {
 		return mv;		
 	}
 	
+	/**
+	 * 카테고리 리스트 받아오기
+	 */
 	@GetMapping("category")
 	public ModelAndView getCategoryPage() {
 		ModelAndView mv = new ModelAndView();
@@ -34,6 +41,22 @@ public class FundingController {
 		return mv;		
 	}
 	
+	@GetMapping("detail/main/{num}")
+	public ModelAndView getCategorySelect(@PathVariable long num) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		FundingVO fundingVO = fundingService.findById(num).get();
+		
+		mv.addObject("info", fundingVO);
+		mv.setViewName("reward/select");
+		return mv;
+		
+	}
+	
+	/**
+	 * 오픈 예정 펀딩 프로젝트 메인페이지
+	 */
 	@GetMapping("comingsoon")
 	public ModelAndView getComingSoonPage() {
 		ModelAndView mv = new ModelAndView();
@@ -41,6 +64,9 @@ public class FundingController {
 		return mv;		
 	}
 	
+	/**
+	 * 오픈 예정 프로젝트 리스트 받아오기
+	 */
 	@GetMapping("comingsoon/list")
 	@ResponseBody
 	public ModelAndView getList(@RequestParam int rewardPage) throws Exception{
@@ -54,6 +80,9 @@ public class FundingController {
 		
 	}
 		
+	/**
+	 * 펀딩 리스트 받아오기
+	 */
 	@GetMapping("list")
 	@ResponseBody
 	public ModelAndView getList(@RequestParam int rewardPage, int categoryNum, String status) throws Exception {
