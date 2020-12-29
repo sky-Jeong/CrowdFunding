@@ -27,6 +27,8 @@ import com.jsky.sb8.email.EmailChkVO;
 @RequestMapping(value = "/member/**")
 public class MemberController {
 	
+	private String referUrl;
+	
 	@Autowired
 	private MemberService memberService;
 	
@@ -34,8 +36,13 @@ public class MemberController {
 	 * 로그인 페이지 이동
 	 */
 	@GetMapping("login")
-	public ModelAndView getLoginPage() {
+	public ModelAndView getLoginPage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		
+		String tmp = request.getHeader("Referer");
+		this.referUrl = tmp.substring(17);
+		
+		System.out.println(this.referUrl);
 		mv.setViewName("member/login");
 		return mv;
 	}
@@ -46,17 +53,21 @@ public class MemberController {
 	@PostMapping("login")
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) throws Exception {
 		
-		ModelAndView mv = new ModelAndView();
+		System.out.println("로그인 처리");
 		
+		ModelAndView mv = new ModelAndView();
 		memberVO = memberService.memberLogin(memberVO);
 		
 		String path = "member/login";
 		String result = "아이디 혹은 비밀번호를 확인해주세요.";
+		System.out.println(this.referUrl);
 		
 		if(memberVO != null) {
+			System.out.println("로그인 성공");
 			session.setAttribute("login", memberVO);
 			result = memberVO.getMemberName() + "님 환영합니다.";
-			path = "../";
+			path = "../" + this.referUrl;
+			System.out.println("referUrl: " + path);
 		} 
 		
 		mv.addObject("path", path);

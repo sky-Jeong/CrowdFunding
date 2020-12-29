@@ -110,7 +110,7 @@
 				
 				<h2>로그인</h2>
 				
-				<form action="" id="main__form-frm" method="post">
+				<form action="${pageContext.request.contextPath}/member/login" id="main__form-frm" method="post">
 				
 					<input class="main__login-txt" id="id-txt" type="text" placeholder="이메일 아이디" name="email">
 					<input class="main__login-txt" id="pw-txt" type="password" name="password" placeholder="비밀번호(영문,숫자,특수문자 포함 8자 이상)">
