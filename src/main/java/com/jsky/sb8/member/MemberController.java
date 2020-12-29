@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,38 @@ public class MemberController {
 		
 		memberVO = memberService.memberLogin(memberVO);
 		
+		String path = "member/login";
+		String result = "아이디 혹은 비밀번호를 확인해주세요.";
+		
 		if(memberVO != null) {
 			session.setAttribute("login", memberVO);
-		}
+			result = memberVO.getMemberName() + "님 환영합니다.";
+			path = "../";
+		} 
 		
+		mv.addObject("path", path);
+		mv.addObject("result", result);
+		mv.setViewName("common/signResult");
 		return mv;
 		
+	}
+	
+	/**
+	 * 회원 로그아웃
+	 */
+	@GetMapping("logout")
+	public ModelAndView memberLogout(HttpSession session, HttpServletRequest request) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		String refer = request.getHeader("Referer");
+		refer = "../" + refer.substring(17);
+		
+		session.invalidate();
+		System.out.println("refer result : " + refer);
+		
+		mv.setViewName("redirect:" + refer);
+		return mv;
 	}
 
 	/**
