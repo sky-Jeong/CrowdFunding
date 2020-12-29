@@ -14,14 +14,21 @@ class MemberRepositoryTest {
 
 	@Test
 	void test() throws Exception {
-		this.findByTest();
+		this.memberLoginTest();
+	}
+	
+	/**
+	 * member login test
+	 */
+	private void memberLoginTest() throws Exception{
+		MemberVO memberVO
+			= memberRepository.findByEmailAndPassword("cat2978@kakao.com", "gksmfskfk1!");
+		assertNotNull(memberVO);
 	}
 	
 	private void findByTest() throws Exception {
-		
 		MemberVO memberVO = memberRepository.findByEmail("email1@test.com");
 		assertNotNull(memberVO);
-		
 	}
 
 }

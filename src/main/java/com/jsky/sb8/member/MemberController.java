@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,7 +28,38 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	/**
+	 * 로그인 페이지 이동
+	 */
+	@GetMapping("login")
+	public ModelAndView getLoginPage() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/login");
+		return mv;
+	}
+	
+	/**
+	 * 회원 로그인
+	 */
+	@PostMapping("login")
+	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		memberVO = memberService.memberLogin(memberVO);
+		
+		if(memberVO != null) {
+			session.setAttribute("login", memberVO);
+		}
+		
+		return mv;
+		
+	}
 
+	/**
+	 * 회원가입 페이지 이동
+	 */
 	@GetMapping("sign")
 	public ModelAndView getSignPage() {
 		ModelAndView mv = new ModelAndView();
@@ -35,6 +67,9 @@ public class MemberController {
 		return mv;
 	}
 	
+	/**
+	 * 회원가입 등록 페이지로 이동
+	 */
 	@GetMapping("signRegist")
 	public ModelAndView getSignUpPage() {
 		ModelAndView mv = new ModelAndView();
@@ -42,6 +77,9 @@ public class MemberController {
 		return mv;
 	}
 	
+	/**
+	 * 회원가입 등록
+	 */
 	@PostMapping("signRegist")
 	public ModelAndView setSignUpPage(MemberVO memberVO) throws Exception {
 		
@@ -66,6 +104,9 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 중복 이메일 확인
+	 */
 	@PostMapping("memberChk")
 	@ResponseBody
 	public ModelAndView getMemberEmailChk(MemberVO memberVO) throws Exception {
