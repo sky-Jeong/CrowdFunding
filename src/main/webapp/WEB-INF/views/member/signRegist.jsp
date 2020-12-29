@@ -62,7 +62,7 @@
 				color: white;
 				border-radius: 0px;
 				border: none;
-				background-color: #00B2B2;
+				background-color: #00c4c4;
 			}
 			.span__info{
 				font-size: 1.2rem;
@@ -77,7 +77,7 @@
 				font-weight: 150;
 				border: none;
 				border-radius: 3px;
-				background-color: #00B2B2;
+				background-color: #00c4c4;
 			}
 		</style>
 		

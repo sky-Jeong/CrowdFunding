@@ -2,6 +2,7 @@ package com.jsky.sb8.project.funding;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,16 @@ public class FundingService {
 	@Autowired
 	private FundingRepository fundingRepository;
 	
+	/**
+	 * 선택한 프로젝트 내용보기
+	 */
+	public Optional<FundingVO> findById(long num) throws Exception{
+		return fundingRepository.findById(num);
+	}
+	
+	/**
+	 * 오픈예정 프로젝트 받아보기
+	 */
 	public Page<FundingVO> findByStartDateGreaterThan(int rewardPage) throws Exception{
 		
 		Pageable pageable = PageRequest.of(rewardPage, 9);
@@ -27,6 +38,9 @@ public class FundingService {
 		
 	}
 	
+	/**
+	 * 오픈 예정을 제외한 프로젝트 전체보기
+	 */
 	public Page<FundingVO> findAllCategory(String status, int rewardPage) throws Exception{
 		/*
 		 	정렬 기준
@@ -51,6 +65,9 @@ public class FundingService {
 					(status, "C", today,pageable);
 	}
 	
+	/**
+	 * 선택한 카테고리와 프로젝트 상태를 기준으로 프로젝트 리스트 보기
+	 */
 	public Page<FundingVO> findCategory(int categoryNum,int rewardPage, String status) throws Exception{
 		
 		Pageable pageable = PageRequest.of(rewardPage, 9,

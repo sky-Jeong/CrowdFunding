@@ -19,4 +19,8 @@ public class MemberService {
 		return memberRepository.findByEmail(email);
 	}
 	
+	public MemberVO memberLogin(MemberVO memberVO) throws Exception{
+		return memberRepository.findByEmailAndPassword(memberVO.getEmail(), memberVO.getPassword());
+	}
+	
 }

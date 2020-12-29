@@ -58,7 +58,7 @@
     }
     
     a:hover .main__span--category-circle{
-    	border: 3px solid #00B2B2;
+    	border: 3px solid #00c4c4;
     }
     
     .main__div--main-content-area{
@@ -105,7 +105,7 @@
     }
     
     .main__span--project-achieve{
-    	color: #00B2B2;
+    	color: #00c4c4;
     	font-size: 1.8rem;
     }
     

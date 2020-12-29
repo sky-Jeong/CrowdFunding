@@ -4,13 +4,13 @@
 
 <c:forEach items="${funding.content}" var="vo">
 	<div class="main__div--project-card-item">
-		<a href="#">
+		<a href="./detail/main/${vo.num}">
 			<span class="main__span--project-card-item"
 					style="background-image: url(${vo.image});"></span>
 		</a>
 		<div>
 			<div class="main__div--project-card-title">
-				<a>${vo.title}</a>
+				<a href="./detail/main/${vo.num}">${vo.title}</a>
 			</div>
 			<div style="margin-bottom: 1.2rem;">
 				<span class="main__span--project-summary">${vo.categoryVO.categoryName} | ${vo.makerVO.company}</span>
@@ -26,7 +26,10 @@
 					</span>
 				</span>
 				<span class="main__span--project-summary-2" style="float: right;">
-					${vo.countDown}일 남음
+					<c:choose>
+						<c:when test="${vo.countDown > 0}">${vo.countDown}일 남음</c:when>
+						<c:otherwise>종료됨</c:otherwise>
+					</c:choose>
 				</span>
 			</div>
 		</div>

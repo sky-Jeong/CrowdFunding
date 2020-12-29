@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -22,8 +23,17 @@
 					</div>
 				</form>
 			</li>
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> 로그인</a></li>
-			<li><a href="${pageContext.request.contextPath}/member/sign"><span class="glyphicon glyphicon-log-in"></span> 회원가입</a></li>
+			
+			<c:if test="${login == null}">
+				<li><a href="${pageContext.request.contextPath}/member/login"><span class="glyphicon glyphicon-user"></span> 로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/sign"><span class="glyphicon glyphicon-log-in"></span> 회원가입</a></li>
+			</c:if>
+			
+			<c:if test="${login != null}">
+				<li><a href="${pageContext.request.contextPath}/member/page"><span class="glyphicon glyphicon-user"></span> 마이페이지</a></li>
+				<li><a href="${pageContext.request.contextPath}/member/logout"><span class="glyphicon glyphicon-log-in"></span> 로그아웃</a></li>
+			</c:if>
+			
 			<li>
 				<a href="#"><span class="header__span--project">프로젝트 오픈 신청</span></a>
 			</li>
