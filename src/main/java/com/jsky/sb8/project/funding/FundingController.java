@@ -41,15 +41,18 @@ public class FundingController {
 		return mv;		
 	}
 	
-	@GetMapping("detail/main/{num}")
-	public ModelAndView getCategorySelect(@PathVariable long num) throws Exception {
+	/**
+	 * 프로젝트 상세정보 메인
+	 */
+	@GetMapping("detail/{menu}/{num}")
+	public ModelAndView getCategorySelect(@PathVariable String menu, @PathVariable long num) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		
 		FundingVO fundingVO = fundingService.findById(num).get();
 		
 		mv.addObject("info", fundingVO);
-		mv.setViewName("reward/select");
+		mv.setViewName("reward/detail/"+menu);
 		return mv;
 		
 	}

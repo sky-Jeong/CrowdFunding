@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.navbar-default{
+	margin-bottom: 0px;
+}
+
+.contents-header{
+	width: 100%;
+}
+
+.contents__div-header{
+	width: 100%; height: 18rem;
+	border: 1px solid silver;
+	padding-top: 5rem;
+}
+
+.contents_category-name{
+	text-align: center;
+}
+
+.contents_category-name span{
+	color: #00c4c4;
+	font-size: 1.5rem;
+}
+
+.contents_category-name h2{
+	margin-top: 8px;
+}
+
+.contents-category{
+	height: 5rem;
+	border: 1px solid silver;
+}
+
+.second-navbar li{
+	margin: 0px 0.3rem;
+}
+
+#menu{
+	font-size: 1.45rem;
+}
