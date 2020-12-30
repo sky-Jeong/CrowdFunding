@@ -168,6 +168,68 @@
 				float: right;
 			}
 			
+			.glyphicon-exclamation-sign{
+				color: #B8B8B8;
+			}
+			
+			.funding-description{
+				margin: 2rem 0px 4rem;
+				text-align: center;
+				font-size: 1.3rem;
+				color: #747474;
+			}
+			
+			#a__more-info{
+				color: #747474;
+				text-decoration: underline;
+			}
+			
+			#div__maker-header{
+				color: #868686;
+				font-size: 1.3rem;
+				font-weight: 500;
+				margin-bottom: 1rem;
+			}
+			
+			.div__maker-info{
+				border: 1px solid #E0E0E0;
+			}
+			
+			#maker__company-name{
+				color: #353535;
+				font-size: 1.8rem;
+				font-weight: bold;
+				padding: 1.5rem 2rem;
+				border-bottom: 1px solid #E0E0E0;
+			}
+			
+			.maker__icon{
+				color: #D5D5D5;
+				margin-right: 1rem;
+			}
+			
+			.maker__btn-wrapper{
+				padding: 2rem;
+				border-bottom: 1px solid #E0E0E0;
+			}
+			
+			.maker__inquire-btn{
+				width: 100%; height: 5rem;
+				color: #8F8F8F;
+				border: 1px solid #D5D5D5;
+				border-radius: 3px;
+				background-color: white;
+				font-size: 1.8rem;
+				font-weight: 200;
+			}
+			
+			.maker__btn-title{
+				color: #868686;
+				font-size: 1.3rem;
+				font-weight: 200;
+				margin-bottom: 0.5rem;
+			}
+			
 		</style>
 		
 	</head>
@@ -325,11 +387,42 @@
 						
 					</div>
 					
-					<div>
+					<div class="funding-description">
+						<span>
+							<i class="glyphicon glyphicon-exclamation-sign"></i>
+							펀딩하기는 쇼핑하기가 아닙니다!
+							<a href="#" id="a__more-info">자세히 알아보기</a>	
+						</span>
+					</div>
+					
+					<!-- maker info area -->
+					<div class="div__maker-wrapper">
+					
+						<div id="div__maker-header">메이커 정보</div>
+						
+						<div class="div__maker-info">
+							
+							<div id="maker__company-name">${info.makerVO.company}</div>
+							
+							<div class="maker__btn-wrapper">
+								<div class="maker__btn-title">메이커에게 문의해보세요!</div>
+								<button class="maker__inquire-btn">
+									<i class="glyphicon glyphicon-comment maker__icon"></i>메이커에게 문의하기
+								</button>
+							</div>
+							
+							<div class="maker__btn-wrapper">
+								
+								
+							
+							</div>
+							
+						</div>
 						
 					</div>
 					
 				</div>
+				
 			</div>
 			
 		</main>
