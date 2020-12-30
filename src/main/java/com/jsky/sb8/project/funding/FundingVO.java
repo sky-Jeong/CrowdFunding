@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,6 +26,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.category.CategoryVO;
+import com.jsky.sb8.project.faq.FaqVO;
 import com.jsky.sb8.project.maker.MakerVO;
 
 import lombok.Data;
@@ -83,6 +85,10 @@ public class FundingVO {
 	private long countDown;
 	@Column
 	private long categoryNum2;
+	@Column
+	private String summary;
+	@Column
+	private String projectGoal;
 	
 	@Transient
 	private long achievePercent;
@@ -96,6 +102,9 @@ public class FundingVO {
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
 	private MakerVO makerVO;
+	
+	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<FaqVO> faqVOs;
 
 	// 자식
 	@OneToOne(fetch = FetchType.LAZY)

@@ -16,7 +16,7 @@
 				<span class="main__span--project-summary">${vo.categoryVO.categoryName} | ${vo.makerVO.company}</span>
 			</div>
 			<div style="margin-bottom: 0.2rem;">
-				<span style="height: 3px; width:${vo.showPercent}%; background-color: #00b2b2; display: block;"></span>
+				<span style="height: 3px; width:${vo.showPercent}%; background-color: #00c4c4; display: block;"></span>
 			</div>
 			<div>
 				<span class="main__span--project-achieve">

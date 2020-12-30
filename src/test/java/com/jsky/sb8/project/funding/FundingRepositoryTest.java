@@ -23,7 +23,7 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		
+		this.getListTest();
 	}
 	
 	private void getListTest4() throws Exception{
