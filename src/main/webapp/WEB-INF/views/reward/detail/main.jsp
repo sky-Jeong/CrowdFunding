@@ -523,7 +523,7 @@
 					
 						<div class="div__maker-wrapper reward-wrapper">
 							
-							<div class="div__maker-info reward-info">
+							<div class="div__maker-info reward-info" title="${vo.productNum}">
 								
 								<div class="reward__info-detail" id="reward__amount">${vo.amountStr}원 펀딩</div>
 								
@@ -581,13 +581,20 @@
 			
 		});
 
+		$(".reward-info").click(function(){
+			var productNum = $(this).attr("title");
+			alert("상품번호: " + productNum+ ", 주문 페이지로 이동될 예정입니다.");
+			//location.href = "";
+		});
+		
 		$(".reward-info").on("mouseover", function(){
-			$(this).css();
+			$(this).css("border","solid 3px #00c4c4");
+			$(this).css("border-boxsizing"," border-box");
 		});
 
-		function overFunction(){
-			
-		}
+		$(".reward-info").on("mouseleave", function(){
+			$(this).css("border","1px solid #E0E0E0");
+		});		
 	
 	</script>
 	
