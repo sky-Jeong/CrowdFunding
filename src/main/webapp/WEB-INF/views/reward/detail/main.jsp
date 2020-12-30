@@ -30,12 +30,10 @@
 			
 			.left-contents{
 				width: 64%;
-				border: 1px solid red;
 			}
 			
 			.right-contents{
 				width: 36%; float: right;
-				border: 1px solid silver;
 			}
 			
 			#project-image{
@@ -191,6 +189,10 @@
 				margin-bottom: 1rem;
 			}
 			
+			.m-wrapper{
+				margin-bottom: 3rem;
+			}
+			
 			.div__maker-info{
 				border: 1px solid #E0E0E0;
 			}
@@ -214,6 +216,7 @@
 			}
 			
 			.maker__inquire-btn{
+				margin-top: 0.5rem;
 				width: 100%; height: 5rem;
 				color: #8F8F8F;
 				border: 1px solid #D5D5D5;
@@ -230,6 +233,85 @@
 				margin-bottom: 0.5rem;
 			}
 			
+			.m-title{
+				padding: 2rem;
+				border-bottom: 1px solid #E0E0E0;
+			}
+			
+			.maker-info__wrapper{
+				padding: 2rem;
+				margin-top: -0.5rem;
+				background-color: #F6F6F6;
+			}
+			
+			.maker__info-title{
+				color: #868686;
+				font-size: 1.2rem;
+				font-weight: 200;
+			}
+			
+			.sns-title{
+				margin: 1rem 0px;
+			}
+			
+			.m-title-bold{
+				font-weight: 400;
+			}
+			
+			.reward-info{
+				padding: 1.5rem 1.5rem 1rem;
+				margin-bottom: 1rem;
+				cursor: pointer;
+			}
+			
+			#reward__amount{
+				font-size: 1.5rem;
+				font-weight: 450;
+			}
+			
+			.reward__info-detail{
+				margin-bottom: 1.5rem;
+			}
+			
+			#reward__product-title{
+				font-weight: 300;
+			}
+			
+			#reward__product-name{
+				color: #515151;
+				font-size: 1.3rem;
+				font-weight: 280;
+			}
+			
+			#reward__product-add-info{
+				font-size: 1.5rem;
+				font-weight: 400;
+			}
+			
+			.reward__quantity{
+				font-size: 1.2rem;
+				font-weight: 300;
+			}
+			
+			.quantity-color{
+				color: #00c4c4;
+				margin-bottom: 1rem;
+			}
+			
+			#reward__quantity{
+				padding: 0.2rem 0.5rem;
+				margin-left: 3.5rem;
+				background-color: #E7F9F9;
+			}
+			
+			.maker-info__wrapper{
+				display: none;
+			}
+			
+			.maker-info-show{
+				cursor: pointer;
+			}
+	
 		</style>
 		
 	</head>
@@ -396,7 +478,7 @@
 					</div>
 					
 					<!-- maker info area -->
-					<div class="div__maker-wrapper">
+					<div class="div__maker-wrapper m-wrapper">
 					
 						<div id="div__maker-header">메이커 정보</div>
 						
@@ -411,15 +493,67 @@
 								</button>
 							</div>
 							
-							<div class="maker__btn-wrapper">
+							<div class="maker__info-wrapper">
 								
+								<div class="maker__btn-title m-title m-title-bold maker-info-show" style="margin-bottom:0px;">
+									<span>메이커 정보<i style="float: right;" class="glyphicon glyphicon-menu-down" id="menu-icon"></i></span>
+								</div>
 								
+								<div class="maker-info__wrapper">
+									
+									<div class="maker__info-title title m-title-bold">메이커 연락처</div>
+									<div class="maker__info-title">${info.email}</div>
+									<div class="maker__info-title">${info.makerVO.tel}</div>
+									<div class="maker__info-title">${info.makerVO.kakaoPlus}</div>
+									
+									<div class="maker__info-title sns-title m-title-bold">SNS</div>
+									<div class="maker__info-title"><a href="${info.makerVO.homepage}">${info.makerVO.homepage}</a></div>
+									
+								</div>
 							
 							</div>
 							
 						</div>
 						
 					</div>
+					
+					<div id="div__maker-header">리워드 선택</div>
+					<!-- reward wrapper -->
+					<c:forEach items="${info.rewardVOs}" var="vo">
+					
+						<div class="div__maker-wrapper reward-wrapper">
+							
+							<div class="div__maker-info reward-info">
+								
+								<div class="reward__info-detail" id="reward__amount">${vo.amountStr}원 펀딩</div>
+								
+								<div class="reward__info-detail">
+								
+									<div id="reward__product-title" class="reward__info-detail">${vo.title}</div>
+									<div id="reward__product-name" class="reward__info-detail">${vo.product}</div>
+									
+									<div id="reward__product-name">배송비</div>
+									<div id="reward__product-add-info" class="reward__info-detail">${vo.shippingFeeStr}원</div>
+									
+									<div id="reward__product-name">리워드 발송 시작일</div>
+									<div id="reward__product-add-info" class="reward__info-detail">${vo.shippingDate}</div>
+									
+									<div class="reward__quantity quantity-color">
+										<span>제한수량 ${vo.limitedQuantity}개</span>
+										<span id="reward__quantity">현재 ${vo.remainder}개 남음!</span>
+									</div>
+									
+									<div class="reward__quantity">
+										총 ${vo.quantity}개 펀딩완료
+									</div>
+									
+								</div>
+								
+							</div>
+							
+						</div>
+						
+					</c:forEach>
 					
 				</div>
 				
@@ -430,8 +564,33 @@
 	</body>
 	
 	<script type="text/javascript">
+
+		var show = false;
 		
+		$(".maker-info-show").click(function(){
+
+			if(show == false){
+				$(".maker-info__wrapper").css("display","none");
+				$("#menu-icon").attr("class","glyphicon glyphicon-menu-down");
+				show = true;
+			} else {
+				$(".maker-info__wrapper").css("display","grid");
+				$("#menu-icon").attr("class","glyphicon glyphicon-menu-up");
+				show = false;
+			}
+			
+		});
+
+		$(".reward-info").on("mouseover", function(){
+			$(this).css();
+		});
+
+		function overFunction(){
+			
+		}
+	
 	</script>
+	
 	<script type="text/javascript" src="/js/reward/select.js"></script>
 	
 </html>

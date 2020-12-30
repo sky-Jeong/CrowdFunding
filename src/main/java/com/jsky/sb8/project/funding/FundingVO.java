@@ -27,6 +27,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.category.CategoryVO;
 import com.jsky.sb8.project.faq.FaqVO;
+import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.maker.MakerVO;
 
 import lombok.Data;
@@ -105,6 +106,9 @@ public class FundingVO {
 	
 	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<FaqVO> faqVOs;
+	
+	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<RewardVO> rewardVOs;
 
 	// 자식
 	@OneToOne(fetch = FetchType.LAZY)
