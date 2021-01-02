@@ -20,7 +20,6 @@
 			.main__news-wrapper{
 				width: 100%;
 				padding: 2rem 0px 0px;
-				border: 1px solid red;
 			}
 			
 			.news-header-wrapper{
@@ -81,6 +80,11 @@
 			#news-reg-date{
 				font-size: 1.2rem;
 				font-weight: 200;
+			}
+			
+			#news-list td{
+				border-top: none;
+				border-bottom: 1px solid #EAEAEA;
 			}
 
 		</style>
@@ -143,19 +147,21 @@
 					</div>
 					<!-- finish: new wrapper -->
 					
-					<table class="table table-hover">
+					<table class="table table-hover" id="news-list">
 					
-						<tr>
-							<td>
-								<div>
-									<div id="news-category">리워드 안내</div>
+						<c:forEach items="${info.newsVOs}" var="vo">
+							<tr>
+								<td>
 									<div>
-										<span id="news-title">앵콜 펀딩 오늘 오픈하였습니다.</span>
-										<p><span id="news-reg-date">2일전</span></p>
+										<div id="news-category">${vo.category}</div>
+										<div>
+											<span id="news-title">${vo.title}</span>
+											<p><span id="news-reg-date">${vo.uploadDate}일전</span></p>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						</c:forEach>
 					
 					</table>
 				
