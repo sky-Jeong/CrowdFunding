@@ -1,0 +1,265 @@
+@charset "UTF-8";
+.navbar-default{
+	margin-bottom: 0px;
+}
+
+.contents-header{
+	width: 100%;
+}
+
+.contents__div-header{
+	width: 100%; height: 16rem;
+	padding-top: 5rem;
+}
+
+.contents_category-name{
+	text-align: center;
+}
+
+.contents_category-name span{
+	color: #00c4c4;
+	font-size: 1.5rem;
+}
+
+.contents_category-name h2{
+	margin-top: 8px;
+}
+
+.contents-category{
+	height: 5rem;
+	border: 1px solid silver;
+}
+
+.second-navbar li{
+	margin: 0px 0.3rem;
+}
+
+#menu{
+	font-size: 1.45rem;
+}
+
+.container{
+	width: 70%;
+	margin-top: 2rem;
+	padding: 0px;
+}
+
+.contents-area{
+	display: inline-block;
+	padding: 2rem;
+}
+
+.left-contents{
+	width: 64%;
+}
+
+.right-contents{
+	width: 36%; float: right;
+}
+
+/* right contents */
+#div__countDown{
+	margin-top: 2rem;
+	color: #4C4C4C;
+	font-size: 2.8rem;
+	font-weight: 500;
+}
+
+.div__funding-data{
+	margin: 2rem 0px;
+}
+
+.span__funding-data{
+	color: #4C4C4C;
+	font-size: 2.5rem;
+	font-weight: 500;
+}
+
+.btn-area{
+	padding: 1.5rem 0px;
+}
+
+.right-btn{
+	font-size: 1.7rem;
+	font-weight: 200;
+}
+
+#funding_btn{
+	color: white;
+	width: 100%; height: 4.5rem;
+	background-color: #00c4c4;
+	border: none;
+	border-radius: 3px;
+	margin: 0rem 0px 0.5rem;
+}
+
+.icon{
+	color: #DCDCDC;
+}
+
+#span_like{
+	margin-left: 1.8rem;
+}
+
+.add-btn{
+	width: 32%;
+	border-radius: 0px;
+}
+
+#like_btn{
+	float: left;
+}
+
+#inquire_btn{
+	margin-left: 0.7rem;
+}
+
+#share_btn{
+	float: right;
+}
+
+.glyphicon-exclamation-sign{
+	color: #B8B8B8;
+}
+
+.funding-description{
+	margin: 2rem 0px 4rem;
+	text-align: center;
+	font-size: 1.3rem;
+	color: #747474;
+}
+
+#a__more-info{
+	color: #747474;
+	text-decoration: underline;
+}
+
+#div__maker-header{
+	color: #868686;
+	font-size: 1.3rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
+.m-wrapper{
+	margin-bottom: 3rem;
+}
+
+.div__maker-info{
+	border: 1px solid #E0E0E0;
+}
+
+#maker__company-name{
+	color: #353535;
+	font-size: 1.8rem;
+	font-weight: bold;
+	padding: 1.5rem 2rem;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.maker__icon{
+	color: #D5D5D5;
+	margin-right: 1rem;
+}
+
+.maker__btn-wrapper{
+	padding: 2rem;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.maker__inquire-btn{
+	margin-top: 0.5rem;
+	width: 100%; height: 5rem;
+	color: #8F8F8F;
+	border: 1px solid #D5D5D5;
+	border-radius: 3px;
+	background-color: white;
+	font-size: 1.8rem;
+	font-weight: 200;
+}
+
+.maker__btn-title{
+	color: #868686;
+	font-size: 1.3rem;
+	font-weight: 200;
+	margin-bottom: 0.5rem;
+}
+
+.m-title{
+	padding: 2rem;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.maker-info__wrapper{
+	padding: 2rem;
+	margin-top: -0.5rem;
+	background-color: #F6F6F6;
+}
+
+.maker__info-title{
+	color: #868686;
+	font-size: 1.2rem;
+	font-weight: 200;
+}
+
+.sns-title{
+	margin: 1rem 0px;
+}
+
+.m-title-bold{
+	font-weight: 400;
+}
+
+.reward-info{
+	padding: 1.5rem 1.5rem 1rem;
+	margin-bottom: 1rem;
+	cursor: pointer;
+}
+
+#reward__amount{
+	font-size: 1.5rem;
+	font-weight: 450;
+}
+
+.reward__info-detail{
+	margin-bottom: 1.5rem;
+}
+
+#reward__product-title{
+	font-weight: 300;
+}
+
+#reward__product-name{
+	color: #515151;
+	font-size: 1.3rem;
+	font-weight: 280;
+}
+
+#reward__product-add-info{
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+.reward__quantity{
+	font-size: 1.2rem;
+	font-weight: 300;
+}
+
+.quantity-color{
+	color: #00c4c4;
+	margin-bottom: 1rem;
+}
+
+#reward__quantity{
+	padding: 0.2rem 0.5rem;
+	margin-left: 3.5rem;
+	background-color: #E7F9F9;
+}
+
+.maker-info__wrapper{
+	display: none;
+}
+
+.maker-info-show{
+	cursor: pointer;
+}

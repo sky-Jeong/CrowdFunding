@@ -28,7 +28,12 @@
 				<span class="main__span--project-summary-2" style="float: right;">
 					<c:choose>
 						<c:when test="${vo.countDown > 0}">${vo.countDown}일 남음</c:when>
-						<c:otherwise>종료됨</c:otherwise>
+						<c:otherwise>종료・
+							<c:choose>
+								<c:when test="${vo.achievePercent >= 100}"><span style="color: #00c4c4;">성공</span></c:when>
+								<c:otherwise><span>실패</span></c:otherwise>
+							</c:choose>
+						</c:otherwise>
 					</c:choose>
 				</span>
 			</div>

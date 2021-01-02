@@ -13,7 +13,7 @@
 		<c:import url="../../template/bootstrap.jsp"></c:import>
 		<link rel="stylesheet" href="/css/common.css">
 		<link rel="stylesheet" href="/css/reward/second-navbar.css">
-		<link rel="stylesheet" href="/css/reward/select.css">
+		<link rel="stylesheet" href="/css/detail/select.css">
 		
 		<style type="text/css">
 
@@ -29,7 +29,15 @@
 	
 			<c:import url="../common/select-second-navbar.jsp"></c:import>
 			<div class="container">
-			
+				
+				<div class="contents-area left-contents">
+				
+				</div>
+				
+				<div class="contents-area right-contents">
+					<c:import url="./common/detail_right_contents.jsp"></c:import>
+				</div>
+				
 			</div>
 		
 		</main>
@@ -40,6 +48,7 @@
 		
 	</script>
 	
-	<script type="text/javascript" src="/js/reward/select.js"></script>
+	<script type="text/javascript" src="/js/detail/select.js"></script>
+	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
 	
 </html>
