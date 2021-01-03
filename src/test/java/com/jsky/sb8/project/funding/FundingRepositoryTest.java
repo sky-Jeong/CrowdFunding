@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import com.jsky.sb8.project.funding.detail.news.NewsVO;
+
 @SpringBootTest
 class FundingRepositoryTest {
 
@@ -23,7 +25,12 @@ class FundingRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getListTest();
+		this.getNewsList();
+	}
+	
+	private void getNewsList() throws Exception{
+
+		
 	}
 	
 	private void getListTest4() throws Exception{

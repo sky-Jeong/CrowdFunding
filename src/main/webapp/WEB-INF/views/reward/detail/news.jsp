@@ -118,16 +118,16 @@
 									<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">구분
 										<span class="caret"></span></button>
 									<ul class="dropdown-menu select-menu">
-										<li class="select-menu" value=""><a>전체</a></li>
-										<li class="select-menu" value="F"><a>FAQ</a></li>
-										<li class="select-menu" value="P"><a>결제</a></li>
-										<li class="select-menu" value="C"><a>교환/펀딩금 반환/AS</a></li>
-										<li class="select-menu" value="A"><a>달성률</a></li>
-										<li class="select-menu" value="S"><a>리워드 발송</a></li>
-										<li class="select-menu" value="M"><a>메이킹스토리</a></li>
-										<li class="select-menu" value="E"><a>이벤트</a></li>
-										<li class="select-menu" value="R"><a>리워드 안내</a></li>
-										<li class="select-menu" value="etc"><a>기타</a></li>
+										<li class="li_select-menu" value=""><a>전체</a></li>
+										<li class="li_select-menu" value="F"><a>FAQ</a></li>
+										<li class="li_select-menu" value="P"><a>결제</a></li>
+										<li class="li_select-menu" value="C"><a>교환/펀딩금 반환/AS</a></li>
+										<li class="li_select-menu" value="A"><a>달성률</a></li>
+										<li class="li_select-menu" value="S"><a>리워드 발송</a></li>
+										<li class="li_select-menu" value="M"><a>메이킹스토리</a></li>
+										<li class="li_select-menu" value="E"><a>이벤트</a></li>
+										<li class="li_select-menu" value="R"><a>리워드 안내</a></li>
+										<li class="li_select-menu" value="etc"><a>기타</a></li>
 									</ul>
 								</div>
 								
@@ -147,23 +147,10 @@
 					</div>
 					<!-- finish: new wrapper -->
 					
-					<table class="table table-hover" id="news-list">
+					<div id="div__list-result">
 					
-						<c:forEach items="${info.newsVOs}" var="vo">
-							<tr>
-								<td>
-									<div>
-										<div id="news-category">${vo.category}</div>
-										<div>
-											<span id="news-title">${vo.title}</span>
-											<p><span id="news-reg-date">${vo.uploadDate}일전</span></p>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</c:forEach>
+					</div>
 					
-					</table>
 				
 				</div>
 				
@@ -178,7 +165,35 @@
 	</body>
 	
 	<script type="text/javascript">
+	
+		var projectNum = $("#h2__project-num").attr("title");
+
+		getNewsList("");
 		
+		$(".li_select-menu").click(function(){
+			menu = $(this).attr("value");
+			getNewsList(menu);
+		});
+
+		// get news list method
+		function getNewsList(menu){
+
+			$.ajax({
+				url: "/detail/news",
+				type: "get",
+				data:{
+					tmpNum:projectNum,
+					menu:menu
+				},
+				success: function(data){
+					$("#div__list-result").empty();
+					$("#div__list-result").append(data);
+				}
+				
+			});
+			
+		}
+	
 	</script>
 	
 	<script type="text/javascript" src="/js/detail/select.js"></script>

@@ -4,7 +4,7 @@
 <div class="contents__div-header contents-header">
 	<div class="contents_category-name">
 		<span>${info.categoryVO.categoryName}</span>
-		<h2>${info.title}</h2>
+		<h2 title="${info.num}" id="h2__project-num">${info.title}</h2>
 	</div>
 </div>
 

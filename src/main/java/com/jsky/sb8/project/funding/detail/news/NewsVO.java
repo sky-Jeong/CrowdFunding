@@ -28,6 +28,8 @@ public class NewsVO {
 	private long newsNum;
 	@Column
 	private String charDivision;
+	@Column
+	private long tmpNum;
 	@ManyToOne
 	@JoinColumn(name = "projectNum")
 	private FundingVO fundingVO;

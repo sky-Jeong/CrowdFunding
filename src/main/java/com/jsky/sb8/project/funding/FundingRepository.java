@@ -1,11 +1,14 @@
 package com.jsky.sb8.project.funding;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.jsky.sb8.project.funding.detail.news.NewsVO;
 
 public interface FundingRepository extends JpaRepository<FundingVO, Long>{
 	
