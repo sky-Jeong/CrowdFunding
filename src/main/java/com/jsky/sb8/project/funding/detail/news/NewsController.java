@@ -11,17 +11,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsky.sb8.project.category.CategoryService;
+import com.jsky.sb8.project.category.CategoryVO;
+import com.jsky.sb8.project.funding.FundingService;
+import com.jsky.sb8.project.funding.FundingVO;
+
 @Controller
-@RequestMapping(value = "/detail/**")
+@RequestMapping(value = "/news/**")
 public class NewsController {
 	
 	@Autowired
 	private NewsService newsService;
+	@Autowired
+	private FundingService fundingService;
+	
+	/**
+	 * news detail
+	 */
+	@GetMapping("detail/{newsNum}")
+	public ModelAndView getNewsSelect(@PathVariable long newsNum) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		NewsVO newsVO = newsService.findById(newsNum).get();
+		FundingVO fundingVO = fundingService.findById(newsVO.getTmpNum()).get();
+		
+		mv.addObject("info", fundingVO);
+		mv.addObject("news", newsVO);
+		mv.setViewName("reward/detail/news-detail");
+		return mv;
+		
+	}
 	
 	/**
 	 * detail 페이지 news ajax 처리위함
 	 */
-	@GetMapping("news")
+	@GetMapping("list")
 	@ResponseBody
 	public ModelAndView getNewsList
 						(@RequestParam long tmpNum, String menu, String order) throws Exception{

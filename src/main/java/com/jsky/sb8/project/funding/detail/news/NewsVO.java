@@ -2,6 +2,7 @@ package com.jsky.sb8.project.funding.detail.news;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -41,9 +42,18 @@ public class NewsVO {
 	private Timestamp regDate;
 	
 	@Transient
+	private String writeDate;
+	@Transient
 	private String category;
 	@Transient
 	private long uploadDate;
+	
+	public String getWriteDate() {
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return df.format(this.regDate);
+		
+	}
 	
 	public String getCategory() {
 		

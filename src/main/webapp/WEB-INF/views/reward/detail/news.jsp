@@ -83,10 +83,11 @@
 			}
 			
 			#news-list td{
+				cursor: pointer;
 				border-top: none;
 				border-bottom: 1px solid #EAEAEA;
 			}
-
+			
 		</style>
 		
 	</head>
@@ -186,7 +187,7 @@
 		function getNewsList(menu, order){
 
 			$.ajax({
-				url: "/detail/news",
+				url: "/news/list",
 				type: "get",
 				data:{
 					tmpNum:projectNum,
@@ -194,11 +195,21 @@
 					order:order
 				},
 				success: function(data){
+					
 					$("#div__list-result").empty();
 					$("#div__list-result").append(data);
+
+					$(".td_news-detail").click(function(){
+						getNewsDetail($(this).attr("title"));
+					});
+					
 				}
 			});
 			
+		}
+
+		function getNewsDetail(title){
+			location.href = "/news/detail/"+title;
 		}
 	
 	</script>

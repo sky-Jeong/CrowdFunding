@@ -6,7 +6,7 @@
 	<c:forEach items="${newsVOs}" var="vo">
 		<tr>
 			<td>
-				<div>
+				<div class="td_news-detail" title="${vo.newsNum}">
 					<div id="news-category">${vo.category}</div>
 					<div>
 						<span id="news-title">${vo.title}</span>

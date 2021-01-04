@@ -1,6 +1,7 @@
 package com.jsky.sb8.project.funding.detail.news;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,10 @@ public class NewsService {
 
 	@Autowired
 	private NewsRepository newsRepository;
+	
+	public Optional<NewsVO> findById(long newsNum) throws Exception{
+		return newsRepository.findById(newsNum);
+	}
 	
 	public List<NewsVO> getNewsList(long num, String charDivision, String order) throws Exception{
 		
