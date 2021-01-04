@@ -11,8 +11,16 @@ public class NewsService {
 	@Autowired
 	private NewsRepository newsRepository;
 	
-	public List<NewsVO> getNewsList(long num, String charDivision) throws Exception{
-		return newsRepository.findByTmpNumAndCharDivisionContaining(num, charDivision);
+	public List<NewsVO> getNewsList(long num, String charDivision, String order) throws Exception{
+		
+		if(order.equals("P")) {
+			return newsRepository
+					.findByTmpNumAndCharDivisionContainingOrderByRegDate(num, charDivision);
+		} else {
+			return newsRepository
+					.findByTmpNumAndCharDivisionContainingOrderByRegDateDesc(num, charDivision);
+		}
+		
 	}
 	
 }

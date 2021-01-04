@@ -24,7 +24,7 @@ public class NewsController {
 	@GetMapping("news")
 	@ResponseBody
 	public ModelAndView getNewsList
-						(@RequestParam long tmpNum, String menu) throws Exception{
+						(@RequestParam long tmpNum, String menu, String order) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		System.out.println("access getNewsList : " + tmpNum + ", " + menu + " -------");
@@ -33,7 +33,7 @@ public class NewsController {
 			menu = "";
 		}
 		
-		List<NewsVO> newsVOs = newsService.getNewsList(tmpNum, menu);
+		List<NewsVO> newsVOs = newsService.getNewsList(tmpNum, menu, order);
 		
 		mv.addObject("newsVOs", newsVOs);
 		mv.setViewName("reward/detail/ajaxResult/detail-news");

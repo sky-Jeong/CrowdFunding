@@ -21,7 +21,7 @@ class NewsRepositoryTest {
 	
 	private void getNewsTest() throws Exception {
 		
-		List<NewsVO> newsVO = newsReposiotry.findByTmpNumAndCharDivisionContaining(4, "");
+		List<NewsVO> newsVO = newsReposiotry.findByTmpNumAndCharDivisionContainingOrderByRegDate(4, "");
 				
 		for(NewsVO vo : newsVO) {
 			System.out.println(vo.getTitle() + ", " + vo.getContents());

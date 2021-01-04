@@ -135,8 +135,8 @@
 									<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">정렬
 										<span class="caret"></span></button>
 									<ul class="dropdown-menu order-menu">
-										<li class="order-menu" value="C"><a>최신순</a></li>
-										<li class="order-menu" value="P"><a>과거순</a></li>
+										<li class="li_order-menu" value="C"><a>최신순</a></li>
+										<li class="li_order-menu" value="P"><a>과거순</a></li>
 									</ul>
 								</div>
 								
@@ -165,31 +165,38 @@
 	</body>
 	
 	<script type="text/javascript">
-	
+
+		var order = "";
+		var menu = "";
 		var projectNum = $("#h2__project-num").attr("title");
 
-		getNewsList("");
+		getNewsList(menu, order);
 		
 		$(".li_select-menu").click(function(){
 			menu = $(this).attr("value");
-			getNewsList(menu);
+			getNewsList(menu, order);
+		});
+		
+		$(".li_order-menu").click(function(){
+			order = $(this).attr("value");
+			getNewsList(menu, order);
 		});
 
 		// get news list method
-		function getNewsList(menu){
+		function getNewsList(menu, order){
 
 			$.ajax({
 				url: "/detail/news",
 				type: "get",
 				data:{
 					tmpNum:projectNum,
-					menu:menu
+					menu:menu,
+					order:order
 				},
 				success: function(data){
 					$("#div__list-result").empty();
 					$("#div__list-result").append(data);
 				}
-				
 			});
 			
 		}
