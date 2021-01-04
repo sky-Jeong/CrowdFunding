@@ -27,6 +27,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.category.CategoryVO;
 import com.jsky.sb8.project.faq.FaqVO;
+import com.jsky.sb8.project.funding.detail.community.CommunityVO;
 import com.jsky.sb8.project.funding.detail.news.NewsVO;
 import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.maker.MakerVO;
@@ -104,6 +105,9 @@ public class FundingVO {
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
 	private MakerVO makerVO;
+	
+	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CommunityVO> communities;
 	
 	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<NewsVO> newsVOs;
