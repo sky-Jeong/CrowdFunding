@@ -12,6 +12,10 @@ public class NewsService {
 	@Autowired
 	private NewsRepository newsRepository;
 	
+	public long getNewsCount(long tmpNum) throws Exception{
+		return newsRepository.getNewsCount(tmpNum);
+	}
+	
 	public Optional<NewsVO> findById(long newsNum) throws Exception{
 		return newsRepository.findById(newsNum);
 	}

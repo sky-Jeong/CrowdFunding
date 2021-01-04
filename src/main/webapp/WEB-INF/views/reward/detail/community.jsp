@@ -125,7 +125,7 @@
 					<div class="comu_header-wrapper">
 						<div style="margin-bottom: 0.5rem;">
 							<span class="comu_header">응원 • 의견 • 체험리뷰</span>
-							<span class="comu_header" id="coumu_reply-count">43</span>
+							<span class="comu_header" id="coumu_reply-count">${count}</span>
 						</div>
 						<p><span id="comu_sub-header">펀딩 종료 전에 남긴 글입니다.</span></p>
 					</div>

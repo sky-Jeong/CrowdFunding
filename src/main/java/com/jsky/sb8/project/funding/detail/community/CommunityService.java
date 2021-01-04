@@ -11,6 +11,10 @@ public class CommunityService {
 	@Autowired
 	private CommunityRepository communityRepository;
 	
+	public long getCommentCount(long tmpNum) throws Exception{
+		return communityRepository.getCommentCount(tmpNum);
+	}
+	
 	public List<CommunityVO> getReplyList(long writeNum, long step) throws Exception{
 		return communityRepository.findByRefAndStepOrderByRegDateDesc(writeNum, step);
 	}

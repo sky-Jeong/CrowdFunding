@@ -110,7 +110,7 @@
 						<div class="news-header-wrapper">
 						
 							<div class="news-header">
-								<span>새소식</span><span id="news__total-count"> 1</span>
+								<span>새소식</span><span id="news__total-count"> ${count}</span>
 							</div>
 							
 							<div class="news-header-select">

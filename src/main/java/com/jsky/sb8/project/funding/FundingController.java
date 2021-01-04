@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsky.sb8.project.funding.detail.community.CommunityService;
+import com.jsky.sb8.project.funding.detail.news.NewsService;
+
 
 @Controller
 @RequestMapping(value = "/funding/**")
@@ -20,6 +23,10 @@ public class FundingController {
 	
 	@Autowired
 	private FundingService fundingService;
+	@Autowired
+	private CommunityService communityService;
+	@Autowired
+	private NewsService newsService;
 	
 	/**
 	 * Funding main 페이지
@@ -50,7 +57,16 @@ public class FundingController {
 		
 		ModelAndView mv = new ModelAndView();
 		FundingVO fundingVO = fundingService.findById(num).get();
+
+		long count = 0;
 		
+		if(menu.equals("community")) {
+			count = communityService.getCommentCount(num);
+		} else if (menu.equals("news")){
+			count = newsService.getNewsCount(num);
+		}
+				
+		mv.addObject("count", count);
 		mv.addObject("info", fundingVO);
 		mv.setViewName("reward/detail/"+menu);
 		return mv;

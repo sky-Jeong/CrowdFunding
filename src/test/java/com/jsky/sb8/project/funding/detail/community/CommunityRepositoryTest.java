@@ -16,7 +16,14 @@ class CommunityRepositoryTest {
 	
 	@Test
 	void test() throws Exception {
-		this.getCommentList();
+		this.getCountTest();
+	}
+	
+	private void getCountTest() throws Exception{
+		
+		long result = communityRepository.getCommentCount(4);
+		System.out.println(result);
+		
 	}
 	
 	private void getCommentList() throws Exception {
