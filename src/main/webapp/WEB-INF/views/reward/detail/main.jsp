@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="/css/common.css">
 		<link rel="stylesheet" href="/css/reward/second-navbar.css">
 		<link rel="stylesheet" href="/css/detail/select.css">
+		<link rel="stylesheet" href="/css/detail/modal-css.css">
 		
 		<style type="text/css">
 			
@@ -220,14 +221,51 @@
 			</div>
 			
 		</main>
-	
+		
+		<c:import url="../../common/modal-login-YN.jsp"></c:import>
+		
 	</body>
+	
+	<script type="text/javascript" src="/js/detail/modal-event.js"></script>
+	<script type="text/javascript" src="/js/detail/select.js"></script>
+	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
 	
 	<script type="text/javascript">
 
-	</script>
+		var like = '${like}';
+		var projectNum = '${info.num}';
+		var login = '${login.memberName}';
+
+		likeChk(like);
+
+		$("#like_btn").click(function(){
+			
+			if(login == ''){
+				openLoginModal();
+			} else {
+				if(like == 'true'){
+					setLike(projectNum, -1);
+				} else {
+					setLike(projectNum, +1);
+				}
+			}
+			
+		});
+
+		function likeChk(like){
+			alert(like);
+			if(like == 'true'){
+				$("#heart-icon").css("color","#FF5A5A");
+			} else {
+				$("#heart-icon").css("color","#DCDCDC");
+			}
+			
+		}
+
+		function setLike(projectNum, plus){
+			location.href = "/like/save?projectNum="+projectNum+"&like="+plus;
+		}
 	
-	<script type="text/javascript" src="/js/detail/select.js"></script>
-	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
+	</script>
 	
 </html>

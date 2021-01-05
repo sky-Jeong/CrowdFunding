@@ -67,7 +67,7 @@
 					<div class="contents-header">
 						<span>
 							현재 이 프로젝트에<br>
-							<span id="surporter-count">${count}명</span>의 참여가 이루어졌습니다.
+							<span id="surporter-count">${supporterCount}명</span>의 참여가 이루어졌습니다.
 						</span>
 					</div>
 					

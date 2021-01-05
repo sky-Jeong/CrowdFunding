@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.funding.detail.community.CommunityVO;
+import com.jsky.sb8.project.funding.like.LikeProjectVO;
 import com.jsky.sb8.project.supporter.SupporterVO;
 
 import lombok.Data;
@@ -39,6 +40,9 @@ public class MemberVO {
 	private Timestamp regDate;
 	@Column
 	private String status;
+	
+	@OneToMany(mappedBy = "memberVO", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private List<LikeProjectVO> likeProjectVOs;
 	
 	@OneToMany(mappedBy = "memberVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<SupporterVO> supporterVOs;

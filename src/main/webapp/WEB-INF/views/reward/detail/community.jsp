@@ -188,10 +188,6 @@
 
 		getCommentList(projectNum);
 
-		$("#btn_login-yes").click(function(){
-			location.href = "/member/login";
-		});
-
 		$("#btn-write").click(function(){
 			
 			if(login == ''){

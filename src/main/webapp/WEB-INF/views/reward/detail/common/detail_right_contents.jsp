@@ -32,7 +32,7 @@
 	</div>
 	<div class="div__funding-data"><span class="span__funding-data">${info.achievePercent}</span> % 달성</div>
 	<div class="div__funding-data"><span class="span__funding-data">${info.achieveAmount}</span> 원 펀딩</div>
-	<div class="div__funding-data"><span class="span__funding-data">${info.supporter}</span> 명의 서포터</div>
+	<div class="div__funding-data"><span class="span__funding-data">${supporterCount}</span> 명의 서포터</div>
 	
 </div>
 
@@ -52,7 +52,7 @@
 	
 	<div class="sub-btn-wrapper">
 		<button class="btn btn-default right-btn add-btn" id="like_btn">
-			<i class="glyphicon glyphicon-heart icon"></i><span id="span_like">${info.peopleLike}</span>
+			<i class="glyphicon glyphicon-heart icon" id="heart-icon"></i><span id="span_like">${info.peopleLike}</span>
 		</button>
 		
 		<button class="btn btn-default right-btn add-btn" id="inquire_btn">

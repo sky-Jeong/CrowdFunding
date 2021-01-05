@@ -18,6 +18,13 @@ public class FundingService {
 	private FundingRepository fundingRepository;
 	
 	/**
+	 * 저장 및 업데이트
+	 */
+	public FundingVO save(FundingVO fundingVO) throws Exception{
+		return fundingRepository.save(fundingVO);
+	}
+	
+	/**
 	 * 선택한 프로젝트 내용보기
 	 */
 	public Optional<FundingVO> findById(long num) throws Exception{

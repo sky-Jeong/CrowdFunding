@@ -2,6 +2,8 @@ package com.jsky.sb8.project.funding;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsky.sb8.member.MemberVO;
 import com.jsky.sb8.project.funding.detail.community.CommunityService;
 import com.jsky.sb8.project.funding.detail.news.NewsService;
+import com.jsky.sb8.project.funding.like.LikeProjectService;
+import com.jsky.sb8.project.funding.like.LikeProjectVO;
 import com.jsky.sb8.project.supporter.SupporterService;
 
 
@@ -30,6 +35,38 @@ public class FundingController {
 	private NewsService newsService;
 	@Autowired
 	private SupporterService supporerService;
+	@Autowired
+	private LikeProjectService likeProjectService;
+	
+	private long projectNum = 0;
+	
+	private boolean getMember(MemberVO memberVO) {
+		
+		// 로그인한 멤버가 좋아요 누른 프로젝트 확인
+		if(memberVO != null) {
+			System.out.println("login member: " + memberVO.getEmail());
+			return this.chkLikeProject(memberVO, this.projectNum);			
+		}
+		
+		return false;
+		
+	}
+	
+	/**
+	 * 좋아요 누른 프로젝트 확인
+	 */
+	private boolean chkLikeProject(MemberVO memberVO, long num) {
+		
+		List<LikeProjectVO> list = memberVO.getLikeProjectVOs();
+		for (LikeProjectVO vo : list) {
+			System.out.println(vo.getFundingVO().getNum() + ", " + vo.getMemberVO().getMemberName());
+			if(vo.getFundingVO().getNum() == num) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
 	
 	/**
 	 * Funding main 페이지
@@ -55,22 +92,31 @@ public class FundingController {
 	 * 프로젝트 상세정보 메인
 	 */
 	@GetMapping("detail/{menu}/{num}")
-	public ModelAndView getCategorySelect(@PathVariable String menu, @PathVariable long num
-											) throws Exception {
+	public ModelAndView getCategorySelect(@PathVariable String menu, @PathVariable long num, HttpSession session) throws Exception {
+
+		long count = 0;
+		long supporterCount = 0;
+		
+		boolean likeProject = false;
+		
+		this.projectNum = num;
 		
 		ModelAndView mv = new ModelAndView();
 		FundingVO fundingVO = fundingService.findById(num).get();
 
-		long count = 0;
-		
 		if(menu.equals("community")) {
 			count = communityService.getCommentCount(num);
 		} else if (menu.equals("news")){
 			count = newsService.getNewsCount(num);
-		} else if (menu.equals("supporter")) {
-			count = supporerService.getSupporterCount(num);
 		}
-				
+		 
+		MemberVO memberVO = (MemberVO) session.getAttribute("login");
+		likeProject = this.getMember(memberVO);
+		
+		supporterCount = supporerService.getSupporterCount(num);
+		
+		mv.addObject("supporterCount", supporterCount);
+		mv.addObject("like", likeProject);
 		mv.addObject("count", count);
 		mv.addObject("info", fundingVO);
 		mv.setViewName("reward/detail/"+menu);
