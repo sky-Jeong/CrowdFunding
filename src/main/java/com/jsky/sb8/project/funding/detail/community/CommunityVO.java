@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.jsky.sb8.member.MemberVO;
 import com.jsky.sb8.project.funding.FundingVO;
 
 import lombok.Data;
@@ -25,21 +28,26 @@ public class CommunityVO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long writeNum;
+	private Long writeNum;
 	@Column
 	private String category;
 	@Column
 	private String contents;
-	@Column
+	@Column(updatable = false)
+	@CreationTimestamp
 	private Timestamp regDate;
 	@Column
-	private String writer;
+	private long writer;
 	@Column
 	private long ref;
 	@Column
 	private long step;
 	@Column
 	private long tmpNum;
+
+	@ManyToOne
+	@JoinColumn(name = "memberNum")
+	private MemberVO memberVO;
 	
 	@ManyToOne
 	@JoinColumn(name = "projectNum")

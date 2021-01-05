@@ -19,6 +19,6 @@ public interface CommunityRepository extends JpaRepository<CommunityVO, Long>{
 	(value = "select count(*) from Community where tmpNum = ?1", nativeQuery = true)
 	public long getCommentCount(long tmpNum) throws Exception;
 	
-	public List<CommunityVO> findByRefAndStepOrderByRegDateDesc(long ref, long step) throws Exception;
+	public List<CommunityVO> findByRefAndStepOrderByRegDate(long ref, long step) throws Exception;
 	
 }

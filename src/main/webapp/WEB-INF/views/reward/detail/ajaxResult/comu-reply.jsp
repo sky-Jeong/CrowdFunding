@@ -7,7 +7,7 @@
 	<div class="div_reply-wrapper">
 	
 		<div class="comment-header">
-			<span id="comment-writer">${cmt.fundingVO.makerVO.company}</span> <span id="comment-summary">${cmt.regTime}시간 전</span>
+			<span id="comment-writer">${cmt.memberVO.memberName}</span> <span id="comment-summary">${cmt.regTime}시간 전</span>
 		</div>
 		
 		<div id="comment-contents">
@@ -19,8 +19,11 @@
 </c:forEach>
 <!-- reply 달기 텍스트 -->
 <div class="div_reply-txt-area">
-	<form method="post" action="/comu/reply/enter">
+	<form method="post" action="/comu/reply/enter?ref=${writeNum}" id="reply-frm">
 		<div class="input-group">
+			<input type="hidden" name="tmpNum" value="" id="hidden_funding-num">
+			<input type="hidden" name="category" value="RP">
+			<input type="hidden" name="step" value="1">
 			<textarea class="form-control reply-txt reply-enter" placeholder="답글을 입력하세요" name="contents"></textarea>
 			<span class="input-group-addon reply-enter reply-btn">입력</span>
 		</div>

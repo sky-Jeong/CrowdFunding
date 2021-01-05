@@ -127,6 +127,10 @@
 				display: none;
 			}
 			
+			.reply-btn{
+				cursor: pointer;
+			}
+			
 		</style>
 		
 	</head>
@@ -211,6 +215,7 @@
 	
 	<script type="text/javascript">
 
+		var writeNum = 0;
 		var login = '${login.memberName}';
 	
 		var projectNum = location.href;
@@ -237,7 +242,8 @@
 					$(".div_comment-list").append(data);
 
 					$(".btn_comment-reply").click(function() {
-						replyShow($(this).attr("title"));
+						writeNum = $(this).attr("title");
+						replyShow(writeNum);
 					});
 					
 				}
@@ -285,14 +291,21 @@
 
 						if(login == ''){
 							$(".btn-lg").eq(0).click();
+							$(this).attr("disabled", true);
 						} else if (login != ''){
 							$(this).css("height","8.2rem");
+							$(this).attr("disabled", false);
 						}
 						
 					});
 					
 					$(".reply-txt").on( "focusout" ,function(){
 						$(this).css("height", "4.2rem");
+					});
+
+					$(".reply-btn").click(function(){
+						$("#hidden_funding-num").val(projectNum);
+						$("#reply-frm").submit();
 					});
 					
 				}
