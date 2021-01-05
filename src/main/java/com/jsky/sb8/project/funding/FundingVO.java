@@ -31,6 +31,7 @@ import com.jsky.sb8.project.funding.detail.community.CommunityVO;
 import com.jsky.sb8.project.funding.detail.news.NewsVO;
 import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.maker.MakerVO;
+import com.jsky.sb8.project.supporter.SupporterVO;
 
 import lombok.Data;
 
@@ -105,6 +106,9 @@ public class FundingVO {
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
 	private MakerVO makerVO;
+	
+	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<SupporterVO> supporterVOs;
 	
 	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommunityVO> communities;

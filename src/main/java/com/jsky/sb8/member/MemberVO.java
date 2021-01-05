@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.funding.detail.community.CommunityVO;
+import com.jsky.sb8.project.supporter.SupporterVO;
 
 import lombok.Data;
 
@@ -33,11 +34,14 @@ public class MemberVO {
 	private String email;
 	@Column
 	private String password;
-	@Column
+	@Column(updatable = false)
 	@CreationTimestamp
 	private Timestamp regDate;
 	@Column
 	private String status;
+	
+	@OneToMany(mappedBy = "memberVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<SupporterVO> supporterVOs;
 	
 	@OneToMany(mappedBy = "memberVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommunityVO> communities;

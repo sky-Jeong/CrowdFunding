@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jsky.sb8.project.funding.detail.community.CommunityService;
 import com.jsky.sb8.project.funding.detail.news.NewsService;
+import com.jsky.sb8.project.supporter.SupporterService;
 
 
 @Controller
@@ -27,6 +28,8 @@ public class FundingController {
 	private CommunityService communityService;
 	@Autowired
 	private NewsService newsService;
+	@Autowired
+	private SupporterService supporerService;
 	
 	/**
 	 * Funding main 페이지
@@ -64,6 +67,8 @@ public class FundingController {
 			count = communityService.getCommentCount(num);
 		} else if (menu.equals("news")){
 			count = newsService.getNewsCount(num);
+		} else if (menu.equals("supporter")) {
+			count = supporerService.getSupporterCount(num);
 		}
 				
 		mv.addObject("count", count);
