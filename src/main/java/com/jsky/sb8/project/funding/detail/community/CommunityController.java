@@ -27,6 +27,50 @@ public class CommunityController {
 	private CommunityService communityService;
 	
 	/**
+	 * comment write
+	 */
+	@PostMapping("comment")
+	public ModelAndView setComment(@RequestParam long projectNum, HttpSession session, 
+									CommunityVO communityVO,  HttpServletRequest request) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		FundingVO fundingVO = new FundingVO();
+		MemberVO memberVO = (MemberVO) session.getAttribute("login");
+		
+		fundingVO.setNum(projectNum);
+		
+		communityVO.setWriteNum(null);
+		communityVO.setTmpNum(projectNum);
+		communityVO.setFundingVO(fundingVO);
+		communityVO.setWriter(memberVO.getMemberNum());
+		communityVO.setMemberVO(memberVO);
+		
+		// insert 후 ref 본인 writeNum으로 업데이트
+		communityVO = communityService.save(communityVO);
+		
+		communityVO.setRef(communityVO.getWriteNum());
+		communityService.save(communityVO);
+		
+		String result = "답글 달기를 실패하였습니다.";
+		String path = request.getHeader("Referer");
+		path = "/"+path.substring(17);
+		
+		System.out.println("refer: " + path);
+		mv.setViewName(path);
+		
+		if(communityVO != null) {
+			result = "답글 달기를 성공하였습니다.";
+			mv.addObject("path", path);
+			mv.setViewName("common/signResult");
+		}
+		
+		mv.addObject("result", result);
+		return mv;
+		
+	}
+	
+	/**
 	 * reply write
 	 */
 	@PostMapping("reply/enter")
@@ -38,9 +82,6 @@ public class CommunityController {
 		FundingVO fundingVO = new FundingVO();
 		MemberVO memberVO = (MemberVO) session.getAttribute("login");
 
-		System.out.println("writeNum(=ref) : " + ref + ", session: " + memberVO.getMemberName() + 
-							"contents: " + communityVO.getContents());
-		
 		fundingVO.setNum(communityVO.getTmpNum());
 		
 		communityVO.setWriteNum(null);
@@ -49,7 +90,7 @@ public class CommunityController {
 		communityVO.setWriter(memberVO.getMemberNum());
 		communityVO.setMemberVO(memberVO);
 		
-		communityVO = communityService.setReply(communityVO);
+		communityVO = communityService.save(communityVO);
 		
 		String result = "답글 달기를 실패하였습니다.";
 		String path = request.getHeader("Referer");

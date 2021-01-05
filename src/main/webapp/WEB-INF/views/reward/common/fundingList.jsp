@@ -21,14 +21,6 @@
 						<option value="Y">진행중</option>
 						<option value="F">종료된</option>
 					</select>
-					<select name="order">
-						<option value="recommend">추천순</option>
-						<option value="popular">인기순</option>
-						<option value="amount">펀딩액순</option>
-						<option value="closing">마감임박순</option>
-						<option value="recent">최신순</option>
-						<option value="support">응원참여자순</option>
-					</select>
 				</div>
 			</div>
 			<!-- fin: sort area -->

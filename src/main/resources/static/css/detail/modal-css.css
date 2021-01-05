@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+#btn_login-no{
+	float: left;
+}
+
+#btn_login-yes{
+	color: white;
+	border: 1px solid #00b2b2;
+	background-color: #00b2b2;
+}
+
+#btn_modal{
+	display: none;
+}
+			
+@media (min-width: 768px) {
+    #commentModal .modal-dialog {
+        width: 700px;
+        margin: 30px auto;
+    }
+}
+
+#commentModal .modal-body {
+    position: relative;
+    padding: 25px 30px;
+}
+
+.modal-body-header{
+	color: #353535;
+	padding: 1rem 0px;
+	font-size: 1.4rem;
+}
+
+.div_comment-option{
+	margin: 2rem 0px 1.5rem;
+}
+
+.div_radio-option{
+	display: inline-block;
+	min-width: 48%;
+	margin-right: 0.5rem;
+	margin-bottom: 0.8rem;
+	padding: 0.8rem 1.8rem;
+	box-sizing: border-box;
+	border: 1px solid #EAEAEA;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.option_name{
+	padding-left: 1rem;
+	font-size: 1.6rem;
+	font-weight: 500;
+}
+
+.option_info{
+	color: #A6A6A6;
+	font-size: 1.2rem;
+}
+
+#comment-textarea{
+	width: 100%; height: 25rem;
+	resize: none;
+	outline: none;
+	border: 1px solid #BDBDBD;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+
+.warning-info{
+	color: #F15F5F;
+	background-color: #fef2f2;
+	padding: 2rem;
+	margin: 3rem 0px;
+	font-size: 1.25rem;
+	font-weight: 200;
+}

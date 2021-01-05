@@ -24,8 +24,8 @@
 			<input type="hidden" name="tmpNum" value="" id="hidden_funding-num">
 			<input type="hidden" name="category" value="RP">
 			<input type="hidden" name="step" value="1">
-			<textarea class="form-control reply-txt reply-enter" placeholder="답글을 입력하세요" name="contents"></textarea>
-			<span class="input-group-addon reply-enter reply-btn">입력</span>
+			<textarea class="form-control reply-txt reply-enter" id="reply-${writeNum}" placeholder="답글을 입력하세요" name="contents"></textarea>
+			<span class="input-group-addon reply-enter reply-btn" title="${writeNum}">입력</span>
 		</div>
 	</form>
 </div>

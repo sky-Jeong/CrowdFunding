@@ -11,7 +11,10 @@ public class CommunityService {
 	@Autowired
 	private CommunityRepository communityRepository;
 	
-	public CommunityVO setReply(CommunityVO communityVO) throws Exception{
+	/**
+	 * comment, reply write method
+	 */
+	public CommunityVO save(CommunityVO communityVO) throws Exception{
 		return communityRepository.save(communityVO);
 	}
 	

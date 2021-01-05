@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="/css/common.css">
 		<link rel="stylesheet" href="/css/reward/second-navbar.css">
 		<link rel="stylesheet" href="/css/detail/select.css">
+		<link rel="stylesheet" href="/css/detail/modal-css.css">
 		
 		<style type="text/css">
 			
@@ -101,10 +102,10 @@
 				width: 100%; height: 4.2rem;
 				resize: none;
 				border: 1px solid #D5D5D5;
+				padding: 0.5rem;
 			}
 			
 			.reply-txt::placeholder{
-				padding-left: 0.5rem;
 				font-size: 1.5rem;
 				font-weight: 200;
 			}
@@ -113,24 +114,11 @@
 				border-radius: 0px;
 			}
 			
-			#btn_login-no{
-				float: left;
-			}
-			
-			#btn_login-yes{
-				color: white;
-				border: 1px solid #00b2b2;
-				background-color: #00b2b2;
-			}
-			
-			#btn_modal{
-				display: none;
-			}
-			
 			.reply-btn{
 				cursor: pointer;
 			}
 			
+
 		</style>
 		
 	</head>
@@ -180,39 +168,15 @@
 			</div>
 		
 		</main>
-		
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="btn_modal"></button>
-		
-		<!-- Modal -->
-		<div id="myModal" class="modal fade" role="dialog">
-			
-			<div class="modal-dialog">
-			
-			    <!-- Modal content-->
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">로그인 필요</h4>
-					</div>
-					
-					<div class="modal-body">
-						<p>로그인이 필요합니다. 로그인하시겠습니까?</p>
-					</div>
-			      
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" id="btn_login-no" data-dismiss="modal">아니오</button>
-						<button type="button" class="btn btn-default" id="btn_login-yes" data-dismiss="modal">로그인하기</button>
-					</div>
-			    
-			    </div>
 
-			</div>
-
-		</div>
-	
+		<c:import url="../../common/modal-login-YN.jsp"></c:import>
+		
 	</body>
 	
+	<script type="text/javascript" src="/js/detail/modal-event.js"></script>
+	<script type="text/javascript" src="/js/detail/select.js"></script>
+	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
+		
 	<script type="text/javascript">
 
 		var writeNum = 0;
@@ -228,6 +192,43 @@
 			location.href = "/member/login";
 		});
 
+		$("#btn-write").click(function(){
+			
+			if(login == ''){
+				openLoginModal();
+			} else if(login != ''){
+				$(".btn-lg").eq(0).attr("data-target","#commentModal");
+				$(".btn-lg").eq(0).click();
+			}
+			
+		});
+
+		$(".div_radio-option").click(function(){
+
+			categoryCssInit();
+			
+			var index = $(this).index();
+			commentCataegoryChk(index);
+			
+		});
+		
+		$("#comment-textarea").on("focus", function(){
+			$("#comment-textarea").css("border","1px solid #00b2b2");
+		});
+
+		$("#btn_comment-wrtie").click(function(){
+			$("#comment-frm").submit();
+		});
+
+		function commentCataegoryChk(index){
+			$(".comment-category").eq(index).prop("checked", true);
+			$(".div_radio-option").eq(index).css("border","2px solid #6799FF");
+		}
+
+		function categoryCssInit(){
+			$(".div_radio-option").css("border","1px solid #EAEAEA");
+		}
+		
 		function getCommentList(projectNum){
 
 			$.ajax({
@@ -290,11 +291,11 @@
 					$(".reply-txt").on( "focus" ,function(){
 
 						if(login == ''){
-							$(".btn-lg").eq(0).click();
-							$(this).attr("disabled", true);
+							openLoginModal();
+							$(this).attr("readonly", true);
 						} else if (login != ''){
 							$(this).css("height","8.2rem");
-							$(this).attr("disabled", false);
+							$(this).attr("readonly", false);
 						}
 						
 					});
@@ -304,8 +305,19 @@
 					});
 
 					$(".reply-btn").click(function(){
-						$("#hidden_funding-num").val(projectNum);
-						$("#reply-frm").submit();
+
+						var index = $(this).attr("title");
+						index = "#reply-" + index;
+
+						var replyTxt = $(index).val().length;
+						
+						if(replyTxt <= 1){
+							alert("댓글을 두 글자 이상 입력해주세요.");
+						} else {
+							$("#hidden_funding-num").val(projectNum);
+							$("#reply-frm").submit();
+						}
+						
 					});
 					
 				}
@@ -314,8 +326,5 @@
 		}
 	
 	</script>
-	
-	<script type="text/javascript" src="/js/detail/select.js"></script>
-	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
-	
+
 </html>
