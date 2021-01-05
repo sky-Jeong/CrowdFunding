@@ -97,11 +97,11 @@
 				background-color: #F6F6F6;
 			}
 			
-			#reply-txt{
+			.reply-txt{
 				width: 100%; height: 4.2rem;
 			}
 			
-			#reply-txt::placeholder{
+			.reply-txt::placeholder{
 				padding-left: 1rem;
 				font-size: 1.5rem;
 				font-weight: 200;
@@ -224,6 +224,10 @@
 
 					$(replyClassName).empty();
 					$(replyClassName).append(data);
+
+					$(".reply-txt").on( "onmousedown" ,function(){
+						$(this).css("height","8.2rem");
+					});
 					
 				}
 			});

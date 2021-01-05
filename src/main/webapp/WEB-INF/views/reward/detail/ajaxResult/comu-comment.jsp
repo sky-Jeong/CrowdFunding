@@ -28,22 +28,4 @@
 		
 	</div>
 
-<%-- 	<!-- step: 1 경우 -->
-		<!-- reply ajax로 제어? 다 긁어오고 감췄다가 보여주기? -->
-		<div class="div_reply-area">
-		
-			<c:if test="${cmt.step == 1}">
-		
-				<!-- for문 돌려서 reply 표기 -->
-
-		
-			</c:if>
-			
-		</div>
-				
-		<!-- reply 달기 텍스트 -->
-		<div class="div_reply-area">
-			<input type="text" placeholder="답글을 입력하세요" id="reply-txt">
-		</div> --%>
-
 </c:forEach>

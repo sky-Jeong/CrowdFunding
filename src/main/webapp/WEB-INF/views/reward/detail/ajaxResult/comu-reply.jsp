@@ -19,5 +19,5 @@
 </c:forEach>
 <!-- reply 달기 텍스트 -->
 <div class="div_reply-txt-area">
-	<input type="text" placeholder="답글을 입력하세요" id="reply-txt">
+	<input type="text" placeholder="답글을 입력하세요" class="reply-txt">
 </div>
