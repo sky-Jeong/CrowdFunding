@@ -19,5 +19,10 @@
 </c:forEach>
 <!-- reply 달기 텍스트 -->
 <div class="div_reply-txt-area">
-	<input type="text" placeholder="답글을 입력하세요" class="reply-txt">
+	<form method="post" action="/comu/reply/enter">
+		<div class="input-group">
+			<textarea class="form-control reply-txt reply-enter" placeholder="답글을 입력하세요" name="contents"></textarea>
+			<span class="input-group-addon reply-enter reply-btn">입력</span>
+		</div>
+	</form>
 </div>
