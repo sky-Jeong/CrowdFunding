@@ -9,8 +9,12 @@ public class LikeProjectService {
 	@Autowired
 	private LikeProjectRepository likeProjectRepository;
 	
-	public void setDeleteLike(long memberNum) throws Exception{
-		likeProjectRepository.setDeleteLike(memberNum);
+	public LikeProjectVO getLikeProject(long projectNum, long memberNum) throws Exception{
+		return likeProjectRepository.getLikeProject(projectNum, memberNum);
+	}
+	
+	public void setDeleteLike(long projectNum,long memberNum) throws Exception{
+		likeProjectRepository.setDeleteLike(projectNum,memberNum);
 	}
 	
 	public LikeProjectVO save(LikeProjectVO likeProjectVO) throws Exception{

@@ -1,5 +1,6 @@
 package com.jsky.sb8.project.funding.like;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,10 @@ public class LikeProjectController {
 	private LikeProjectService likeProjectService;
 	
 	@GetMapping("save")
-	public ModelAndView likeSave(@RequestParam long projectNum, @RequestParam int like, HttpSession session) throws Exception{
+	@ResponseBody
+	public String likeSave(@RequestParam long projectNum, @RequestParam int like, 
+								HttpSession session, HttpServletRequest request) throws Exception{
 		
-		ModelAndView mv = new ModelAndView();
 		FundingVO fundingVO = new FundingVO();
 		LikeProjectVO likeProjectVO = new LikeProjectVO();
 		
@@ -44,7 +46,7 @@ public class LikeProjectController {
 			
 		} else {
 			
-			likeProjectService.setDeleteLike(memberVO.getMemberNum());
+			likeProjectService.setDeleteLike(projectNum ,memberVO.getMemberNum());
 			likeProjectVO = null;
 			
 		}
@@ -56,10 +58,12 @@ public class LikeProjectController {
 		
 		fundingService.save(fundingVO);
 		
-		mv.addObject("result", result);
-		mv.addObject("path","/funding/detail/main/"+fundingVO.getNum());
-		mv.setViewName("common/signResult");
-		return mv;
+		String tmp = request.getHeader("Referer");
+		String referUrl = tmp.substring(17);
+	
+		System.out.println("refer: " + referUrl);
+
+		return result;
 		
 	}
 	

@@ -1,6 +1,7 @@
 package com.jsky.sb8.project.funding.like;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class LikeProjectVO {
 	private long likeNum;
 	@Column
 	@CreationTimestamp
-	private Date regDate;
+	private Timestamp regDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "projectNum")

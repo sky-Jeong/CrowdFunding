@@ -132,7 +132,18 @@
 		
 	</script>
 	
+	<script type="text/javascript" src="/js/detail/project-like.js"></script>
 	<script type="text/javascript" src="/js/detail/select.js"></script>
 	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
+	
+	<script type="text/javascript">
+
+		var like = '${like}';
+		var projectNum = '${info.num}';
+		var login = '${login.memberName}';
+	
+		likeChk(like);
+
+	</script>
 	
 </html>

@@ -229,43 +229,16 @@
 	<script type="text/javascript" src="/js/detail/modal-event.js"></script>
 	<script type="text/javascript" src="/js/detail/select.js"></script>
 	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
+	<script type="text/javascript" src="/js/detail/project-like.js"></script>
 	
 	<script type="text/javascript">
-
+	
 		var like = '${like}';
 		var projectNum = '${info.num}';
 		var login = '${login.memberName}';
 
 		likeChk(like);
-
-		$("#like_btn").click(function(){
-			
-			if(login == ''){
-				openLoginModal();
-			} else {
-				if(like == 'true'){
-					setLike(projectNum, -1);
-				} else {
-					setLike(projectNum, +1);
-				}
-			}
-			
-		});
-
-		function likeChk(like){
-			alert(like);
-			if(like == 'true'){
-				$("#heart-icon").css("color","#FF5A5A");
-			} else {
-				$("#heart-icon").css("color","#DCDCDC");
-			}
-			
-		}
-
-		function setLike(projectNum, plus){
-			location.href = "/like/save?projectNum="+projectNum+"&like="+plus;
-		}
-	
+		
 	</script>
 	
 </html>

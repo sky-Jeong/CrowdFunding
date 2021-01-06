@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsky.sb8.member.MemberService;
 import com.jsky.sb8.member.MemberVO;
 import com.jsky.sb8.project.funding.detail.community.CommunityService;
 import com.jsky.sb8.project.funding.detail.news.NewsService;
@@ -37,37 +38,7 @@ public class FundingController {
 	private SupporterService supporerService;
 	@Autowired
 	private LikeProjectService likeProjectService;
-	
-	private long projectNum = 0;
-	
-	private boolean getMember(MemberVO memberVO) {
-		
-		// 로그인한 멤버가 좋아요 누른 프로젝트 확인
-		if(memberVO != null) {
-			System.out.println("login member: " + memberVO.getEmail());
-			return this.chkLikeProject(memberVO, this.projectNum);			
-		}
-		
-		return false;
-		
-	}
-	
-	/**
-	 * 좋아요 누른 프로젝트 확인
-	 */
-	private boolean chkLikeProject(MemberVO memberVO, long num) {
-		
-		List<LikeProjectVO> list = memberVO.getLikeProjectVOs();
-		for (LikeProjectVO vo : list) {
-			System.out.println(vo.getFundingVO().getNum() + ", " + vo.getMemberVO().getMemberName());
-			if(vo.getFundingVO().getNum() == num) {
-				return true;
-			}
-		}
-		return false;
-		
-	}
-	
+
 	/**
 	 * Funding main 페이지
 	 */
@@ -93,15 +64,14 @@ public class FundingController {
 	 */
 	@GetMapping("detail/{menu}/{num}")
 	public ModelAndView getCategorySelect(@PathVariable String menu, @PathVariable long num, HttpSession session) throws Exception {
-
+		
 		long count = 0;
 		long supporterCount = 0;
-		
-		boolean likeProject = false;
-		
-		this.projectNum = num;
+		boolean likePageChk = false;
 		
 		ModelAndView mv = new ModelAndView();
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		FundingVO fundingVO = fundingService.findById(num).get();
 
 		if(menu.equals("community")) {
@@ -109,18 +79,40 @@ public class FundingController {
 		} else if (menu.equals("news")){
 			count = newsService.getNewsCount(num);
 		}
-		 
-		MemberVO memberVO = (MemberVO) session.getAttribute("login");
-		likeProject = this.getMember(memberVO);
 		
+		likePageChk = this.chkLikeProject(num, memberVO);
 		supporterCount = supporerService.getSupporterCount(num);
 		
-		mv.addObject("supporterCount", supporterCount);
-		mv.addObject("like", likeProject);
-		mv.addObject("count", count);
 		mv.addObject("info", fundingVO);
+		mv.addObject("like", likePageChk);
+		
+		mv.addObject("count", count);
+		mv.addObject("supporterCount", supporterCount);
+		
 		mv.setViewName("reward/detail/"+menu);
 		return mv;
+		
+	}
+	
+	/**
+	 * 좋아요 누른 프로젝트 확인
+	 */
+	private boolean chkLikeProject(long projectNum, MemberVO memberVO) throws Exception{
+		
+		boolean result = false;
+		LikeProjectVO likeProjectVO = new LikeProjectVO();
+		
+		if(memberVO != null) {
+
+			likeProjectVO = likeProjectService.getLikeProject(projectNum, memberVO.getMemberNum());
+			
+			if(likeProjectVO != null) {
+				result = true;
+			}
+			
+		}
+		
+		return result;
 		
 	}
 	
