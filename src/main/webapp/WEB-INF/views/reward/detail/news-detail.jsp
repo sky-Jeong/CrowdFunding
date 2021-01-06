@@ -105,30 +105,6 @@
 	
 	<script type="text/javascript">
 
-		var projectNum = '${info.num}';
-	
-		$("#btn_move-new-list").click(function(){
-			location.href = "/funding/detail/news/"+projectNum;
-		});
-
-		$("#btn_share-link").click(function(){
-			copyURL();
-		});
-		
-		function copyURL(){
-			
-			var tmp = document.createElement("textarea");
-			document.body.appendChild(tmp);
-
-			tmp.value = location.href;
-			tmp.select();
-			
-			document.execCommand("copy");
-			document.body.removeChild(tmp);
-			
-			alert("URL이 복사되었습니다.");
-			
-		}
 		
 	</script>
 	
@@ -143,7 +119,15 @@
 		var login = '${login.memberName}';
 	
 		likeChk(like);
+		
+		$("#btn_move-new-list").click(function(){
+			location.href = "/funding/detail/news/"+projectNum;
+		});
 
+		$("#btn_share-link").click(function(){
+			copyURL(location.href);
+		});
+		
 	</script>
 	
 </html>

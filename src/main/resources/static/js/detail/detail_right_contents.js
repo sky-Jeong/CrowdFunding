@@ -31,3 +31,22 @@ $(".reward-info").on("mouseover", function(){
 $(".reward-info").on("mouseleave", function(){
 	$(this).css("border","1px solid #E0E0E0");
 });		
+
+$("#share_btn").click(function(){
+	copyURL("http://localhost/funding/detail/main/"+projectNum);
+});
+
+function copyURL(url){
+	
+	var tmp = document.createElement("textarea");
+	document.body.appendChild(tmp);
+
+	tmp.value = url;
+	tmp.select();
+	
+	document.execCommand("copy");
+	document.body.removeChild(tmp);
+	
+	alert("URL이 복사되었습니다.");
+	
+}
