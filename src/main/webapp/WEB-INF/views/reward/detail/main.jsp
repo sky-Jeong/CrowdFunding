@@ -238,6 +238,18 @@
 		var login = '${login.memberName}';
 
 		likeChk(like);
+
+		$("#funding_btn").click(function(){
+			funding();
+		});
+
+		function funding(){
+
+			if (login == ''){
+				openLoginModal();
+			}
+			
+		}
 		
 	</script>
 	
