@@ -143,6 +143,10 @@
 				color: #00c4c0;
 				margin-left: 1rem;
 			}
+			
+			.checked-area{
+				display: none;
+			}
 	
 		</style>
 		
@@ -179,7 +183,7 @@
 							<ul class="ul_reward-list">
 							
 								<!--  반복문 돌릴 부분 -->
-								<li class="div_reward">
+								<li class="div_reward" title="리워드번호">
 								
 									<!-- 
 										해당 박스 클릭시 서버로 넘기는 값
@@ -193,6 +197,7 @@
 											</label>
 										</dt>
 										<dd>
+											<input type="hidden" id="remains-리워드번호" value="3">
 											<label for="chk_reward-리워드번호" style="width: 91.8%;">
 												<p class="amount">142,000원 펀딩합니다.</p>
 												<p class="contents">
@@ -208,15 +213,16 @@
 											</label>
 											
 											<!-- 클릭시 수량 체크를 보이기 위함 -->
-											<div class="checked-area" style="width: 100%;">
+											<div class="checked-area checked-area-리워드번호" style="width: 100%;">
+											
 												<div class="quantity">
 													<p class="reward-contents">수량</p>
 													<p class="input-area">
-														<button type="button" class="qty_btn qty_minus-btn">
+														<button type="button" class="qty_btn qty_minus-btn" onclick="quantity('minus', 123)">
 															<i class="glyphicon glyphicon-menu-left qty-btn-icon"></i>
 														</button>
-														<input type="text" name="orderQuantity" class="order-qty-리워드번호" value=1>
-														<button type="button" class="qty_btn qty_plus-btn">
+														<input type="text" name="orderQuantity" title="3" class="order-qty-txt order-qty-리워드번호" value="1">
+														<button type="button" class="qty_btn qty_plus-btn" onclick="quantity('plus', 123)">
 															<i class="glyphicon glyphicon-menu-right qty-btn-icon"></i>
 														</button>
 													</p>
@@ -231,6 +237,7 @@
 												
 											</div>
 											<!-- fin: 수량 및 옵션 체크 범위 -->
+											
 										</dd>
 									</dl>
 								
@@ -256,6 +263,72 @@
 	<script type="text/javascript" src="/js/purchase/step-chk.js"></script>
 	<script type="text/javascript">
 
+		$(".div_reward").click(function(){
+
+			var rewardNum = $(this).attr("title");
+			var check = $("#chk_reward-" + rewardNum).prop("checked");
+
+			if (check == true){
+				
+				$(this).css("background-color","#E7F9F9");
+				$(".checked-area-"+rewardNum).css("display","block");
+				
+			} else {
+
+				$(this).css("background-color","#F6F6F6");
+				$(".checked-area-"+rewardNum).css("display","none");
+				
+			}
+			
+		});
+
+	
+		$(".order-qty-txt").on("change", function(){
+			
+			var qty = parseInt($(this).val());
+			var remain = parseInt($(this).attr("title"));
+			
+			qty = quantityChk(qty, remain);
+			$(this).val(qty);
+			
+		});
+
+		function quantity(cal, rewardNum){
+			
+			var remain = parseInt($("#remains-리워드번호").val()); 
+			var qty = parseInt($(".order-qty-리워드번호").val());
+
+			if(cal == 'plus'){
+
+				qty = qty + 1;
+				qty = quantityChk(qty, remain);
+
+			} else if(cal == 'minus'){
+
+				qty = qty - 1;
+				qty = quantityChk(qty, remain);
+
+			}
+
+			$(".order-qty-리워드번호").val(qty);
+
+		}
+
+		function quantityChk(qty, remain){
+
+			remain = parseInt(remain);
+
+			if( qty > remain ){
+				alert("남은 수량보다 많이 주문하는 것은 불가능합니다.");
+				qty = remain;
+			} else if (qty < 1){
+				qty = 1;
+				alert("한 개 이상만 주문이 가능합니다.");
+			}
+			
+			return qty;
+			
+		}
 
 	</script>
 	
