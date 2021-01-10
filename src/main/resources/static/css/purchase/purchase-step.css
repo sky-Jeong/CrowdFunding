@@ -42,12 +42,11 @@
 
 /* contents area */
 .container{
-	border: 1px solid silver;
-	padding: 2rem 12rem;
+	padding: 3.8rem 14rem 3rem;
 }
 
 .div_purchase-step{
-	margin-bottom: 2.5rem;
+	margin-bottom: 3rem;
 }
 		
 .ol_step{

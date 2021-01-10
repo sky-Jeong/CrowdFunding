@@ -8,8 +8,8 @@
 	</div>
 	
 	<div class="div_title">
-		<span class="span_title">[2만원대] 가성비 끝판왕 남여 공용 크로스백</span>
-		<span class="span_projector">정하늘</span>
+		<span class="span_title">${voList.title}</span>
+		<span class="span_projector">${voList.makerVO.company}</span>
 	</div>
 	
 </div>

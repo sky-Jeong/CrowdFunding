@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.jsky.sb8.project.funding.detail.community.CommunityVO;
 import com.jsky.sb8.project.funding.like.LikeProjectVO;
 import com.jsky.sb8.project.supporter.SupporterVO;
+import com.jsky.sb8.purchase.PurchaseVO;
 
 import lombok.Data;
 
@@ -49,5 +50,8 @@ public class MemberVO {
 	
 	@OneToMany(mappedBy = "memberVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<CommunityVO> communities;
+	
+	@OneToMany(mappedBy = "memberVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private  List<PurchaseVO> purchaseVOs;
 	
 }
