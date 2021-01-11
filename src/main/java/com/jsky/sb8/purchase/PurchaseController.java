@@ -1,9 +1,14 @@
 package com.jsky.sb8.purchase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.jsky.sb8.member.MemberVO;
 import com.jsky.sb8.project.funding.FundingService;
 import com.jsky.sb8.project.funding.FundingVO;
 import com.jsky.sb8.project.funding.reward.RewardService;
@@ -38,13 +48,54 @@ public class PurchaseController {
 	 * 	- update DB
 	 * 		- fundingReward : quantity
 	 */
-	@PostMapping("order")
-	public ModelAndView setPurchase(long[] productNum, PurchaseVO purchaseVO,
-									SupporterVO supporterVO) throws Exception{
-		
+	@PostMapping("order/{projectNum}")
+	@ResponseBody
+	public ModelAndView setPurchaseData(HttpSession session, @RequestBody List<Map<String, Object>> parameters,
+										@PathVariable long projectNum) throws Exception{
+	
+		System.out.println("요 며칠 진짜 스트레스 개오지네 개같은거");
 		ModelAndView mv = new ModelAndView();
-
 		
+		String nameYN = "";
+		String amountYN = "";
+		
+		ArrayList<PurchaseVO> purchaseVOs = new ArrayList<>();
+		MemberVO login = (MemberVO) session.getAttribute("login");
+		
+		FundingVO fundingVO = fundingService.findById(projectNum).get();
+		
+		for (Map<String, Object> map : parameters) {
+		
+			System.out.println("데이터: " + map.toString());
+			
+			nameYN = map.get("nameYN").toString();
+			amountYN = map.get("amountYN").toString();
+			
+			PurchaseVO purchaseVO = new PurchaseVO();			
+			RewardVO rewardVO = rewardService.findById(Long.parseLong((String) map.get("productNum"))).get();
+
+			if(map.get("option") == null) {
+				purchaseVO.setOption("");
+			} else {
+				purchaseVO.setOption(map.get("option").toString());
+			}
+			
+			purchaseVO.setOrderQuantity( Long.parseLong(map.get("orderQuantity").toString()) );			
+			
+			purchaseVO.setMemberVO(login);
+			purchaseVO.setRewardVO(rewardVO);
+			
+			purchaseVOs.add(purchaseVO);
+
+		}
+
+		mv.addObject("nameYN", nameYN);
+		mv.addObject("amountYN", amountYN);
+		
+		mv.addObject("voList", fundingVO);
+		mv.addObject("orderList", purchaseVOs);
+		
+		mv.setViewName("purchase/reward-step2");
 		return mv;
 		
 	}
@@ -52,7 +103,7 @@ public class PurchaseController {
 	/**
 	 * purchase 페이지 이동
 	 */
-	@GetMapping("reward/{step}/{projectNum}")
+	@RequestMapping(value = "reward/{step}/{projectNum}", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView getPurchasePage(@PathVariable long projectNum, @PathVariable String step,
 										Long productNum) throws Exception {
 		
@@ -62,20 +113,6 @@ public class PurchaseController {
 
 		mv.addObject("productNum", productNum);
 		mv.setViewName("purchase/reward-" + step);
-		return mv;
-		
-	}
-	
-	@PostMapping("reward/step2")
-	public ModelAndView getPurchasePageStep2(PurchaseVO purchaseVO, SupporterVO supporterVO) throws Exception{
-		
-		ModelAndView mv = new ModelAndView();
-		System.out.println(purchaseVO);
-		System.out.println(purchaseVO.getOrderQuantity());
-		
-
-		
-		mv.setViewName("purchase/reward-step2");
 		return mv;
 		
 	}
@@ -91,26 +128,26 @@ public class PurchaseController {
 		
 	}
 	
-	private ModelAndView getPurchasePageStep2(ArrayList<PurchaseVO> purchaseVO) throws Exception{
-		
-		ModelAndView mv = new ModelAndView();
-		
-		ArrayList<Long> nums = new ArrayList<>();
-
-		
-		Iterable<Long> ids = nums;
-		List<RewardVO> rewardVOs = rewardService.findAllById(ids);
-		
-		for(RewardVO vo : rewardVOs) {
-			
-		}
-		
-		FundingVO fundingVO = fundingService.findById(4).get();
-		
-		mv.addObject("voList", fundingVO);
-		mv.addObject("list", rewardVOs);
-		return mv;
-		
-	}
+//	private ModelAndView getPurchasePageStep2(ArrayList<PurchaseVO> purchaseVO) throws Exception{
+//		
+//		ModelAndView mv = new ModelAndView();
+//		
+//		ArrayList<Long> nums = new ArrayList<>();
+//
+//		
+//		Iterable<Long> ids = nums;
+//		List<RewardVO> rewardVOs = rewardService.findAllById(ids);
+//		
+//		for(RewardVO vo : rewardVOs) {
+//			
+//		}
+//		
+//		FundingVO fundingVO = fundingService.findById(4).get();
+//		
+//		mv.addObject("voList", fundingVO);
+//		mv.addObject("list", rewardVOs);
+//		return mv;
+//		
+//	}
 	
 }

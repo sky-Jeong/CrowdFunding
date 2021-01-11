@@ -33,8 +33,6 @@ public class PurchaseVO {
 	
 	@Transient
 	private long tmpRewardNum;
-	@Transient
-	private List<PurchaseVO> puchaseVOs;
 	
 	@ManyToOne
 	@JoinColumn(name = "orderNum")

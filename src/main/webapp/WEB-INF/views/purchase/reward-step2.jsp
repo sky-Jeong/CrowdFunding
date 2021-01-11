@@ -75,13 +75,13 @@
 					
 						<table class="order_list-table">
 							
-							<c:forEach items="${list}" var="vo">
+							<c:forEach items="${orderList}" var="vo">
 								<tr class="order_list">
 									<td>
-										<span class="order-reward title">${vo.title}</span>
-										<span class="order-reward product">${vo.product}</span>
+										<span class="order-reward title">${vo.rewardVO.title}</span>
+										<span class="order-reward product">${vo.rewardVO.product}</span>
 										<span class="order-reward span_qty-amont">
-											수량: 
+											수량: ${vo.orderQuantity}
 										</span>
 									</td>
 								</tr>

@@ -237,7 +237,7 @@
 				<c:import url="./common/purchase-step.jsp"></c:import>
 				
 				<!-- 주문 넣기 폼 -->
-				<form action="/purchase/reward/step2" method="post">
+				<form method="post" name="orderFrm">
 									
 					<div class="div_contents-wrapepr">
 					
@@ -260,7 +260,7 @@
 										<dl class="dl_reward-box" title="${vo.productNum}">
 											<dt>
 												<label>
-													<input type="checkbox" class="reward-chk" id="chk_reward-${vo.productNum}" name="tmpRewardNum" value="${vo.productNum}">
+													<input type="checkbox" class="reward-chk" id="chk_reward-${vo.productNum}" name="productNum" value="${vo.productNum}">
 												</label>
 											</dt>
 											<dd>
@@ -300,7 +300,7 @@
 														<div class="option">
 															<p class="reward-contents">옵션<span class="span_option">예시) 주황, 노랑</span></p>
 															<p class="input-area">
-																<input type="text" name="option" class="order-opt order-opt-${vo.productNum}">
+																<input type="text" name="option" class="order-opt order-opt-${vo.productNum}" value="">
 															</p>
 														</div>
 													</c:if>
@@ -356,7 +356,7 @@
 							${voList.title}에 <span id="order-total">159,000</span> 원을 펀딩합니다.
 						</div>
 						<div class="order-btn-wrapper">
-							<button id="next-step-btn">다음 단계로 <i class="glyphicon glyphicon-menu-right"></i></button>
+							<button id="next-step-btn" type="button" onclick="goToStep2()">다음 단계로 <i class="glyphicon glyphicon-menu-right"></i></button>
 						</div>
 					</div>
 					<!-- fin: order footer -->
@@ -375,6 +375,51 @@
 	<script type="text/javascript">
 
 		priceCal();
+
+		function getCheckData(){
+
+			var chkArray = new Array();
+			
+			$('input:checkbox[name=productNum]:checked').each(function(){
+
+				var data = new Object();
+				var productNum = this.value;
+
+				data.productNum = productNum;
+				data.orderQuantity = $(".order-qty-" + productNum).val();
+				data.option = $(".order-opt-" + productNum).val();
+				
+				data.nameYN = $("#name-open-chk").prop("checked");
+				data.amountYN = $("#amount-open-chk").prop("checked");
+
+				chkArray.push(data);
+				
+			});
+
+			var jsonData = JSON.stringify(chkArray);
+			return jsonData;
+			
+		}
+
+		function goToStep2(){
+
+			var num = '${voList.num}';
+			var jsonData = getCheckData();
+			alert(jsonData);
+						
+			$.ajax({
+				url:"/purchase/order/"+num,
+				type: "post",
+				contentType: "application/json; charset=UTF-8",
+				dataType:'json',
+				data: jsonData,
+				async: false,
+				success: function(data){
+					alert('success');
+				}
+			});
+			
+		}
 	
 		/* 주문 토탈금액 계산 */
 		function priceCal(){
