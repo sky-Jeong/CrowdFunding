@@ -34,6 +34,7 @@ public class MemberController {
 	
 	/**
 	 * 로그인 페이지 이동
+	 * 	- 로그인 실패 후 다시 돌아오는걸 조건문으로 막기
 	 */
 	@GetMapping("login")
 	public ModelAndView getLoginPage(HttpServletRequest request) {

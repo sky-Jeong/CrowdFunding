@@ -1,5 +1,6 @@
 package com.jsky.sb8.purchase;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,106 +49,115 @@ public class PurchaseController {
 	 * 	- update DB
 	 * 		- fundingReward : quantity
 	 */
-	@PostMapping("order/{projectNum}")
-	@ResponseBody
-	public ModelAndView setPurchaseData(HttpSession session, @RequestBody List<Map<String, Object>> parameters,
-										@PathVariable long projectNum) throws Exception{
-	
-		System.out.println("요 며칠 진짜 스트레스 개오지네 개같은거");
-		ModelAndView mv = new ModelAndView();
-		
-		String nameYN = "";
-		String amountYN = "";
-		
-		ArrayList<PurchaseVO> purchaseVOs = new ArrayList<>();
-		MemberVO login = (MemberVO) session.getAttribute("login");
-		
-		FundingVO fundingVO = fundingService.findById(projectNum).get();
-		
-		for (Map<String, Object> map : parameters) {
-		
-			System.out.println("데이터: " + map.toString());
-			
-			nameYN = map.get("nameYN").toString();
-			amountYN = map.get("amountYN").toString();
-			
-			PurchaseVO purchaseVO = new PurchaseVO();			
-			RewardVO rewardVO = rewardService.findById(Long.parseLong((String) map.get("productNum"))).get();
 
-			if(map.get("option") == null) {
-				purchaseVO.setOption("");
-			} else {
-				purchaseVO.setOption(map.get("option").toString());
-			}
-			
-			purchaseVO.setOrderQuantity( Long.parseLong(map.get("orderQuantity").toString()) );			
-			
-			purchaseVO.setMemberVO(login);
-			purchaseVO.setRewardVO(rewardVO);
-			
-			purchaseVOs.add(purchaseVO);
-
-		}
-
-		mv.addObject("nameYN", nameYN);
-		mv.addObject("amountYN", amountYN);
-		
-		mv.addObject("voList", fundingVO);
-		mv.addObject("orderList", purchaseVOs);
-		
-		mv.setViewName("purchase/reward-step2");
-		return mv;
-		
-	}
-	
 	/**
 	 * purchase 페이지 이동
+	 * 	- step 2로 이동시 post 요청도 받기 위함
 	 */
-	@RequestMapping(value = "reward/{step}/{projectNum}", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "reward/{step}/{projectNum}",
+					method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView getPurchasePage(@PathVariable long projectNum, @PathVariable String step,
-										Long productNum) throws Exception {
+										Long productNum,
+										Long[] rewardNum, Long[] orderQuantity, SupporterVO supporterVO) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
+		FundingVO fundingVO = this.getFundingProject(projectNum);
 
-		mv = this.getPurchasePageStep1(projectNum);
-
-		mv.addObject("productNum", productNum);
+		// step 1 페이지 이동
+		if(step.equals("step1")) {
+			
+			/*
+			 *  2021.01.12 
+			 *  	[Update] detail 페이지에서 productNumm을 선택하고 이동할시 프론트에 표기하기 위함
+			 */
+			mv.addObject("productNum", productNum);
+		
+		} else if (step.equals("step2")) {
+			mv = this.getPurchasePageStep2(rewardNum, orderQuantity, supporterVO);
+		}
+		
+		mv.addObject("voList", fundingVO);
 		mv.setViewName("purchase/reward-" + step);
 		return mv;
 		
 	}
 	
+	/**
+	 * purchase Project 데이터 받아오기
+	 */
+	private FundingVO getFundingProject(long projectNum) throws Exception{
+		FundingVO fundingVO = fundingService.findById(projectNum).get();
+		return fundingVO;
+	}
+	
+	/**
+	 * purchase step 2 Return Response data
+	 */
+	private ModelAndView getPurchasePageStep2(Long[] rewardNum, Long[] orderQuantity, SupporterVO supporterVO) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		long totalAmount = 0;
+		int totalShippingFee = 0;
+		
+		int forLastNum = rewardNum.length;
+		List<PurchaseVO> purchaseVOs = new ArrayList<PurchaseVO>();
+		
+		// vo에 값 할당하기 위함
+		for(int index = 0; index < forLastNum; index++) {
+			
+			long quantity = orderQuantity[index];
+			
+			PurchaseVO purchaseVO = new PurchaseVO();			
+			RewardVO rewardVO = rewardService.findById(rewardNum[index]).get();
+			
+			totalAmount = totalAmount + ( quantity * rewardVO.getAmount() );
+			totalShippingFee = totalShippingFee + rewardVO.getShippingFee();
+
+			purchaseVO.setRewardVO(rewardVO);
+			purchaseVO.setAmount( quantity * rewardVO.getAmount() );
+			purchaseVO.setOrderQuantity( quantity );
+			
+			purchaseVOs.add(purchaseVO);
+			
+		}
+
+		DecimalFormat df = new DecimalFormat("#,###");
+		long finalAmount = totalAmount + totalShippingFee;
+		
+		String totalShippingFeeStr = df.format(totalShippingFee);
+		String totalAmountStr = df.format(totalAmount);
+		String finalAmountStr = df.format(finalAmount);
+		
+		mv.addObject("finalAmount", finalAmount);
+		mv.addObject("finalAmountStr", finalAmountStr);
+		
+		mv.addObject("totalAmount", totalAmount);
+		mv.addObject("totalAmountStr", totalAmountStr);
+		
+		mv.addObject("shippingFee", totalShippingFee);
+		mv.addObject("shippingFeeStr", totalShippingFeeStr);
+		
+		mv.addObject("openChk", supporterVO);
+		mv.addObject("orderList", purchaseVOs);
+		return mv;
+		
+	}
+
+	
+	/**
+	 * purchase step 1 Return Response data
+	 * 	2021.01.12 - 공통 데이터만 전달해 해당 메소드 주석처리
+	 */
+	/*
 	private ModelAndView getPurchasePageStep1(long projectNum) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
-		FundingVO fundingVO = fundingService.findById(projectNum).get();
-		
+		FundingVO fundingVO = this.getFundingProject(projectNum);
 		mv.addObject("voList", fundingVO);
 		return mv;
 		
-	}
-	
-//	private ModelAndView getPurchasePageStep2(ArrayList<PurchaseVO> purchaseVO) throws Exception{
-//		
-//		ModelAndView mv = new ModelAndView();
-//		
-//		ArrayList<Long> nums = new ArrayList<>();
-//
-//		
-//		Iterable<Long> ids = nums;
-//		List<RewardVO> rewardVOs = rewardService.findAllById(ids);
-//		
-//		for(RewardVO vo : rewardVOs) {
-//			
-//		}
-//		
-//		FundingVO fundingVO = fundingService.findById(4).get();
-//		
-//		mv.addObject("voList", fundingVO);
-//		mv.addObject("list", rewardVOs);
-//		return mv;
-//		
-//	}
+	} */
 	
 }

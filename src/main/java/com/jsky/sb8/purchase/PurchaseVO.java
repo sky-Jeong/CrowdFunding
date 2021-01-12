@@ -1,5 +1,6 @@
 package com.jsky.sb8.purchase;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,9 +31,11 @@ public class PurchaseVO {
 	private long orderQuantity;
 	@Column
 	private String option;
+	@Column
+	private long amount;
 	
 	@Transient
-	private long tmpRewardNum;
+	private String amountStr;
 	
 	@ManyToOne
 	@JoinColumn(name = "orderNum")
@@ -45,5 +48,10 @@ public class PurchaseVO {
 	@ManyToOne
 	@JoinColumn(name = "memberNum")
 	private MemberVO memberVO;
+	
+	public String getAmountStr() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(this.getAmount());
+	}
 
 }

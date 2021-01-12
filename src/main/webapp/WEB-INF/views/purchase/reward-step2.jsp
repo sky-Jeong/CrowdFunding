@@ -49,7 +49,44 @@
 			}
 			
 			.span_qty-amont{
-				text-align: right;
+				color: #4C4C4C;
+				font-weight: 500;
+				padding-left: 43rem;
+			}
+			
+			.fee-area{
+				display: inline-block;
+				padding: 1.3rem 0px;
+			}
+			
+			.fee-amount{
+				float: right;
+			}
+
+			.fee-title{
+				color: #747474;
+				font-weight: 600;
+			}
+			
+			.aditional-fee{
+				border-bottom: 1px dashed #747474;
+			}
+			
+			.total-summary{
+				background-color: #f6f6f6;
+				border-bottom: none !important;
+			}
+			
+			.purchase-result{
+				color: #00c4c4;
+			}
+			
+			.final-amount-title{
+				margin-top: 0.6rem;
+			}
+			
+			.final-amount{
+				font-size: 2rem;
 			}
 
 		</style>
@@ -75,17 +112,56 @@
 					
 						<table class="order_list-table">
 							
+							<!-- order data -->
 							<c:forEach items="${orderList}" var="vo">
 								<tr class="order_list">
 									<td>
 										<span class="order-reward title">${vo.rewardVO.title}</span>
 										<span class="order-reward product">${vo.rewardVO.product}</span>
 										<span class="order-reward span_qty-amont">
-											수량: ${vo.orderQuantity}
+											<span>수량: ${vo.orderQuantity}</span>
+											<span style="float: right;">${vo.amountStr}원</span>
 										</span>
 									</td>
 								</tr>
 							</c:forEach>
+							<!-- fin: order data -->
+							
+							<tr class="order_list aditional-fee">
+								<td>
+									<span class="fee-area fee-title">배송비</span>
+									<span class="fee-area fee-amount">${shippingFeeStr}원</span>
+								</td>
+							</tr>
+							
+							<tr class="order_list total-summary">
+													
+								<!-- row data -->	
+								<input type="hidden" id="totalAmount" value="${totalAmount}">
+								<input type="hidden" id="shippingFee" value="${shippingFee}">
+								<input type="hidden" id="finalAmount" value="${finalAmount}">
+								<!-- fin: row data -->
+													
+								<td>
+									<span class="fee-area fee-title">펀딩금액</span>
+									<span class="fee-area fee-amount">${totalAmountStr}</span>
+								</td>
+								
+							</tr>
+							
+							<tr class="order_list total-summary">
+								<td>
+									<span class="fee-area fee-title">배송비</span>
+									<span class="fee-area fee-amount">${shippingFeeStr}원</span>
+								</td>				
+							</tr>
+						
+							<tr class="order_list total-summary">
+								<td>
+									<span class="fee-area fee-title purchase-result final-amount-title">최종결제금액</span>
+									<span class="fee-area fee-amount purchase-result final-amount">${finalAmountStr}원</span>
+								</td>				
+							</tr>
 						
 						</table>
 					

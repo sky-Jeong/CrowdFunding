@@ -237,7 +237,7 @@
 				<c:import url="./common/purchase-step.jsp"></c:import>
 				
 				<!-- 주문 넣기 폼 -->
-				<form method="post" name="orderFrm">
+				<form action="/purchase/reward/step2/${voList.num}" method="post" name="orderFrm">
 									
 					<div class="div_contents-wrapepr">
 					
@@ -253,14 +253,14 @@
 							<ul class="ul_reward-list">
 							
 								<c:forEach items="${voList.rewardVOs}" var="vo">
-								
+									
 									<!--  반복문 돌릴 부분 -->
 									<li class="div_reward" title="${vo.productNum}">
 	
 										<dl class="dl_reward-box" title="${vo.productNum}">
 											<dt>
 												<label>
-													<input type="checkbox" class="reward-chk" id="chk_reward-${vo.productNum}" name="productNum" value="${vo.productNum}">
+													<input type="checkbox" class="reward-chk" id="chk_reward-${vo.productNum}" name="rewardNum" value="${vo.productNum}">
 												</label>
 											</dt>
 											<dd>
@@ -289,7 +289,9 @@
 															<button type="button" class="qty_btn qty_minus-btn" onclick="quantity('minus', ${vo.productNum})">
 																<i class="glyphicon glyphicon-menu-left qty-btn-icon"></i>
 															</button>
+															
 															<input type="text" name="orderQuantity" title="3" class="order-qty-txt order-qty-${vo.productNum}" value="1">
+															
 															<button type="button" class="qty_btn qty_plus-btn" onclick="quantity('plus', ${vo.productNum})">
 																<i class="glyphicon glyphicon-menu-right qty-btn-icon"></i>
 															</button>
@@ -353,10 +355,10 @@
 					<!-- order footer -->
 					<div class="div_order-footer">
 						<div class="order-summary">
-							${voList.title}에 <span id="order-total">159,000</span> 원을 펀딩합니다.
+							${voList.title}에 <span id="order-total">0</span> 원을 펀딩합니다.
 						</div>
 						<div class="order-btn-wrapper">
-							<button id="next-step-btn" type="button" onclick="goToStep2()">다음 단계로 <i class="glyphicon glyphicon-menu-right"></i></button>
+							<button id="next-step-btn" type="submit" >다음 단계로 <i class="glyphicon glyphicon-menu-right"></i></button>
 						</div>
 					</div>
 					<!-- fin: order footer -->
@@ -376,51 +378,6 @@
 
 		priceCal();
 
-		function getCheckData(){
-
-			var chkArray = new Array();
-			
-			$('input:checkbox[name=productNum]:checked').each(function(){
-
-				var data = new Object();
-				var productNum = this.value;
-
-				data.productNum = productNum;
-				data.orderQuantity = $(".order-qty-" + productNum).val();
-				data.option = $(".order-opt-" + productNum).val();
-				
-				data.nameYN = $("#name-open-chk").prop("checked");
-				data.amountYN = $("#amount-open-chk").prop("checked");
-
-				chkArray.push(data);
-				
-			});
-
-			var jsonData = JSON.stringify(chkArray);
-			return jsonData;
-			
-		}
-
-		function goToStep2(){
-
-			var num = '${voList.num}';
-			var jsonData = getCheckData();
-			alert(jsonData);
-						
-			$.ajax({
-				url:"/purchase/order/"+num,
-				type: "post",
-				contentType: "application/json; charset=UTF-8",
-				dataType:'json',
-				data: jsonData,
-				async: false,
-				success: function(data){
-					alert('success');
-				}
-			});
-			
-		}
-	
 		/* 주문 토탈금액 계산 */
 		function priceCal(){
 
