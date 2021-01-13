@@ -41,6 +41,8 @@ public class MemberVO {
 	private Timestamp regDate;
 	@Column
 	private String status;
+	@Column
+	private String phone;
 	
 	@OneToMany(mappedBy = "memberVO", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<LikeProjectVO> likeProjectVOs;

@@ -112,7 +112,7 @@ public class PurchaseController {
 			RewardVO rewardVO = rewardService.findById(rewardNum[index]).get();
 			
 			totalAmount = totalAmount + ( quantity * rewardVO.getAmount() );
-			totalShippingFee = totalShippingFee + rewardVO.getShippingFee();
+			totalShippingFee = rewardVO.getShippingFee();
 
 			purchaseVO.setRewardVO(rewardVO);
 			purchaseVO.setAmount( quantity * rewardVO.getAmount() );

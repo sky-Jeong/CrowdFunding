@@ -16,7 +16,7 @@
 		<style type="text/css">
 		
 			.order_list-area{
-				padding: 2rem 15rem;
+				padding: 2rem 13.5rem;
 			}
 		
 			.order_list-table{
@@ -29,7 +29,7 @@
 			}
 			
 			.order_list td{
-				padding: 0.5rem 1rem ;
+				padding: 0.5rem 1.5rem ;
 			}
 			
 			.order-reward{
@@ -88,6 +88,130 @@
 			.final-amount{
 				font-size: 2rem;
 			}
+			
+			.shipping-info-area{
+				border: 1px solid red;
+			}
+			
+			.shipping-info-table {
+				width: 100%;
+			}
+			
+			.shipping-info-table th{
+			
+				font-size: 2rem;
+				font-weight: bold;
+			
+				padding-bottom: 1.3rem;
+			
+			}
+			
+			.buyer-info{
+				margin: 1.3rem 0px;
+			}
+			
+			.supporter-info{
+				width: 49%;
+			}
+			
+			#supporter_info{
+				padding: 1rem;
+				
+				border-radius: 3px;
+				background-color: #EEEDE9;
+			}
+			
+			.supporter-title{
+				color: #4C4C4C;
+			}
+			
+			.supporter{
+				display: block;
+				padding: 0.5rem;
+			}
+			
+			.supporter-data{
+				color: #8C8C8C;
+			}
+			
+			.buyer-info:nth-child(3){
+				border-bottom: 1px solid #8C8C8C;
+				padding-bottom: 1.8rem;
+				margin-bottom: 1.5rem;
+			}
+			
+			.input-shipping-info:nth-child(4){
+				padding: 1.1rem 0px;
+				border-top: 1px solid #EAEAEA;
+				border-bottom: 1px solid #EAEAEA;
+			}
+			
+			#policy-contents{
+				
+				cursor: pointer;
+			    display: inline-flex;
+			    
+			    max-width: 90%;
+			    margin-left: 0.5rem;
+			    margin-bottom: 5px;
+			    
+			    font-size: 1.35rem;
+			    font-weight: 300;
+			    
+			}
+			
+			.input-shipping-info{
+				margin: 1.5rem 0px;
+			}
+			
+			.shipping-space{
+				padding: 0.2rem 1.8rem;
+				border-top: 2px solid #EAEAEA;
+			}
+			
+			.shipping-info{
+				margin: 0.5rem 0px;
+				color: #5D5D5D;
+				font-size: 1.5rem;
+				font-weight: 600;
+			}
+			
+			.shipping-txt{
+				width: 100%; height: 3.5rem;
+				border: 1px solid #A29584;
+				border-radius: 5px;
+			}
+			
+			#postcode-btn{
+			
+				color: white;
+				background-color: #A29584;
+				
+				font-size: 1.5rem;
+				font-weight: 300;
+				
+				border: 1px solid #A29584;
+				border-radius: 3px;
+				
+				padding: 0.5rem 1rem;
+				margin-bottom: 1.3rem;
+				
+			}
+			
+			.custom-txt{
+				padding-left: 1.3rem;
+			}
+			
+			#custom-data-title{
+				padding-left: 0.5rem;
+				font-size: 1.3rem;
+			}
+			
+			#custom-data-description{
+				color: #A29584;
+				padding: 0.8rem 0rem 0.8rem 1rem;
+				font-size: 1.2rem;
+			}
 
 		</style>
 		
@@ -140,6 +264,8 @@
 								<input type="hidden" id="totalAmount" value="${totalAmount}">
 								<input type="hidden" id="shippingFee" value="${shippingFee}">
 								<input type="hidden" id="finalAmount" value="${finalAmount}">
+								<input type="hidden" id="nameChk" value="${openChk.nameYN}">
+								<input type="hidden" id="amountChk" value="${openChk.amountYN}">
 								<!-- fin: row data -->
 													
 								<td>
@@ -165,6 +291,89 @@
 						
 						</table>
 					
+					</div>
+					<!-- fin: order list area -->
+					
+					<div class="order_list-area shipping-info-area">
+											
+						<table class="shipping-info-table">
+						
+							<thead>
+								<tr>
+									<th class="supporter-info">펀딩 서포터</th>
+									<th style="width: 0.8rem;"></th>
+									<th class="supporter-info">리워드 배송지</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+							
+								<tr>
+								
+									<td class="supporter-info" style="display: unset;">
+										
+										<div id="supporter_info">
+										
+											<div class="buyer-info">
+												<span class="supporter supporter-title">이름</span>
+												<span class="supporter supporter-data">${login.memberName}</span>
+											</div>
+											
+											<div class="buyer-info">
+												<span class="supporter supporter-title">이메일</span>
+												<span class="supporter supporter-data">${login.email}</span>
+											</div>
+											
+											<div class="buyer-info">
+												<span class="supporter supporter-title">휴대폰</span>
+												<span class="supporter supporter-data">${login.phone}</span>
+											</div>
+											
+											<div>
+												<input type="checkbox" id="policy-chk" required="required">
+												<label for="policy-chk" id="policy-contents">(필수) 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.</label>
+											</div>
+											
+										</div>
+										
+									</td>
+									
+									<td></td>
+												
+									<td class="supporter-info shipping-space">
+									
+										<div class="input-shipping-info">
+											<div class="shipping-info" id="buyer-name-title">이름</div>
+											<input name="buyer_name" class="shipping-txt" id="buyer-name" required="required">
+										</div>
+
+										<div class="input-shipping-info">
+											<div class="shipping-info" id="buyer-tel-title">휴대폰 번호</div>
+											<input name="buyer_tel" class="shipping-txt" id="buyer-tel" required="required">
+										</div>
+										
+										<div class="input-shipping-info">
+											<div class="shipping-info" id="buyer-addr-title">주소</div>
+											<button type="button" id="postcode-btn">우편번호 검색</button>
+											<input name="buyer_addr" class="shipping-txt custom-txt" id="buyer-addr" placeholder="상세주소" required="required">
+										</div>
+										
+										<div class="input-shipping-info">
+											<div class="shipping-info" id="custom-data-title">배송 시 요청사항 (선택)</div>
+											<input name="custom_data" class="shipping-txt custom-txt" id="custom-data" placeholder="ex) 부재시 경비실에 보관해주세요.">
+											<div id="custom-data-description">
+												<span>해당 요청사항은 배송에 관련된 내용만 적어주세요.</span>
+											</div>
+										</div>
+										
+									</td>
+									
+								</tr>
+							
+							</tbody>
+							
+						</table>
+						
 					</div>
 					
 				</div>
