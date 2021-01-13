@@ -30,6 +30,7 @@ import com.jsky.sb8.project.funding.FundingVO;
 import com.jsky.sb8.project.funding.reward.RewardService;
 import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.supporter.SupporterVO;
+import com.jsky.sb8.purchase.info.PurchaseInfoVO;
 
 @Controller
 @RequestMapping(value = "/purchase/**")
@@ -49,6 +50,17 @@ public class PurchaseController {
 	 * 	- update DB
 	 * 		- fundingReward : quantity
 	 */
+	@PostMapping("buy")
+	public ModelAndView setPurchase(PurchaseInfoVO purchaseInfoVO, HttpSession session, 
+									SupporterVO supporterVO,
+									Long[] orderQuantity, Long[] productNum) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		
+		return mv;
+		
+	}
 
 	/**
 	 * purchase 페이지 이동

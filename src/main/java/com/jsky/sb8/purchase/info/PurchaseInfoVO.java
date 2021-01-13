@@ -47,7 +47,11 @@ public class PurchaseInfoVO {
 	@Column
 	private String paid_method;
 	@Column
-	private long amount;
+	private long shippingFee;	// 배송비
+	@Column
+	private long amount;		// 상품 주문금액
+	@Column
+	private long totalAmount;	// 배송비 + 상품 주문금액
 	@Column
 	@CreationTimestamp
 	private Timestamp ordered_at;
