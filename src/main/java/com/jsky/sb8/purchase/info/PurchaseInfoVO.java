@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -57,6 +58,11 @@ public class PurchaseInfoVO {
 	private Timestamp ordered_at;
 	@Column
 	private String custom_data;
+	
+	@Transient
+	private String doro_addr;
+	@Transient
+	private String detail_addr;
 	
 	@OneToMany(mappedBy = "purchaseInfoVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PurchaseVO> purchaseVOs;
