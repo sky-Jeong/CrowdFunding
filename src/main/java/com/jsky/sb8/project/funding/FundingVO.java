@@ -103,6 +103,8 @@ public class FundingVO {
 	private long showPercent;
 	@Transient
 	private String openDate;
+	@Transient
+	private String payDateStr;
 	
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
@@ -130,6 +132,15 @@ public class FundingVO {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryNum")
 	private CategoryVO categoryVO;
+	
+	public String getPayDateStr() {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String payDate = format.format(this.payDate);
+		
+		return payDate;
+		
+	}
 	
 	public long getCountDown() {
 		

@@ -148,6 +148,9 @@ public class PurchaseController {
 		
 		supporterService.save(supporterVO);
 		
+		mv.addObject("fundingInfo", fundingInfo);
+		mv.addObject("purchaseInfo", purchaseInfoVO);
+		mv.setViewName("purchase/reward-step3");
 		return mv;
 		
 	}
