@@ -12,5 +12,9 @@ public class SupporterService {
 	public long getSupporterCount(long projectNum) throws Exception{
 		return supporterRepository.getSupporterCount(projectNum);
 	}
+
+	public SupporterVO save(SupporterVO supporterVO) throws Exception {
+		return supporterRepository.save(supporterVO);
+	}
 	
 }

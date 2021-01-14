@@ -30,7 +30,7 @@ public class PurchaseVO {
 	@Column
 	private long orderQuantity;
 	@Column
-	private String option;
+	private String purchaseOption;
 	@Column
 	private long amount;
 	
@@ -38,7 +38,7 @@ public class PurchaseVO {
 	private String amountStr;
 	
 	@ManyToOne
-	@JoinColumn(name = "orderNum")
+	@JoinColumn(name = "purchaseInfoNum")
 	private PurchaseInfoVO purchaseInfoVO;
 	
 	@ManyToOne

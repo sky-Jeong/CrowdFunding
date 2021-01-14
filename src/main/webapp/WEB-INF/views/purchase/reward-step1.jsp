@@ -298,7 +298,7 @@
 														</p>
 													</div>
 													
-													<c:if test="${not empty vo.option}">
+													<c:if test="${not empty vo.purchaseOption}">
 														<div class="option">
 															<p class="reward-contents">옵션<span class="span_option">예시) 주황, 노랑</span></p>
 															<p class="input-area">

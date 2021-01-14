@@ -15,6 +15,10 @@ public class RewardService {
 	public Optional<RewardVO> findById(long id) throws Exception{
 		return rewardRepository.findById(id);
 	}
+
+	public RewardVO save(RewardVO rewardVO) throws Exception{
+		return rewardRepository.save(rewardVO);
+	}
 	
 	
 }

@@ -69,7 +69,7 @@ public class FundingVO {
 	@Column
 	private Date deadline;
 	@Column
-	private Date payDate;
+	private Timestamp payDate;
 	@Column
 	private Date sendDate;
 	@Column

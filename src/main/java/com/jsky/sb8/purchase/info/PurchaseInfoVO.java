@@ -42,22 +42,26 @@ public class PurchaseInfoVO {
 	@Column
 	private String merchant_uid;
 	@Column(updatable = false)
-	private Timestamp scheduled_at;
-	@Column(updatable = false)
-	private Timestamp paid_at;
+	private Timestamp scheduled_at;	// 결제 예정일
+	@Column
+	private Timestamp paid_at;		// 결제 승인 시각
 	@Column
 	private String paid_method;
 	@Column
-	private long shippingFee;	// 배송비
+	private long shippingFee;		// 배송비
 	@Column
-	private long amount;		// 상품 주문금액
+	private long amount;			// 상품 주문금액
 	@Column
-	private long totalAmount;	// 배송비 + 상품 주문금액
+	private long totalAmount;		// 배송비 + 상품 주문금액
+	@Column
+	private long payAmount;
 	@Column
 	@CreationTimestamp
 	private Timestamp ordered_at;
 	@Column
 	private String custom_data;
+	@Column
+	private String customer_uid;
 	
 	@Transient
 	private String doro_addr;

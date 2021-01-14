@@ -304,13 +304,20 @@
 
 				<c:import url="./common/purchase-step.jsp"></c:import>
 				
-				<form action="" method="post">
+				<form action="/purchase/buy" method="post" id="buy-frm">
+																	
+					<input type="hidden" name="rewardNum" value="${voList.num}">
 																	
 					<!-- row data -->	
 					<!-- PurchaseInfo VO -->
 					<input type="hidden" id="totalAmount" name="amount" value="${totalAmount}">
 					<input type="hidden" id="shippingFee" name="shippingFee" value="${shippingFee}">
 					<input type="hidden" id="finalAmount" name="totalAmount" value="${finalAmount}">
+					<input type="hidden" id="merchant_uid" name="merchant_uid">
+					<input type="hidden" id="customer_uid" name="customer_uid">
+					<input type="hidden" id="buyer_email" name="buyer_email" value="${login.email}">
+					<input type="hidden" id="payAmount" name="payAmount" value=0>
+					<input type="hidden" id="paid_method" name="paid_method" value="card">
 					
 					<!-- Supportor VO -->
 					<input type="hidden" id="nameChk" name="nameYN" value="${openChk.nameYN}">
@@ -333,6 +340,7 @@
 										<!-- 구매 내역: purchaseVO에 나뉘어 들어감 -->
 										<input type="hidden" name="orderQuantity" value="${vo.orderQuantity}">
 										<input type="hidden" name="productNum" value="${vo.rewardVO.productNum}">
+										<input type="hidden" name="option" value="${vo.purchaseOption}">
 									
 										<span class="order-reward title">${vo.rewardVO.title}</span>
 										<span class="order-reward product">${vo.rewardVO.product}</span>
@@ -447,8 +455,9 @@
 											<div class="shipping-info" id="buyer-addr-title">주소</div>
 											<button type="button" id="postcode-btn" >우편번호 검색</button>
 											<input type="hidden" name="buyer_postcode" id="buyer-postcode">
+											<input type="hidden" name="buyer_addr" id="buyer-addr">
 											<input type="text" name="doro_addr" class="shipping-txt custom-txt" id="doro-addr" placeholder="주소 입력" readonly="readonly" required="required">
-											<input type="text" name="detail_addr" class="shipping-txt custom-txt" id="detail-addr" placeholder="상세주소" required="required">
+											<input type="text" name="detail_addr" class="shipping-txt custom-txt" id="detail-addr" placeholder="상세주소" >
 										</div>
 										
 										<div class="input-shipping-info">
@@ -523,7 +532,7 @@
 					
 					<div class="order_list-area btn-area">
 					
-						<button id="pay-reservation_btn" type="submit">결제 예약하기</button>
+						<button id="pay-reservation_btn" type="button">결제 예약하기</button>
 					
 					</div>
 
@@ -535,12 +544,93 @@
 				
 	</body>
 	
+	<c:import url="../common/postcode.jsp"></c:import>
+	
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="/js/purchase/step-chk.js"></script>
 	<script type="text/javascript" src="/js/common/postcode.js"></script>
 	
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	
 	<script type="text/javascript">
 
+		$("#pay-reservation_btn").click(function(){
+			payReservation();
+		});
+		
+		var IMP = window.IMP; // 생략해도 괜찮습니다.
+		IMP.init("imp35382026"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+		  
+		// 정기결제 빌링키 발급
+		function payReservation(){
+
+			var payDate = '${voList.payDate}';
+			payDate = new Date(payDate).getTime();
+			
+			var buyer_name = $("#buyer-name").val();
+			var buyer_tel = $("#buyer-tel").val();
+			var buyer_addr = $("#doro-addr").val() + " " + $("#detail-addr").val();
+			var buyer_postcode = $("#buyer-postcode").val();
+
+			var randomNum = Math.floor( Math.random() * (10000 - 1) + 1 ) + 1;
+			var merchant_uid = 'merchant_' + new Date().getTime();
+			var customer_uid = '${login.memberNum}' + "_" + randomNum;
+			
+			// IMP.request_pay(param, callback) 호출
+			IMP.request_pay({ // param
+				
+				pg: "jtnet",
+			    pay_method: "card", // "card"만 지원됩니다
+			    merchant_uid: merchant_uid, // 빌링키 발급용 주문번호
+			    customer_uid: customer_uid, // 카드(빌링키)와 1:1로 대응하는 값
+			    name: "최초인증결제",
+			    amount: 0, // 0 으로 설정하여 빌링키 발급만 진행합니다.
+			    buyer_email: '${login.email}',
+			    buyer_name: buyer_name,
+			    buyer_tel: buyer_tel,
+			    buyer_addr: buyer_addr,
+			    buyer_postcode: buyer_postcode
+			    
+				}, function (rsp) { // callback
+
+			    	if (rsp.success) {
+				    	
+				    	alert("빌링키 발급 성공");
+
+				    	$("#buyer_addr").val(buyer_addr);
+				    	$("#merchant_uid").val(merchant_uid);
+				    	$("#customer_uid").val(customer_uid);
+
+						$("#buy-frm").submit();
+						
+      		 	   		/*
+      		 	   		
+      		 	   		주문정보 전달하기
+      		 	   		
+      		 	   		DB에 저장할 데이터 서버로 보내기
+      		 	   		jQuery.ajax({
+							url: "https://www.myservice.com/billings/", // 서비스 웹서버
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							data: {
+								customer_uid: customer_uid, // 카드(빌링키)와 1:1로 대응하는 값
+							}
+						}); 
+						
+						*/
+			      		
+			    	} else {
+
+						alert("빌링키 발급 실패");
+			      		
+			    	}
+			    	
+				
+			});
+			
+		}
+					
 		// 우편번호 가져오기
 		$("#doro-addr").click(function() {
  			sample2_execDaumPostcode();

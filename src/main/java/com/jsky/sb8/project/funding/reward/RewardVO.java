@@ -45,7 +45,7 @@ public class RewardVO {
 	@Column
 	private String shippingDate;
 	@Column
-	private String option;
+	private String purchaseOption;
 	
 	@ManyToOne
 	@JoinColumn(name = "projectNum")

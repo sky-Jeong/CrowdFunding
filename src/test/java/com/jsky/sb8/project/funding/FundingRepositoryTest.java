@@ -72,7 +72,6 @@ class FundingRepositoryTest {
 			
 			fundingVO.setStartDate(calendar);
 			fundingVO.setDeadline(calendar);
-			fundingVO.setPayDate(calendar);
 			fundingVO.setSendDate(calendar);
 			
 			fundingVO.setTarget(1000000);

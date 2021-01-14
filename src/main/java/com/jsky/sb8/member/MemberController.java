@@ -41,7 +41,9 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		
 		String tmp = request.getHeader("Referer");
-		this.referUrl = tmp.substring(17);
+		if(!tmp.contains("login")) {
+			this.referUrl = tmp.substring(17);
+		}
 		
 		System.out.println(this.referUrl);
 		mv.setViewName("member/login");

@@ -1,5 +1,6 @@
 package com.jsky.sb8.purchase;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,9 @@ import com.jsky.sb8.project.funding.FundingService;
 import com.jsky.sb8.project.funding.FundingVO;
 import com.jsky.sb8.project.funding.reward.RewardService;
 import com.jsky.sb8.project.funding.reward.RewardVO;
+import com.jsky.sb8.project.supporter.SupporterService;
 import com.jsky.sb8.project.supporter.SupporterVO;
+import com.jsky.sb8.purchase.info.PurchaseInfoRepository;
 import com.jsky.sb8.purchase.info.PurchaseInfoVO;
 
 @Controller
@@ -39,9 +42,23 @@ public class PurchaseController {
 	@Autowired
 	private PurchaseService purchaseService;
 	@Autowired
+	private PurchaseInfoRepository purchaseInfoService;
+	@Autowired
 	private FundingService fundingService;
 	@Autowired
 	private RewardService rewardService;
+	@Autowired
+	private SupporterService supporterService;
+	
+	@PostMapping("billing")
+	public ModelAndView setBillingKey() throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		
+		return mv;
+		
+	}
 	
 	/**
 	 * 주문하기
@@ -49,16 +66,103 @@ public class PurchaseController {
 	 * 		- supporter : 이름 공개 및 금액 공개 여부 ,토탈 금액
 	 * 	- update DB
 	 * 		- fundingReward : quantity
+	 * 
+	 * 	DB 저장 순서 : purchaseInfo -> purchase -> supporter -> (update) fundingReward
 	 */
+	@SuppressWarnings("unused")
 	@PostMapping("buy")
-	public ModelAndView setPurchase(PurchaseInfoVO purchaseInfoVO, HttpSession session, 
+	public ModelAndView setPurchase(PurchaseInfoVO purchaseInfoVO, HttpSession session, long rewardNum,
 									SupporterVO supporterVO,
-									Long[] orderQuantity, Long[] productNum) throws Exception{
+									Long[] productNum, Long[] orderQuantity, String[] option) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
+		// 로그인 멤버
+		MemberVO memberVO = (MemberVO) session.getAttribute("login");
+		FundingVO fundingInfo = fundingService.findById(rewardNum).get();
+		
+		Timestamp scheduled_at = fundingInfo.getPayDate();
+		
+		purchaseInfoVO.setScheduled_at(scheduled_at);;
+		purchaseInfoVO.setMemberVO(memberVO);
+		
+		System.out.println( purchaseInfoVO.getBuyer_name() + " " + purchaseInfoVO.getBuyer_tel());
+		
+		// PurchaseInfo DB 저장
+		purchaseInfoVO = purchaseInfoService.save(purchaseInfoVO);
+		
+		long amount = 0;
+		RewardVO rewardVO = new RewardVO();
+		// PurchaseVO 할당 후 DB에 저장
+		for (int index = 0; index < productNum.length; index++) {
+
+			PurchaseVO purchaseVO = new PurchaseVO();
+			rewardVO = this.getRewardVO(productNum[index], orderQuantity[index]);
+			
+			amount = amount + ( rewardVO.getAmount() * orderQuantity[index] );
+			
+			// reward VO 조회 및 업데이트 성공
+			if(rewardVO != null) {
+
+				if(option.length!= 0) {
+					purchaseVO.setPurchaseOption(option[index]);
+				}
+				
+				purchaseVO.setMemberVO(memberVO);
+				purchaseVO.setRewardVO(rewardVO);
+				purchaseVO.setOrderQuantity(orderQuantity[index]);
+				purchaseVO.setPurchaseInfoVO(purchaseInfoVO);
+				
+				// DB 저장
+				purchaseVO = purchaseService.save(purchaseVO);
+				
+				if(purchaseVO != null) {
+					System.out.println("purchase DB 저장 성공");
+				} else {
+					System.out.println("purchase DB 저장 실패");
+				}
+				
+			} else {
+				System.out.println("reward DB 조회 실패");
+				break;
+			}
+			
+		}
+		
+		if(supporterVO.getAmountYN() == null) {
+			supporterVO.setAmountYN("N");
+		} else {
+			supporterVO.setAmountYN("Y");
+		}
+		
+		if(supporterVO.getNameYN() == null) {
+			supporterVO.setNameYN("N");
+		} else {
+			supporterVO.setNameYN("Y");
+		}
+		
+		supporterVO.setDivision("F");
+		supporterVO.setAmount(amount);
+		supporterVO.setMemberVO(memberVO);
+		supporterVO.setFundingVO(rewardVO.getFundingVO());
+		
+		supporterService.save(supporterVO);
 		
 		return mv;
+		
+	}
+	
+	/**
+	 * Reward 조회 후 update
+	 */
+	private RewardVO getRewardVO(long productNum, long quantity) throws Exception{
+		
+		RewardVO rewardVO = rewardService.findById(productNum).get();
+		
+		quantity = rewardVO.getQuantity() + quantity;
+		rewardVO.setQuantity(quantity);
+		
+		return rewardService.save(rewardVO);
 		
 	}
 
