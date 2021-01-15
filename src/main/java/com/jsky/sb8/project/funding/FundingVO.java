@@ -107,9 +107,13 @@ public class FundingVO {
 	@Transient
 	private String payDateStr;
 	@Transient
+	private String payDateStr2;
+	@Transient
 	private String charDivisionStr;
 	@Transient
 	private String fundingStatus;
+	@Transient
+	private String deadlineStr;
 	
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
@@ -141,6 +145,13 @@ public class FundingVO {
 	@JoinColumn(name = "categoryNum")
 	private CategoryVO categoryVO;
 	
+	public String getDeadlineStr() {
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		return df.format(this.deadline);
+		
+	}
+	
 	public String getFundingStatus() {
 
 		Calendar ca = Calendar.getInstance();
@@ -167,6 +178,15 @@ public class FundingVO {
 	public String getPayDateStr() {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String payDate = format.format(this.payDate);
+		
+		return payDate;
+		
+	}
+	
+	public String getPayDateStr2() {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd hh시");
 		String payDate = format.format(this.payDate);
 		
 		return payDate;

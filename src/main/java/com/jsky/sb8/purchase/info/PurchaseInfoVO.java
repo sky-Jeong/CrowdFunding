@@ -1,6 +1,7 @@
 package com.jsky.sb8.purchase.info;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -63,12 +64,16 @@ public class PurchaseInfoVO {
 	private String custom_data;
 	@Column
 	private String customer_uid;
+	@Column
+	private String status;
 	
 	@Transient
 	private String doro_addr;
 	@Transient
 	private String detail_addr;
-	
+	@Transient
+	private String orderedAtStr;
+
 	@OneToMany(mappedBy = "purchaseInfoVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PurchaseVO> purchaseVOs;
 	
@@ -79,6 +84,13 @@ public class PurchaseInfoVO {
 	@ManyToOne
 	@JoinColumn(name = "memberNum")
 	private MemberVO memberVO;
+	
+	public String getOrderedAtStr() {
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		return df.format(this.ordered_at);
+		
+	}
 	
 	
 }

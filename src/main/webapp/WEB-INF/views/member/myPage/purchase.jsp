@@ -20,7 +20,7 @@
 			
 			.container{
 				width: 60%;
-				margin: 4rem auto;
+				margin: 3rem auto;
 			}
 			
 			.summary-header{
@@ -66,6 +66,42 @@
 			.company-info span{
 				text-decoration: underline;
 			}
+			
+			.funding-summary-table{
+				width:100%;
+			}
+			
+			.funding-summary-table td{
+				padding: 0.2rem 0px;
+				color: #5D5D5D;
+				font-weight: 300;
+			}
+			
+			.funding-summary-table tr td:nth-child(2){
+				text-align: right;
+			}
+			
+			.purchase_info-wrapper{
+				color:#5D5D5D;
+				margin: 1rem 0px;
+				font-size: 1.3rem;
+				font-weight: 300;
+			}
+			
+			.pay-info{
+				margin: 1.3rem 0px;
+			}
+			
+			#reservation-cancle-btn{
+				width:100%;
+				padding: 1rem;
+				margin: 0.8rem 0px;
+				background-color: white;
+				border: 1px solid #D5D5D5;
+				border-radius: 3px;
+				font-size: 1.7rem;
+				font-weight: 300;
+			}
 		
 		</style>
 		
@@ -99,7 +135,46 @@
 						by <span>${purchaseInfo.fundingVO.makerVO.company}</span>
 					</div>
 					
-					<table></table>
+					<table class="funding-summary-table">
+					
+						<tr>
+							<td>펀딩 번호</td>
+							<td>${purchaseInfo.orderNum}</td>
+						</tr>
+					
+						<tr>
+							<td>펀딩 날짜</td>
+							<td>${purchaseInfo.orderedAtStr}</td>
+						</tr>
+						
+						<tr>
+							<td>펀딩 마감일</td>
+							<td>${purchaseInfo.fundingVO.deadlineStr}</td>
+						</tr>
+						
+						<tr>
+							<td>펀딩 상태</td>
+							<td style="font-weight: 500;">${purchaseInfo.status}</td>
+						</tr>
+						
+					</table>
+					
+					<c:if test="${purchaseInfo.status eq '결제 예약' }">
+					
+						<div class="purchase_info-wrapper">
+							<div class="pay-info">
+								펀딩 종료 후 ${purchaseInfo.fundingVO.payDateStr2}에 결제 될 예정입니다.
+							</div>
+							<div>
+								<button id="reservation-cancle-btn">결제 예약 취소</button>
+							</div>
+							<div class="pay-info">
+								결제 예약 취소는 ${purchaseInfo.fundingVO.deadlineStr} 까지 가능합니다.<br>
+								리워드 종료 및 수량 변경은 불가하며, 취소 후 재 펀딩 해야합니다.
+							</div>
+						</div>
+					
+					</c:if>
 					
 				</div>
 			
