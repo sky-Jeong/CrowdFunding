@@ -33,6 +33,7 @@ import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.supporter.SupporterService;
 import com.jsky.sb8.project.supporter.SupporterVO;
 import com.jsky.sb8.purchase.info.PurchaseInfoRepository;
+import com.jsky.sb8.purchase.info.PurchaseInfoService;
 import com.jsky.sb8.purchase.info.PurchaseInfoVO;
 
 @Controller
@@ -42,13 +43,28 @@ public class PurchaseController {
 	@Autowired
 	private PurchaseService purchaseService;
 	@Autowired
-	private PurchaseInfoRepository purchaseInfoService;
+	private PurchaseInfoService purchaseInfoService;
 	@Autowired
 	private FundingService fundingService;
 	@Autowired
 	private RewardService rewardService;
 	@Autowired
 	private SupporterService supporterService;
+	
+	/**
+	 * 주문 정보 업데이트
+	 */
+	@PostMapping("buyerInfo/update")
+	public ModelAndView setBuyerInfoUpdate(PurchaseInfoVO purchaseInfoVO) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		System.out.println( " orderNum: " + purchaseInfoVO.getOrderNum());
+		
+		purchaseInfoService.setBuyerInfoUpdateService(purchaseInfoVO);
+		mv.setViewName("redirect:/mypage/myfunding/purchase/" + purchaseInfoVO.getOrderNum());
+		return mv;
+		
+	}
 	
 	/**
 	 * 주문하기

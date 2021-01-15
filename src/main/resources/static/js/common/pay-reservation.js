@@ -39,7 +39,6 @@ function payReservation(){
 
 	    	if (rsp.success) {
 		    	
-		    	$("#buyer_addr").val(buyer_addr);
 		    	$("#merchant_uid").val(merchant_uid);
 		    	$("#customer_uid").val(customer_uid);
 

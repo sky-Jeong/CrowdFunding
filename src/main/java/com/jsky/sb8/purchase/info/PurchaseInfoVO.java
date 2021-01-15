@@ -1,6 +1,7 @@
 package com.jsky.sb8.purchase.info;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class PurchaseInfoVO {
 	@Column
 	private String buyer_addr;
 	@Column
+	private String buyer_addr_detail;
+	@Column
+	private String total_addr;
+	@Column
 	private String buyer_tel;
 	@Column
 	private String merchant_uid;
@@ -73,6 +78,12 @@ public class PurchaseInfoVO {
 	private String detail_addr;
 	@Transient
 	private String orderedAtStr;
+	@Transient
+	private String amountStr;
+	@Transient
+	private String shippingFeeStr;
+	@Transient
+	private String totalAmountStr;
 
 	@OneToMany(mappedBy = "purchaseInfoVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PurchaseVO> purchaseVOs;
@@ -84,6 +95,21 @@ public class PurchaseInfoVO {
 	@ManyToOne
 	@JoinColumn(name = "memberNum")
 	private MemberVO memberVO;
+	
+	public String getTotalAmountStr() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(this.totalAmount);
+	}
+	
+	public String getShippingFeeStr() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(this.shippingFee);
+	}
+			
+	public String getAmountStr() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		return df.format(this.amount);
+	}
 	
 	public String getOrderedAtStr() {
 		

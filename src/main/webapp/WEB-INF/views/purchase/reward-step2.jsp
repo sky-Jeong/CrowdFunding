@@ -455,9 +455,8 @@
 											<div class="shipping-info" id="buyer-addr-title">주소</div>
 											<button type="button" id="postcode-btn" >우편번호 검색</button>
 											<input type="hidden" name="buyer_postcode" id="buyer-postcode">
-											<input type="hidden" name="buyer_addr" id="buyer-addr">
-											<input type="text" name="doro_addr" class="shipping-txt custom-txt" id="doro-addr" placeholder="주소 입력" readonly="readonly" required="required">
-											<input type="text" name="detail_addr" class="shipping-txt custom-txt" id="detail-addr" placeholder="상세주소" >
+											<input type="text" name="buyer_addr" class="shipping-txt custom-txt" id="doro-addr" placeholder="주소 입력" readonly="readonly" required="required">
+											<input type="text" name="buyer_addr_detail" class="shipping-txt custom-txt" id="detail-addr" placeholder="상세주소" >
 										</div>
 										
 										<div class="input-shipping-info">
@@ -531,9 +530,7 @@
 					
 					
 					<div class="order_list-area btn-area">
-					
 						<button id="pay-reservation_btn" type="button">결제 예약하기</button>
-					
 					</div>
 
 				</form>
