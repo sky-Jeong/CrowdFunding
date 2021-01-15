@@ -95,7 +95,7 @@
 			#reservation-cancle-btn{
 				width:100%;
 				padding: 1rem;
-				margin: 0.8rem 0px;
+				margin: 0.3rem 0px;
 				background-color: white;
 				border: 1px solid #D5D5D5;
 				border-radius: 3px;
