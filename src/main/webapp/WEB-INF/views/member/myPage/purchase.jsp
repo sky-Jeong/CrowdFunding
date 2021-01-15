@@ -225,7 +225,7 @@
 				display: none;
 			}
 		
-			#yes-btn{
+			.yes-btn{
 				color: white;
 				width: 5rem;
 				border: 1px solid #00c4c4;
@@ -302,22 +302,34 @@
 						
 					</table>
 					
-					<c:if test="${purchaseInfo.status eq '결제 예약' }">
+					<c:choose>
 					
-						<div class="purchase_info-wrapper">
-							<div class="pay-info">
-								펀딩 종료 후 ${purchaseInfo.fundingVO.payDateStr2}에 결제 될 예정입니다.
+						<c:when test="${purchaseInfo.status eq '결제 예약' }">
+						
+							<div class="purchase_info-wrapper">
+								<div class="pay-info">
+									펀딩 종료 후 ${purchaseInfo.fundingVO.payDateStr2}에 결제 될 예정입니다.
+								</div>
+								<div>
+									<button id="reservation-cancle-btn" data-toggle="modal" data-target="#reservationCancleModal" >결제 예약 취소</button>
+								</div>
+								<div class="pay-info">
+									결제 예약 취소는 ${purchaseInfo.fundingVO.deadlineStr} 까지 가능합니다.<br>
+									리워드 종료 및 수량 변경은 불가하며, 취소 후 재 펀딩 해야합니다.
+								</div>
 							</div>
-							<div>
-								<button id="reservation-cancle-btn">결제 예약 취소</button>
+						
+						</c:when>
+						
+						<c:otherwise>
+							<div class="purchase_info-wrapper">
+								<div class="pay-info">
+									결제 예약이 취소되었습니다.
+								</div>
 							</div>
-							<div class="pay-info">
-								결제 예약 취소는 ${purchaseInfo.fundingVO.deadlineStr} 까지 가능합니다.<br>
-								리워드 종료 및 수량 변경은 불가하며, 취소 후 재 펀딩 해야합니다.
-							</div>
-						</div>
-					
-					</c:if>
+						</c:otherwise>
+						
+					</c:choose>
 					
 				</div>
 
@@ -376,8 +388,11 @@
 				<div class="shipping-info-update_wrapper">
 					
 					<form action="/purchase/buyerInfo/update" method="post" id="update-frm">
-					
-						<input type="hidden" name="orderNum" value="${purchaseInfo.orderNum}">
+						
+						<div id="hidden-area">				
+							<input type="hidden" name="orderNum" value="${purchaseInfo.orderNum}">
+						</div>
+						
 						<table class="shipping-info_table">
 
 							<tr>
@@ -445,13 +460,15 @@
 								${purchaseInfo.buyer_addr_detail}
 							</td>
 						</tr>
-						
-						<tr>
-							<td>
-								<button id="change-shipping-info_btn">배송지 정보 변경하기</button>
-							</td>
-						</tr>
-						
+
+						<c:if test="${purchaseInfo.status eq '결제 예약' }">
+							<tr>
+								<td>
+									<button id="change-shipping-info_btn">배송지 정보 변경하기</button>
+								</td>
+							</tr>
+						</c:if>
+							
 					</table>
 				
 				</div>
@@ -462,7 +479,30 @@
 
 	</body>
 	
-	<!-- Modal -->
+	<!-- 결제 예약 취소 모달 -->
+	<div id="reservationCancleModal" class="modal fade" role="dialog">
+		
+		<div class="modal-dialog" style="width: 30%;">
+		
+		    <!-- Modal content-->
+			<div class="modal-content">
+
+				<div class="modal-body" style="text-align: center;">
+					<br>
+					<p>결제 예약을 취소하시겠습니까?</p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="no-btn" data-dismiss="modal">아니오</button>
+					<button type="button" class="btn btn-default yes-btn" title="cancle" data-dismiss="modal">예</button>
+				</div>
+		    </div>
+		    
+		</div>
+		
+	</div>
+	
+	<!-- 배송 정보 변경 모달 -->
 	<div id="myModal" class="modal fade" role="dialog">
 		
 		<div class="modal-dialog" style="width: 30%;">
@@ -477,7 +517,7 @@
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" id="no-btn" data-dismiss="modal">아니오</button>
-					<button type="button" class="btn btn-default" id="yes-btn" data-dismiss="modal">예</button>
+					<button type="button" class="btn btn-default yes-btn" title="shipping" data-dismiss="modal">예</button>
 				</div>
 		    </div>
 		    
@@ -490,14 +530,44 @@
 	<script type="text/javascript" src="/js/common/postcode.js"></script>
 	
 	<script type="text/javascript">
+
+		var fundingStatus = '${purchaseInfo.fundingVO.fundingStatus}';
+
+		// funding 진행 상태에 따라 색깔 표시
+		function setStatusColor(fundingStatus){
+
+			var color = "#00c4c4";
+
+			if(fundingStatus == '종료'){
+				color = "#F15F5F";
+			}
+
+			$("#funding-status").css("background-color",color);
+
+		}
 	
 		// 우편번호 가져오기
 		$("#doro-addr").click(function() {
 			sample2_execDaumPostcode();
 		});
 
-		$("#yes-btn").click(function(){
+		$(".yes-btn").click(function(){
+
+			var title = $(this).attr("title");
+
+			if(title == 'shipping'){
+				$("#update-frm").attr("action","/purchase/buyerInfo/update");
+			} else {
+
+				var hiddenTag = '<input type="hidden" name="status" value="예약 취소">';
+					
+				$("#hidden-area").append(hiddenTag);
+				$("#update-frm").attr("action","/purchase/buyerInfo/cancle");
+
+			}
+			
 			$("#update-frm").submit();
+			
 		});
 
 		$("#change-shipping-info_btn").click(function(){

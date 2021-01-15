@@ -52,6 +52,20 @@ public class PurchaseController {
 	private SupporterService supporterService;
 	
 	/**
+	 * 결제 예약 취소
+	 */
+	@PostMapping("buyerInfo/cancle")
+	public ModelAndView setPurchaseCancle(PurchaseInfoVO purchaseInfoVO) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		purchaseInfoService.setBuyerCancle(purchaseInfoVO);
+		mv.setViewName("redirect:/mypage/myfunding/purchase/" + purchaseInfoVO.getOrderNum());
+		return mv;
+		
+	}
+	
+	/**
 	 * 주문 정보 업데이트
 	 */
 	@PostMapping("buyerInfo/update")

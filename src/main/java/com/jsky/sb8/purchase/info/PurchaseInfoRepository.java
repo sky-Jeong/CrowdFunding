@@ -8,6 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PurchaseInfoRepository extends JpaRepository<PurchaseInfoVO, Long>{
 
+	// 결제 예약 취소
+	@Modifying
+	@Transactional
+	@Query(value = "update PurchaseInfo set status=?1 where orderNum=?2", nativeQuery = true)
+	public void setBuyerCancle(String status, Long orderNum) throws Exception;
+	
+	// 배송 정보 수정
 	@Modifying
 	@Transactional
 	@Query(value = "update PurchaseInfo "
@@ -17,5 +24,6 @@ public interface PurchaseInfoRepository extends JpaRepository<PurchaseInfoVO, Lo
 	public void setBuyerInfoUpdate(String buyer_name, String buyer_tel, String buyer_addr,
 									String buyer_addr_detail, String total_addr, String custom_data,
 									String postcode, Long purchaseInfoNum);
+	
 	
 }

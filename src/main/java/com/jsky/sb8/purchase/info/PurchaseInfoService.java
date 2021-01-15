@@ -11,6 +11,10 @@ public class PurchaseInfoService {
 	@Autowired
 	private PurchaseInfoRepository purchaseInfoRepository;
 	
+	public void setBuyerCancle(PurchaseInfoVO purchaseInfoVO) throws Exception{
+		purchaseInfoRepository.setBuyerCancle(purchaseInfoVO.getStatus(), purchaseInfoVO.getOrderNum());
+	}
+	
 	public void setBuyerInfoUpdateService(PurchaseInfoVO purchaseInfoVO) throws Exception{
 		
 		String total_addr = purchaseInfoVO.getBuyer_addr() + " " + purchaseInfoVO.getBuyer_addr_detail();
