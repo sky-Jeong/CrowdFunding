@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.member.MemberVO;
+import com.jsky.sb8.project.funding.FundingVO;
 import com.jsky.sb8.purchase.PurchaseVO;
 
 import lombok.Data;
@@ -70,6 +71,10 @@ public class PurchaseInfoVO {
 	
 	@OneToMany(mappedBy = "purchaseInfoVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PurchaseVO> purchaseVOs;
+	
+	@ManyToOne
+	@JoinColumn(name = "projectNum")
+	private FundingVO fundingVO;
 	
 	@ManyToOne
 	@JoinColumn(name = "memberNum")

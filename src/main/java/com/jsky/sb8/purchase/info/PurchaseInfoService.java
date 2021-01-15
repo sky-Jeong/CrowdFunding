@@ -14,5 +14,9 @@ public class PurchaseInfoService {
 	public PurchaseInfoVO save(PurchaseInfoVO purchaseInfoVO) throws Exception{
 		return purchaseInfoRepository.save(purchaseInfoVO);
 	}
+
+	public PurchaseInfoVO findById(long purchaseInfoNum) throws Exception{
+		return purchaseInfoRepository.findById(purchaseInfoNum).get();
+	}
 	
 }

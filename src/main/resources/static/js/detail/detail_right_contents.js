@@ -18,9 +18,12 @@ $(".maker-info-show").click(function(){
 });
 
 $(".reward-info").click(function(){
-	var productNum = $(this).attr("title");
-	alert("상품번호: " + productNum+ ", 주문 페이지로 이동될 예정입니다.");
-	//location.href = "";
+	if(login == ''){
+		openLoginModal();
+	} else {
+		var productNum = $(this).attr("title");
+		location.href = "/purchase/reward/step1/" + projectNum + "?productNum="+productNum;
+	}
 });
 
 $(".reward-info").on("mouseover", function(){
@@ -50,3 +53,54 @@ function copyURL(url){
 	alert("URL이 복사되었습니다.");
 	
 }
+
+ 
+$("#funding_btn").click(function(){
+		
+	if(login == ''){
+		openLoginModal();
+	} else {
+		location.href = "/purchase/reward/step1/" + projectNum;
+	}
+});
+
+$("#like_btn").click(function(){
+	
+	if(login == ''){
+		openLoginModal();
+	} else {
+		if(like == 'true'){
+			setLike(projectNum, -1);
+		} else {
+			setLike(projectNum, +1);
+		}
+	}
+	
+});
+
+function likeChk(like){
+	if(like == 'true'){
+		$("#heart-icon").css("color","#FF5A5A");
+	} else {
+		$("#heart-icon").css("color","#DCDCDC");
+	}
+	
+}
+
+function setLike(projectNum, plus){
+	
+	$.ajax({
+		url:"/like/save",
+		type:"get",
+		data:{
+			projectNum:projectNum,
+			like:plus
+		},
+		success:function(data){
+			alert(data);
+			location.reload();
+		}
+	})
+	
+}
+	

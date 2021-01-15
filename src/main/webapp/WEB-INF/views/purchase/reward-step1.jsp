@@ -376,6 +376,28 @@
 	<script type="text/javascript" src="/js/purchase/step-chk.js"></script>
 	<script type="text/javascript">
 
+		// 선택한 리워드 번호 표기
+		var selectReward = '${productNum}';
+		getSelectReward(selectReward);
+		
+		function getSelectReward(selectReward){
+	
+		    $(".div_reward").each(function(){
+
+				var thisDiv = $(this);
+				
+			    if( $(this).attr("title") == selectReward ){
+				    
+					$("#chk_reward-" + selectReward).prop("checked", true);
+					clickRewardCss(thisDiv, true);
+					
+				}
+				
+		    });
+			
+		}
+	
+		// 주문 금액 계산
 		priceCal();
 
 		/* 주문 토탈금액 계산 */
@@ -409,24 +431,30 @@
 		*/
 		$(".div_reward").click(function(){
 
+			var thisDiv = $(this);
 			var rewardNum = $(this).attr("title");
 			var check = $("#chk_reward-" + rewardNum).prop("checked");
 
-			if (check == true){
-				
-				$(this).css("background-color","#E7F9F9");
-				$(".checked-area-"+rewardNum).css("display","block");
-				
-			} else {
-
-				$(this).css("background-color","#F6F6F6");
-				$(".checked-area-"+rewardNum).css("display","none");
-				
-			}
-
+			clickRewardCss(thisDiv, check);
 			priceCal();
 			
 		});
+
+		function clickRewardCss(thisDiv, check){
+
+			if (check == true){
+				
+				thisDiv.css("background-color","#E7F9F9");
+				$(".checked-area-" + thisDiv.attr("title")).css("display","block");
+				
+			} else {
+
+				thisDiv.css("background-color","#F6F6F6");
+				$(".checked-area-" + thisDiv.attr("title")).css("display","none");
+				
+			}
+			
+		}
 
 		/**
 		* 최소 주문 수량 및 최대 주문수량 체크

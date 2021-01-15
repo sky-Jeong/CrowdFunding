@@ -12,6 +12,7 @@
 		
 		<link rel="stylesheet" href="/css/common.css">
 		<link rel="stylesheet" href="/css/purchase/purchase-step.css">
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v9.0" nonce="mWVhBUUF"></script>
 		
 		<style type="text/css">
 
@@ -40,7 +41,7 @@
 			}
 			
 			#funding-btn{
-				padding: 0.8rem 1.3rem;
+				padding: 1rem 1.9rem;
 				
 				color: white;
 				font-size: 1.7rem;
@@ -60,6 +61,25 @@
 			.summary-info{
 				margin: 0.8rem 0px;
 			}
+			
+			.sub-description-wrapper{
+				margin: 0.5rem 0px 1rem;
+			}
+			
+			#sub-description{
+
+				color: #5D5D5D;
+				
+				font-size: 1.3rem;
+				font-weight: 700;
+				
+			}
+			
+			.div_summary-header{
+				margin-top: 2rem;
+				font-size: 3rem;
+				font-weight: bold;
+			}
 
 		</style>
 		
@@ -76,7 +96,7 @@
 			<div class="container">	
 
 				<div class="div_member-summary">
-					<h2>펀딩 완료 🎉</h2>
+					<div class="div_summary-header">펀딩 완료 🎉</div>
 					<div class="funding-summary-area">	
 						<h3 style="margin: 1rem 0px;">든든한 서포터 ${login.memberName}님<br>펀딩해 주셔서 감사합니다.</h3>
 						<div class="funding-summary">
@@ -85,7 +105,7 @@
 								<span class="result">펀딩 성공 시에만 결제됩니다.</span>	
 							</div>
 							<div class="summary-info">
-								<span class="result">리워드 발송시작일: ${fundingInfo.sendDate} 예정</span>
+								<span class="result">리워드 발송시작일: ${fundingInfo.shippingDate}</span>
 								<span class="result">예기치 못한 사정으로 발송이 지연되는 경우 입력하신 이메일 혹은 전화번호로 안내 예정입니다.</span>	
 							</div>
 						</div>
@@ -93,8 +113,22 @@
 				</div>
 				
 				<div class="btn-wrapper">
+					<div class="sub-description-wrapper">
+						<span id="sub-description">결제 예약 결과 및 배송 예상일 조회는<br>나의 펀딩현황에서 확인하세요.</span>
+					</div>
 					<button id="funding-btn">펀딩 내역 보러가기</button>
 				</div>
+				
+<!-- 				<div class="facebook-share-wrapper">
+				<div id="fb-root"></div>
+					<div class="fb-share-button"
+						data-href="https://developers.facebook.com/docs/plugins/"
+						data-layout="button" data-size="large">
+						<a target="_blank"
+							href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+							class="fb-xfbml-parse-ignore">공유하기</a>
+					</div>
+				</div> -->
 
 			</div>
 		
@@ -108,7 +142,7 @@
 		var purchaseInfoNum = '${purchaseInfo.orderNum}'
 	
 		$("#funding-btn").click(function(){
-			alert( purchaseInfoNum + "  펀딩내역 페이지로 이동 예정입니다.");
+			location.href="/mypage/myfunding/purchase/" + purchaseInfoNum;
 		});
 
 	</script>

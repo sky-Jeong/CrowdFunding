@@ -33,6 +33,7 @@ import com.jsky.sb8.project.funding.like.LikeProjectVO;
 import com.jsky.sb8.project.funding.reward.RewardVO;
 import com.jsky.sb8.project.maker.MakerVO;
 import com.jsky.sb8.project.supporter.SupporterVO;
+import com.jsky.sb8.purchase.info.PurchaseInfoVO;
 
 import lombok.Data;
 
@@ -105,10 +106,17 @@ public class FundingVO {
 	private String openDate;
 	@Transient
 	private String payDateStr;
+	@Transient
+	private String charDivisionStr;
+	@Transient
+	private String fundingStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "makerNum")
 	private MakerVO makerVO;
+	
+	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<PurchaseInfoVO> purchaseInfoVOs;
 	
 	@OneToMany(mappedBy = "fundingVO", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<LikeProjectVO> likeProjectVOs;
@@ -132,6 +140,29 @@ public class FundingVO {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryNum")
 	private CategoryVO categoryVO;
+	
+	public String getFundingStatus() {
+
+		Calendar ca = Calendar.getInstance();
+		Date today = new Date(ca.getTimeInMillis());
+		
+		if ( this.deadline.getTime() <= today.getTime() ) {
+			return "종료";
+		} else {
+			return "진행중";
+		}
+		
+	}
+	
+	public String getCharDivisionStr() {
+		
+		if(this.charDivision.equals("F")) {
+			return "리워드";
+		} else {
+			return "투자";
+		}
+		
+	}
 	
 	public String getPayDateStr() {
 		

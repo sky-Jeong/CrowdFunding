@@ -120,7 +120,6 @@
 		
 	</script>
 	
-	<script type="text/javascript" src="/js/detail/project-like.js"></script>
 	<script type="text/javascript" src="/js/detail/select.js"></script>
 	<script type="text/javascript" src="/js/detail/detail_right_contents.js"></script>
 	

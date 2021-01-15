@@ -50,16 +50,6 @@ public class PurchaseController {
 	@Autowired
 	private SupporterService supporterService;
 	
-	@PostMapping("billing")
-	public ModelAndView setBillingKey() throws Exception{
-		
-		ModelAndView mv = new ModelAndView();
-		
-		
-		return mv;
-		
-	}
-	
 	/**
 	 * 주문하기
 	 * 	- insert DB : purchase, supporter,purcahseInfo
