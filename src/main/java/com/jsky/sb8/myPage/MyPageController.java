@@ -17,6 +17,16 @@ public class MyPageController {
 	
 	@Autowired
 	private PurchaseInfoService purchaseInfoService;
+	
+	@GetMapping("myfunding/rewardfundinglist")
+	public ModelAndView getMyRewardFundingList() throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("member/myPage/myreward");
+		return mv;
+		
+	}
 
 	@GetMapping("myfunding/purchase/{purchaseInfoNum}")
 	public ModelAndView getMyPurchasePage(@PathVariable long purchaseInfoNum) throws Exception{
