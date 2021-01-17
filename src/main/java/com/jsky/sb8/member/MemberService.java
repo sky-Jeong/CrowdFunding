@@ -15,6 +15,10 @@ public class MemberService {
 		return memberRepository.save(memberVO);
 	}
 	
+	public MemberVO findById(long id) throws Exception{
+		return memberRepository.findById(id).get();
+	}
+	
 	public MemberVO findByEmail(String email) throws Exception {
 		return memberRepository.findByEmail(email);
 	}

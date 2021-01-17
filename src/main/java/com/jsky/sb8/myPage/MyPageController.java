@@ -1,5 +1,7 @@
 package com.jsky.sb8.myPage;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jsky.sb8.member.MemberService;
+import com.jsky.sb8.member.MemberVO;
+import com.jsky.sb8.purchase.PurchaseService;
+import com.jsky.sb8.purchase.PurchaseVO;
 import com.jsky.sb8.purchase.info.PurchaseInfoService;
 import com.jsky.sb8.purchase.info.PurchaseInfoVO;
 
@@ -17,12 +23,20 @@ public class MyPageController {
 	
 	@Autowired
 	private PurchaseInfoService purchaseInfoService;
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("myfunding/rewardfundinglist")
-	public ModelAndView getMyRewardFundingList() throws Exception{
+	public ModelAndView getMyRewardFundingList(HttpSession session) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		memberVO = memberService.findById(memberVO.getMemberNum());
+		
+		System.out.println(memberVO.getMemberName() + ", " + memberVO.getEmail());
+		
+		mv.addObject("purchase", memberVO);
 		mv.setViewName("member/myPage/myreward");
 		return mv;
 		

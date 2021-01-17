@@ -18,8 +18,8 @@
 				padding: 0px;
 			}
 
-			.myreward-body{
-				border: 1px solid #EAEAEA;
+			.myreward-header{
+				border-bottom: 1px solid #EAEAEA;
 			}
 			
 			.contents-area{
@@ -43,7 +43,57 @@
 			}
 			
 			.funding-list_table td{
-				border:  1px solid #EAEAEA;
+				padding: 2rem;
+				margin: 2rem 0px;
+				border: 1px solid #F6F6F6;
+				cursor: pointer;
+			}
+			
+			.category{
+				color: #8C8C8C;
+				font-size: 1.23rem;
+				font-weight: 350;
+			}
+			
+			.category:nth-child(2){
+				float: right;
+			}
+			
+			.title-area{
+				margin-top: 1rem;
+			}
+			
+			.title{
+				margin: 0.2rem 0px;
+				font-size: 1.7rem;
+				font-weight: 500;
+			}
+		
+			.funding-status{
+				
+				color: #6799FF;
+				
+				font-size: 1.5rem;
+				font-weight: 600;
+				
+				margin-top: 3rem;
+				
+			}
+			
+			.status-circle{
+				width: 0.5rem; height: 0.5rem;
+				border-radius: 50%;
+				display: inline-block;
+				margin-right: 0.4rem;
+				margin-bottom: 0.2rem;
+			}
+			
+			#funding-status{
+				background-color: #00c4c4;
+			}
+			
+			#funding-status_fin{
+				background-color: #FF7171;
 			}
 		
 		</style>
@@ -77,27 +127,46 @@
 
 					<table class="funding-list_table">
 					
-						<tr>
-						
-							<td>
-								<div>
-									<span>펀딩 / 반려동물</span>
-									<span>2021.01.15 펀딩</span>
-								</div>
-								<div>
-									뭘 좋아할지 몰라 다 준비했어 ! 6종 낚시대SET가 9900원 실화냥!
-								</div>
-								<div>
-									by 심콩캣
-								</div>
-								<div>
-									예약 취소
-								</div>
-							</td>
-						
-						</tr>
+						<c:forEach items="${purchase.purchaseVOs}" var="vo">
+					
+							<tr>
+							
+								<td class="my-reward-funding" title="${vo.purchaseInfoVO.orderNum}">
+									<div>
+										<span class="category">${vo.rewardVO.type} / ${vo.rewardVO.fundingVO.categoryVO.categoryName}</span>
+										<span class="category">${vo.purchaseInfoVO.orderedAtStr} 펀딩</span>
+									</div>
+									<div class="title-area">
+										<div class="category">
+											<c:choose>
+											
+												<c:when test="${vo.rewardVO.fundingVO.fundingStatus eq '진행중'}">
+													<span class="status-circle" id="funding-status"></span> ${vo.rewardVO.fundingVO.fundingStatus}
+												</c:when>
+												
+												<c:otherwise>
+													<span class="status-circle" id="funding-status_fin"></span> ${vo.rewardVO.fundingVO.fundingStatus}
+												</c:otherwise>
+											
+											</c:choose>
+												
+										</div>
+										<div class="title">${vo.rewardVO.fundingVO.title}</div>
+									</div>
+									<div class="category">
+										by ${vo.rewardVO.fundingVO.makerVO.company}
+									</div>
+									<div class="funding-status">
+										${vo.purchaseInfoVO.status}
+									</div>
+								</td>
+							
+							</tr>
+							
+						</c:forEach>
 						
 					</table>
+					
 				</div>
 				
 			</div>
@@ -105,5 +174,14 @@
 		</div>
 		
 	</body>
+	
+	<script type="text/javascript">
+
+		$(".my-reward-funding").click(function(){
+			var purchaseNum = $(this).attr("title");
+			location.href = "/mypage/myfunding/purchase/" + purchaseNum;
+		});
+	
+	</script>
 	
 </html>
