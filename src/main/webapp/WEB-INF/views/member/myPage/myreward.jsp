@@ -23,13 +23,27 @@
 			}
 			
 			.contents-area{
-				width: 70%;
+				width: 60%;
 				margin: 2.8rem auto 2.5rem;
 			}
 			
 			#page-title{
 				font-size: 3.3rem;
 				font-weight: 700;
+			}
+			
+			.status-area{
+				text-align: right;
+				font-size: 2rem;
+			}
+			
+			.funding-list_table{
+				width: 100%;
+				margin: 2rem 0px;
+			}
+			
+			.funding-list_table td{
+				border:  1px solid #EAEAEA;
 			}
 		
 		</style>
@@ -53,7 +67,7 @@
 			
 				<div class="contents-area">
 				
-					<div>
+					<div class="status-area">
 						<select name="status">
 							<option value="" selected="selected">전체</option>
 							<option value="결제 예약">결제 예약</option>
@@ -61,7 +75,7 @@
 						</select>
 					</div>
 
-					<table>
+					<table class="funding-list_table">
 					
 						<tr>
 						
