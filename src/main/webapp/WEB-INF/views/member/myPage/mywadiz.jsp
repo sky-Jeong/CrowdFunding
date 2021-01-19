@@ -14,14 +14,13 @@
 		<style type="text/css">
 		
 			.container{
-				border: 1px solid red;
 				width: 68%;
 				padding: 0px;
+				margin-top: 5rem;
 			}
 			
 			/* Left wrapper */
 			.left-wrapper{
-				border-right: 1px solid #EAEAEA;
 				width: 25%;
 				padding: 2rem;
 				float: left;
@@ -70,7 +69,7 @@
 				box-shadow: 5px 5px 5px #EAEAEA;
 			}
 			
-			.activate{
+			#activate{
 				color: #00c4c4;
 				box-shadow: 5px 5px 5px #EAEAEA;
 			}
@@ -79,8 +78,13 @@
 			.right-wrapper{
 				width: 75%;
 				float: left;
-				padding: 2rem;
-				border: 1px solid blue;
+				padding: 2rem 0px 15rem 3rem;
+				border-left: 1px solid #EAEAEA;
+			}
+			
+			/* right wrapper: supporter */	
+			.funding-summary{
+				margin-bottom: 4rem;
 			}
 			
 			.funding-cards{
@@ -103,6 +107,7 @@
 				display:inline-table;
 				margin: 0px 1rem;
 				padding: 1.2rem 0px;
+				cursor: pointer;
 			}
 			
 			.funding-cards li:nth-child(2){
@@ -143,6 +148,87 @@
 				font-weight: 700;
 			
 			}
+			
+			.message-icon{
+				color: #5D5D5D;
+			}
+			
+			.info-wrapper{
+				width: 100%;
+				margin: 2.5rem 0px 1rem;
+			}
+			
+			.info-contents{
+	
+				display: inline-block;
+			
+				width: 50%;
+				padding: 1.5rem 1rem;
+				
+				border-top: 1px solid #EAEAEA;
+				border-bottom: 1px solid #EAEAEA;
+				
+				cursor: pointer;
+
+			}
+			
+			.info-contents:nth-child(1), .info-contents:nth-child(3){
+				float: left;
+			}
+			
+			.info-contents:nth-child(3), .info-contents:nth-child(4){
+				border-top: none;
+			}
+			
+			.info-contents *{
+				font-size: 1.6rem;
+				font-weight: 300;
+			}
+			
+			.contents-span{
+				display: inline-block;
+			}
+			
+			.contents-span:nth-child(2){
+				float: right;
+				color: #EAEAEA;
+			}
+			
+			#info-title{
+				margin-left: 1.5rem;
+			}
+			
+			.info-wrapper:nth-child(2){
+				margin: 1rem 0px;
+			}
+			/* fin: right wrapper: supporter */
+		
+			/* right wrapper : maker */
+			
+			.maker-category{
+				width: 100%;
+				display: table;
+				margin: 0px;
+			}
+			
+			.maker-category li{
+			
+				margin: 0px 1rem;
+				padding: 1rem 2rem;
+				
+				text-align: center;
+				
+				font-size: 1.5rem;
+				
+				display: inline-table;
+				border: 1px solid red;
+			}
+			
+			.member-category_wrapper{
+				border-bottom: 1px solid #EAEAEA;
+			}
+			
+			/* fin: right wrapper : maker */
 		
 		</style>
 		
@@ -171,8 +257,8 @@
 					<div>
 						<div>
 							<ul class="ul-stlye menu-list">
-								<li>서포터</li>
-								<li>메이커</li>
+								<li class="member-select" data-index="0">서포터</li>
+								<li class="member-select" data-index="1">메이커</li>
 							</ul>
 						</div>
 					</div>
@@ -181,39 +267,26 @@
 			
 				<div class="right-wrapper">
 				
-					<!-- 서포터 영역 -->
-					<div class="funding-summary">
+					<div class="member-contents contents-0">
+						<%-- <c:import url="./right/right-supporter.jsp"></c:import> --%>
+					</div>
+				
+					<!-- maker 영역 -->
+					<div class="member-contents contents-1">
 					
-						<div class="funding-summary-title">나의 프로젝트</div>
-					
-						<ul class="ul-stlye funding-cards">
+						<div class="funding-summary">
 							
-							<li>
-								<a href="">
-									<span class="card-title title-count">펀딩하기</span>
-									<span class="title-count"><b>0</b> 회</span>
-								</a>
-							</li>
-							
-								
-							<li>
-								<a href="">
-									<span class="card-title title-count">좋아요</span>
-									<span class="title-count"><b>0</b> 회</span>
-								</a>
-							</li>
-							
-								
-							<li>
-								<a href="">
-									<span class="card-title title-count">지지서명</span>
-									<span class="title-count"><b>0</b> 회</span>
-								</a>
-							</li>
+							<div class="member-category_wrapper">
+								<ul class="ul-stlye maker-category">
+									<li>펀딩하기</li>
+									<li>투자하기</li>
+								</ul>
+							</div>
 						
-						</ul>
+						</div>
 						
 					</div>
+					<!-- fin: maker -->
 				
 				</div>
 			
@@ -225,8 +298,36 @@
 	
 	<script type="text/javascript">
 
+/* 		var dataIndex = 0;
+		memberSelectCss();
 
+		$(".member-select").click(function(){
+			dataIndex = $(this).attr("data-index");
+			memberSelectCss()
+		});
+
+		function memberSelectCss(){
+			
+		    $(".member-select").each(function(){
+			    
+				var index = $(this).attr("data-index");
 	
+				if (index == dataIndex){
+					$(this).attr("id","activate");
+					rightContents(index);
+				} else {
+					$(this).attr("id","");
+				}
+				
+		    });
+
+		}
+
+		function rightContents(index){
+			$(".member-contents").css("display","none");
+			$(".contents-" + index).css("display","block");		
+		} */
+	    
 	</script>
 	
 </html>
