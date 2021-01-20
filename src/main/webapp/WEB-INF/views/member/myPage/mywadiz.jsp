@@ -214,18 +214,80 @@
 			.maker-category li{
 			
 				margin: 0px 1rem;
-				padding: 1rem 2rem;
+				padding: 0.8rem 1.5rem;
 				
 				text-align: center;
 				
 				font-size: 1.5rem;
 				
 				display: inline-table;
-				border: 1px solid red;
+				
 			}
 			
 			.member-category_wrapper{
 				border-bottom: 1px solid #EAEAEA;
+			}
+			
+			.maker-select{
+				cursor: pointer;
+			}
+			
+			#maker-activate{
+				
+				font-weight: bold;
+				
+				border-bottom: 2px solid black;
+				box-sizing: border-box;
+				
+			}
+			
+			.funding-area{
+				padding: 4rem 0px 1rem;
+			}
+			
+			.maker_info-contents{
+				width: 100%;
+				color: #8C8C8C;
+				text-align: center;
+			}
+			
+			.maker_info-contents div:nth-child(1){
+				
+				color: #353535;
+				margin-bottom: 1rem;
+				
+				font-size: 1.5rem;
+				font-weight: 700;
+
+			}
+			
+			.maker_info-contents > span{
+				font-size: 1.3rem;
+				font-weight: 200;
+			}
+			
+			.make-btn-area{
+				margin: 2rem 0px 1rem;
+			}
+			
+			#funding-open-btn{
+				
+				width: 100%;
+				color: white;
+					
+				border: none;
+				border-radius: 3px;
+				background-color: #00c4c4;
+				
+				padding: 0.9rem;
+				
+				font-size: 1.6rem;
+				font-weight: 300;
+				
+			}
+			
+			.maker-funding-info{
+				margin-bottom: 1rem !important;
 			}
 			
 			/* fin: right wrapper : maker */
@@ -268,26 +330,48 @@
 				<div class="right-wrapper">
 				
 					<div class="member-contents contents-0">
-						<%-- <c:import url="./right/right-supporter.jsp"></c:import> --%>
+						<c:import url="./right/right-supporter.jsp"></c:import>
 					</div>
 				
 					<!-- maker 영역 -->
 					<div class="member-contents contents-1">
 					
-						<div class="funding-summary">
+						<div class="funding-summary maker-funding-info">
 							
 							<div class="member-category_wrapper">
 								<ul class="ul-stlye maker-category">
-									<li>펀딩하기</li>
-									<li>투자하기</li>
+									<li class="maker-select" data-index="0">펀딩하기</li>
+									<li class="maker-select" data-index="1">투자하기</li>
 								</ul>
 							</div>
 						
 						</div>
 						
+						<!-- 펀딩하기 -->
+						<div class="funding-contents funding-0">
+						
+							<div class="funding-summary">
+							
+								<div class="funding-area">
+								
+									<!-- 펀딩 내역이 없을 경우 -->
+									<c:import url="./right/maker/none-funding.jsp"></c:import>
+									
+									<!-- 펀딩 내역이 있을 경우 -->
+									
+								</div>
+								
+							</div>
+							
+							<!-- 이동 버튼 모음 -->
+							<c:import url="./right/maker/funding-category.jsp"></c:import>
+
+						</div>
+						<!-- fin: 펀딩하기 끝 -->
+						
 					</div>
 					<!-- fin: maker -->
-				
+
 				</div>
 			
 			</div>
@@ -298,12 +382,69 @@
 	
 	<script type="text/javascript">
 
-/* 		var dataIndex = 0;
+		// 메이커 카테고리 기능
+		var makerIndex = 0;
+		makerSelectCss();
+
+		$(".maker-select").click(function(){
+			makerIndex = $(this).attr("data-index");
+			makerSelectCss();
+		});
+
+		function makerSelectCss(){
+
+			$(".maker-select").each(function(){
+			    
+				var index = $(this).attr("data-index");
+	
+				if (index == makerIndex){
+					$(this).attr("id","maker-activate");
+					infoText(index);
+				} else {
+					$(this).attr("id","");
+				}
+				
+		    });
+			
+		}
+
+		function infoText(makerIndex){
+
+			var onClickFnc = "fundingMoveFuntion()";
+			var btnText = "펀딩 오픈 신청하기";
+			var prText = "와디즈 펀딩을 처음으로 만들어보세요";
+			var description = "펀딩한 서포터에게 제품이나<br>서비스를 제공합니다.";
+			
+			if (makerIndex == 1){
+				onClickFnc = "investMoveFuntion()";
+				btnText = "투자 유치 신청하기";
+				prText = "와디즈에서 투자유치를 시작하세요";
+				description = "투자자에게 기업의 주식이나<br>채권을 발행합니다";
+			}
+
+			$(".description").eq(0).html(description);
+			$(".description").eq(1).html(prText);
+			
+			$("#funding-open-btn").text(btnText);
+			$("#funding-open-btn").attr("onclick", onClickFnc);
+
+		}
+
+		function fundingMoveFuntion(){
+			alert("펀딩 버튼을 클릭했습니다.");
+		}
+		
+		function investMoveFuntion(){
+			alert("투자유치는 현재 준비 중입니다.");
+		}
+
+		// 멤버모드 선택
+		var dataIndex = 0;
 		memberSelectCss();
 
 		$(".member-select").click(function(){
 			dataIndex = $(this).attr("data-index");
-			memberSelectCss()
+			memberSelectCss();
 		});
 
 		function memberSelectCss(){
@@ -326,7 +467,7 @@
 		function rightContents(index){
 			$(".member-contents").css("display","none");
 			$(".contents-" + index).css("display","block");		
-		} */
+		}
 	    
 	</script>
 	
