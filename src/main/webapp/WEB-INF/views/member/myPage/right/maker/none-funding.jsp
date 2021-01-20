@@ -11,7 +11,4 @@
 	</div>
 </div>
 
-<div class="make-btn-area">
-	<button id="funding-open-btn">펀딩 오픈 신청하기</button>
-</div>
 <!-- fin: 펀딩 내역이 없을 경우 -->

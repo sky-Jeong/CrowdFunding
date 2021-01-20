@@ -14,4 +14,7 @@ public interface CategoryRepository extends JpaRepository<CategoryVO, Long>{
 	@Query("select count(*) from Category where charDivision=?1")
 	public long findAllByCharDivision(String charDivision) throws Exception;
 	
+	@Query(value = "select * from Category where categoryNum > 1", nativeQuery = true)
+	public List<CategoryVO> findAllCategory() throws Exception;
+	
 }

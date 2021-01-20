@@ -356,8 +356,13 @@
 								
 									<!-- 펀딩 내역이 없을 경우 -->
 									<c:import url="./right/maker/none-funding.jsp"></c:import>
-									
+								
 									<!-- 펀딩 내역이 있을 경우 -->
+									
+									<!-- 공통 부분 -->	
+									<div class="make-btn-area">
+										<button id="funding-open-btn"></button>
+									</div>
 									
 								</div>
 								
@@ -431,7 +436,7 @@
 		}
 
 		function fundingMoveFuntion(){
-			alert("펀딩 버튼을 클릭했습니다.");
+			location.href="/studio/rewardRegistration";
 		}
 		
 		function investMoveFuntion(){

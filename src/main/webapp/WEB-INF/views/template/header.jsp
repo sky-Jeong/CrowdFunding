@@ -34,9 +34,12 @@
 				<li><a href="${pageContext.request.contextPath}/member/logout"><span class="glyphicon glyphicon-log-in"></span> 로그아웃</a></li>
 			</c:if>
 			
-			<li>
-				<a href="#"><span class="header__span--project">프로젝트 오픈 신청</span></a>
-			</li>
+			<c:if test="${login != null}">
+				<li>
+					<a href="${pageContext.request.contextPath}/studio/rewardRegistration"><span class="header__span--project">프로젝트 오픈 신청</span></a>
+				</li>
+			</c:if>
+			
 		</ul>
 	</div>
 </nav>

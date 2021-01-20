@@ -11,12 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.jsky.sb8.project.funding.detail.community.CommunityVO;
 import com.jsky.sb8.project.funding.like.LikeProjectVO;
+import com.jsky.sb8.project.maker.MakerVO;
 import com.jsky.sb8.project.supporter.SupporterVO;
 import com.jsky.sb8.purchase.PurchaseVO;
 
@@ -43,6 +45,9 @@ public class MemberVO {
 	private String status;
 	@Column
 	private String phone;
+	
+	@OneToOne(mappedBy = "memberVO", cascade = CascadeType.ALL)
+	private MakerVO makerVO;
 	
 	@OneToMany(mappedBy = "memberVO", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<LikeProjectVO> likeProjectVOs;
