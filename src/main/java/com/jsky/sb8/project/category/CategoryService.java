@@ -21,5 +21,9 @@ public class CategoryService {
 		System.out.println(pageable.getPageNumber() + ", " + pageable.getPageSize());
 		return categoryRepository.findByCharDivision(charDivision, pageable);
 	}
+	
+	public List<CategoryVO> findAllCategory() throws Exception{
+		return categoryRepository.findAllCategory();
+	}
 
 }

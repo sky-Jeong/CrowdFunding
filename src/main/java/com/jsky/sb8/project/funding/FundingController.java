@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jsky.sb8.member.MemberService;
 import com.jsky.sb8.member.MemberVO;
+import com.jsky.sb8.project.category.CategoryService;
+import com.jsky.sb8.project.category.CategoryVO;
 import com.jsky.sb8.project.funding.detail.community.CommunityService;
 import com.jsky.sb8.project.funding.detail.news.NewsService;
 import com.jsky.sb8.project.funding.like.LikeProjectService;
@@ -25,7 +27,7 @@ import com.jsky.sb8.project.supporter.SupporterService;
 
 
 @Controller
-@RequestMapping(value = "/funding/**")
+@RequestMapping(value = {"/funding/**","/studio/**"})
 public class FundingController {
 	
 	@Autowired
@@ -38,6 +40,23 @@ public class FundingController {
 	private SupporterService supporerService;
 	@Autowired
 	private LikeProjectService likeProjectService;
+	@Autowired
+	private CategoryService categoryService;
+	
+	/**
+	 * Funding 만들기 스튜디오
+	 */
+	@GetMapping("rewardRegistration")
+	public ModelAndView getRegistrationPage() throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		List<CategoryVO> category = categoryService.findAllCategory();
+		
+		mv.addObject("category", category);
+		mv.setViewName("studio/rewardRegistration");
+		return mv;
+		
+	}
 
 	/**
 	 * Funding main 페이지

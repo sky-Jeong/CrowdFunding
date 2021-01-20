@@ -4,18 +4,37 @@
 
 <!DOCTYPE html>
 <html>
+
 	<head>
+	
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>하디즈</title>
 		<c:import url="./template/bootstrap.jsp"></c:import>
+
 		<link rel="stylesheet" href="/css/common.css">
+		<link rel="stylesheet" href="/css/reward/slideshow.css">
+		
+		<style type="text/css">
+		
+			.slide-image{
+				margin-top: -2rem;
+			}
+		
+		</style>
+
 	</head>
+	
 	<body>
+	
 		<!-- ${pageContext.request.contextPath } -->
 		<c:import url="./template/header.jsp"></c:import>
-		<div class="container">	
-			<h1>Hadiz index page</h1>
-			<p>Spring boot study example file</p>
-		</div>
+		
+		<main>	
+			
+			<c:import url="./reward/common/slide.jsp"></c:import>
+			
+		</main>
+		
 	</body>
+	
 </html>

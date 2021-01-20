@@ -26,6 +26,16 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("mywadiz")
+	public ModelAndView getWadiz(HttpSession session) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("member/myPage/mywadiz");
+		return mv;
+		
+	}
+	
 	@GetMapping("myfunding/rewardfundinglist")
 	public ModelAndView getMyRewardFundingList(HttpSession session) throws Exception{
 		

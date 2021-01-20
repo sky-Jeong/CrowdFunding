@@ -23,17 +23,6 @@ class FaqRepositoryTest {
 	
 	@Test
 	void test() {
-		this.fundingTest();
-	}
-	
-	private void fundingTest() {
-		
-		FundingVO fundingVO = fundingRepository.findById(4L).get();
-		System.out.println(fundingVO.getTitle());
-		
-		for(FaqVO vo : fundingVO.getFaqVOs()) {
-			System.out.println(vo.getQuestion());
-		}
 		
 	}
 
