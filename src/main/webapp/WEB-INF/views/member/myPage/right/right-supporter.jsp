@@ -10,10 +10,10 @@
 	<!-- funding card area -->
 	<ul class="ul-stlye funding-cards">
 		
-		<li>
-			<a href="">
+		<li id="my-funding-summary">
+			<a href="/mypage/myfunding/rewardfundinglist">
 				<span class="card-title title-count">펀딩하기</span>
-				<span class="title-count"><b id="purchase-count_b">0</b> 회</span>
+				<span class="title-count"><b id="purchase-count_b"></b> 회</span>
 			</a>
 		</li>
 		

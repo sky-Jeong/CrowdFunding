@@ -118,7 +118,7 @@
 					<div class="main__div-fnc-area">
 					
 						<div style="display: inline-block; cursor: pointer;" id="id-save">
-							<input type="checkbox" id="id-save-check" name="save">
+							<input type="checkbox" id="id-save-check" name="save" checked="checked">
 							<span class="span-id-pw">아이디 저장</span>
 						</div>
 						
