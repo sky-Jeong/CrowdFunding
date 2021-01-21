@@ -25,5 +25,11 @@ public interface PurchaseInfoRepository extends JpaRepository<PurchaseInfoVO, Lo
 									String buyer_addr_detail, String total_addr, String custom_data,
 									String postcode, Long purchaseInfoNum);
 	
+	/**
+	 * 로그인한 멤버의 프로젝트 후원 개수 리턴
+	 */
+	@Query(value = "select count(*) from PurchaseInfo where memberNum=?1", nativeQuery = true)
+	public long getPurchaseCount(long memberNum) throws Exception;
+	
 	
 }

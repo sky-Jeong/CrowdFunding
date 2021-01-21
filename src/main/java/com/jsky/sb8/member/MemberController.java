@@ -6,7 +6,9 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +56,23 @@ public class MemberController {
 	 * 회원 로그인
 	 */
 	@PostMapping("login")
-	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) throws Exception {
+	public ModelAndView memberLogin(MemberVO memberVO, String save,
+									HttpSession session, HttpServletResponse response) throws Exception {
 		
 		System.out.println("로그인 처리");
 		
 		ModelAndView mv = new ModelAndView();
+		
+		// cookie에 아이디 저장
+		if( save != null ) {
+			Cookie cookie = new Cookie("remember", memberVO.getEmail());
+			response.addCookie(cookie);
+		} else {
+			Cookie cookie = new Cookie("remember", "");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
+		
 		memberVO = memberService.memberLogin(memberVO);
 		
 		String path = "member/login";

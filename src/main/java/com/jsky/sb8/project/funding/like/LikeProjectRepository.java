@@ -20,4 +20,10 @@ public interface LikeProjectRepository extends JpaRepository<LikeProjectVO, Long
 	@Query(value = "select * from LikeProject where projectNum=?1 and memberNum=?2", nativeQuery = true)
 	public LikeProjectVO getLikeProject(long projectNum, long memberNum) throws Exception;
 	
+	/**
+	 * 로그인한 멤버의 좋아요 누른 개수 리턴
+	 */
+	@Query(value = "select count(*) from LikeProject where memberNum=?1", nativeQuery = true)
+	public long getLikeCount(long memberNum) throws Exception;
+	
 }
