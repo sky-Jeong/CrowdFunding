@@ -13,7 +13,7 @@
 		<li>
 			<a href="">
 				<span class="card-title title-count">펀딩하기</span>
-				<span class="title-count"><b>0</b> 회</span>
+				<span class="title-count"><b id="purchase-count_b">0</b> 회</span>
 			</a>
 		</li>
 		
@@ -21,15 +21,16 @@
 		<li>
 			<a href="">
 				<span class="card-title title-count">좋아요</span>
-				<span class="title-count"><b>0</b> 회</span>
+				<span class="title-count"><b id="like-count_b">0</b> 회</span>
 			</a>
 		</li>
 		
 			
 		<li>
+			<!-- 현재 지지서명은 작업이 완료되지 않아 0회로 공통되게 나타남 -->
 			<a href="">
 				<span class="card-title title-count">지지서명</span>
-				<span class="title-count"><b>0</b> 회</span>
+				<span class="title-count"><b id="sign-count_b">0</b> 회</span>
 			</a>
 		</li>
 	

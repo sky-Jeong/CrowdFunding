@@ -309,7 +309,7 @@
 				
 					<div class="left-header">
 						<div id="member-name">
-							<span>sky</span> 님 <i class="glyphicon glyphicon-menu-right" style="font-size: 1.4rem;"></i>
+							<span>${login.memberName}</span> 님 <i class="glyphicon glyphicon-menu-right" style="font-size: 1.4rem;"></i>
 						</div>
 						<div>
 							서포터 ・ 개인 회원
@@ -386,6 +386,12 @@
 	</body>
 	
 	<script type="text/javascript">
+
+		// 개수 카운트
+		$("#purchase-count_b").text('${count.purchase}');
+
+		// 좋아요 카운트
+		$("#like-count_b").text('${count.like}');
 
 		// 메이커 카테고리 기능
 		var makerIndex = 0;

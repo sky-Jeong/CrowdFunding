@@ -1,5 +1,7 @@
 package com.jsky.sb8.myPage;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,19 @@ public class MyPageController {
 	private PurchaseInfoService purchaseInfoService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private MyPageService myPageService;
 	
 	@GetMapping("mywadiz")
 	public ModelAndView getWadiz(HttpSession session) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		
+		MemberVO memberVO = (MemberVO) session.getAttribute("login");
+		
+		HashMap<String, Long> map = myPageService.getCountList(memberVO.getMemberNum());
+		
+		mv.addObject("count", map);
 		mv.setViewName("member/myPage/mywadiz");
 		return mv;
 		

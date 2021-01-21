@@ -112,13 +112,13 @@
 				
 				<form action="${pageContext.request.contextPath}/member/login" id="main__form-frm" method="post">
 				
-					<input class="main__login-txt" id="id-txt" type="text" placeholder="이메일 아이디" name="email">
+					<input class="main__login-txt" id="id-txt" type="text" placeholder="이메일 아이디" name="email" value="${cookie.remember.value}">
 					<input class="main__login-txt" id="pw-txt" type="password" name="password" placeholder="비밀번호(영문,숫자,특수문자 포함 8자 이상)">
 					
 					<div class="main__div-fnc-area">
 					
 						<div style="display: inline-block; cursor: pointer;" id="id-save">
-							<input type="checkbox" id="id-save-check">
+							<input type="checkbox" id="id-save-check" name="save">
 							<span class="span-id-pw">아이디 저장</span>
 						</div>
 						
