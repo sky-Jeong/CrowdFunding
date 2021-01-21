@@ -554,6 +554,9 @@
 	
 	<script type="text/javascript">
 	
+		var IMP = window.IMP; // 생략해도 괜찮습니다.
+		IMP.init("imp35382026"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+		
 		// 전화번호 자동 하이픈 체크
 		$("#buyer-tel").on("keyup", function(){
 			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );

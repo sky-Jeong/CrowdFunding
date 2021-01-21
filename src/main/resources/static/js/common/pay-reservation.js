@@ -1,9 +1,6 @@
 /**
  * iamport pay reservation
  */
-		
-var IMP = window.IMP; // 생략해도 괜찮습니다.
-IMP.init("imp35382026"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
   
 // 정기결제 빌링키 발급
 function payReservation(){
