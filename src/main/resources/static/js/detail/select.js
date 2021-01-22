@@ -15,7 +15,7 @@ if(pathName.includes('main')){
 } else if(pathName.includes('community')){
 	$(".funding--category").eq(2).css("border-bottom","3px solid #00c4c4");
 	$(".funding--category").eq(2).css("box-sizing","border-box");
-} else if(pathName.includes('surporter')){
+} else if(pathName.includes('supporter')){
 	$(".funding--category").eq(3).css("border-bottom","3px solid #00c4c4");
 	$(".funding--category").eq(3).css("box-sizing","border-box");
 } 

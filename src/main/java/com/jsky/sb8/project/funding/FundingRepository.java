@@ -12,6 +12,13 @@ import com.jsky.sb8.project.funding.detail.news.NewsVO;
 
 public interface FundingRepository extends JpaRepository<FundingVO, Long>{
 	
+	@Query(nativeQuery = true,
+			value = "select * "
+					+ "from FundingProject FP left join Supporter SP on(FP.num = SP.projectNum) "
+					+ "where FP.num = ?1 "
+					+ "order by SP.regTime DESC ")
+	public Optional<FundingVO> getProjectSupporterSort(long num);
+	
 	public Page<FundingVO> findByStartDateGreaterThanOrderByStartDate(Date today, Pageable pageable);
 	
 	public Page<FundingVO> findByStatusContainingAndStatusNotAndStartDateLessThanEqual(String status, String ignore,Date today,Pageable pageable);

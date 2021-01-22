@@ -28,7 +28,7 @@ public class FundingService {
 	 * 선택한 프로젝트 내용보기
 	 */
 	public Optional<FundingVO> findById(long num) throws Exception{
-		return fundingRepository.findById(num);
+		return fundingRepository.getProjectSupporterSort(num);
 	}
 	
 	/**

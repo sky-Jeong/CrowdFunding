@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,17 +59,26 @@ public class SupporterVO {
 	public String getRegTimeCal() {
 		
 		Calendar ca = Calendar.getInstance();
-		Date today = new Date(ca.getTimeInMillis());
+		Timestamp todayChk = new Timestamp(ca.getTimeInMillis());
 		
-		long result = today.getTime() - this.regTime.getTime();
-		result = ( result / (1000 * 60) ) % 60;
+		System.out.println("------------------------------------ " + todayChk + ", " + this.getRegTime());
+		long result = todayChk.getTime() - this.regTime.getTime();
+		System.out.println("result chk: " + this.getMemberVO().getMemberName() + ", " + result);
+		result =  ( result / 1000 ) / 60;
+		System.out.println("result chk: " + this.getMemberVO().getMemberName() + ", " + result);
+		
+		System.out.println("test area----");
+		System.out.println(TimeUnit.MILLISECONDS.toHours(result));
+		System.out.println(TimeUnit.MILLISECONDS.toDays(result));
+		System.out.println(TimeUnit.MICROSECONDS.toHours(result));
 		
 		if(result < 60) {
 			return result + "분 전";
 		} else {
 			
 			result = result % 60;
-
+			System.out.println("result chk: " + this.getMemberVO().getMemberName() + ", " + result);
+			
 			if(result < 24) {
 				return result + "시간 전";
 			} else {	
@@ -77,7 +87,7 @@ public class SupporterVO {
 			}
 			
 		}
-		
+	
 	}
 	
 	public String getDivision() {

@@ -96,7 +96,7 @@
 									</c:otherwise>
 								</c:choose>
 								
-								<div class="support-regTime">${vo.regTimeCal}</div>
+								<div class="support-regTime">${vo.regTimeCal} , ${vo.regTime}</div>
 								
 							</div>
 							
