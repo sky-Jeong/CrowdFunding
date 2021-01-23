@@ -67,22 +67,17 @@ public class SupporterVO {
 		result =  ( result / 1000 ) / 60;
 		System.out.println("result chk: " + this.getMemberVO().getMemberName() + ", " + result);
 		
-		System.out.println("test area----");
-		System.out.println(TimeUnit.MILLISECONDS.toHours(result));
-		System.out.println(TimeUnit.MILLISECONDS.toDays(result));
-		System.out.println(TimeUnit.MICROSECONDS.toHours(result));
-		
 		if(result < 60) {
 			return result + "분 전";
 		} else {
 			
-			result = result % 60;
+			result = result / 60;
 			System.out.println("result chk: " + this.getMemberVO().getMemberName() + ", " + result);
 			
 			if(result < 24) {
 				return result + "시간 전";
 			} else {	
-				result = result % 24;
+				result = result / 24;
 				return result + "일 전";
 			}
 			

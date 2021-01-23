@@ -9,7 +9,7 @@
 		<!-- c:forEach 사용 -->
 		<!-- step: 0 경우 comment -->
 		<div class="comment-header">
-			<span id="comment-writer">${cmt.memberVO.memberName}</span> <span id="comment-summary">${cmt.category} ・ ${cmt.regTime}시간 전</span>
+			<span id="comment-writer">${cmt.memberVO.memberName}</span> <span id="comment-summary">${cmt.category} ・ ${cmt.regTime}</span>
 		</div>
 		
 		<div id="comment-contents">

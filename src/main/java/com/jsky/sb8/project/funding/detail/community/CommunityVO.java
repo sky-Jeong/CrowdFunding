@@ -54,7 +54,7 @@ public class CommunityVO {
 	private FundingVO fundingVO;
 	
 	@Transient
-	private long regTime;
+	private String regTime;
 	
 	public String getCategory() {
 		
@@ -72,19 +72,22 @@ public class CommunityVO {
 		
 	}
 	
-	public long getRegTime() {
+	public String getRegTime() {
 		
 		Calendar ca = Calendar.getInstance();
 		Date today = new Date(ca.getTimeInMillis());
 		
 		long result = today.getTime() - this.regDate.getTime();
-		result = (result / (1000 * 60 * 60)) % 24;
+		result = (( result / 1000 ) / 60 ) / 60;
+		
+		String returnValue = result + "시간 전";
 		
 		if(result >= 24) {
-			result = result % 24;
+			result = result / 24;
+			returnValue = result + "일 전";
 		}
 		
-		return result;
+		return returnValue;
 		
 	}
 	
