@@ -297,7 +297,7 @@
 		}
 	
 		$("#start-btn").click(function(){
-			alert("펀딩 등록 추가 작업 요망");
+			alert("펀딩 등록 추가 작업 요망 작업 예정");
 		});
 
 	</script>
